@@ -16,7 +16,7 @@ body {
     color: #888;
 }
 
-/* --- 下面是利用绝对定位 (absolute) 让 UI 悬浮的魔法 --- */
+/* --- 下面是利用绝对定位 (absolute) 让 UI 悬浮 --- */
 
 /* 左上角状态栏 */
 .ui-top-left {
@@ -189,7 +189,7 @@ body {
     align-items: center; /* 对齐-项目：居中 */
     padding-top: 4.77vh; /* 往下挤一点，避开链条顶部的金色尖端装饰 */
     
-    gap: 0.1vh; /* 12个图标之间的垂直间距，请根据实际情况微调 */
+    gap: 0.1vh; /* 12个图标之间的垂直间距*/
     
     z-index: 1000;
 }
@@ -262,7 +262,7 @@ body {
 
 /* ---------------- 魔法触发区 ---------------- */
 
-/* 魔法 A：全阵列展开！
+/* 全阵列展开！
    当鼠标悬停在整个大链条(.ui-left-sidebar)上时，让里面的所有抽屉(.text-plate)全部拉长显现 */
 .ui-left-sidebar:hover .text-plate {
     width: 6vw; /* 展开后的宽度 */
@@ -271,7 +271,7 @@ body {
     left: 2vw; /* 向右滑出 */
 }
 
-/* 魔法 B：精准的焦点反馈！
+/* 焦点反馈！
    当鼠标仅悬停在某一个具体按钮(.sidebar-btn)上时，只让当前的图标放大发光 */
 .sidebar-btn:hover .icon-box {
     transform: scale(1.15);
@@ -289,7 +289,7 @@ body {
     filter: drop-shadow(0px 0px 8px rgba(255, 215, 0, 0.8));
 }
 
-/* 让悬停的那个抽屉里的文字变亮一点，增强焦点感 */
+/* 悬停的那个抽屉里的文字变亮一点，增强焦点感 */
 .sidebar-btn2:hover .plate-title {
     color: #bfa054;
 }
