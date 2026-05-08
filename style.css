@@ -1,0 +1,295 @@
+body {
+    margin: 0;
+    overflow: hidden; /* 隐藏浏览器自带的滚动条，像游戏一样全屏 */
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: white;
+}
+
+/* 底层：地图区域 (填满整个屏幕) */
+.map-layer {
+    width: 100vw; /* 100% 视窗宽度 */
+    height: 100vh; /* 100% 视窗高度 */
+    background-color: #e5e5e5; /* 暂时用浅灰色代表地图白板 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #888;
+}
+
+/* --- 下面是利用绝对定位 (absolute) 让 UI 悬浮的魔法 --- */
+
+/* 左上角状态栏 */
+.ui-top-left {
+    
+    position: absolute; 
+    top: 0px; 
+    left: 0px; 
+
+    background-image: url('./assets/Top-left Info Bar.png'); 
+    background-size: 100% 100%; 
+    background-repeat: no-repeat; 
+
+    /* 以宽度为基准 */
+    width: 47vw; /* 占据屏幕宽度的 % */
+    aspect-ratio: 939 / 130; /* 【请替换】为你 Figma 里左上角那个框的真实 宽 / 高 数字 */
+
+    /* 开启 Flex 布局 */
+    display: flex;
+    align-items: flex-start;; /* 垂直居中 */
+    box-sizing: border-box;
+    
+    /* 1. 将均匀分布改为靠左挨个排列 (flex: 弹性; start: 开始) */
+    justify-content: flex-start; 
+
+    /* 2. 左右边距改为 */
+    padding: 2.3vh 10vw 0 10vw; 
+
+    /* 3. 重点：设置这模块之间的固定间距 */
+    gap: 2.1vw; 
+
+    .stat-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6vw; /* 把原来的一视同仁的小间距，下放到这里 */}
+    z-index: 1000;
+    
+
+    filter: drop-shadow(-2px 4px 3px rgba(0, 0, 0, 0.5));
+   
+}
+
+
+
+
+.stat-module {
+    display: flex;
+    flex-direction: column; /* 让图标在上面，文字在下面竖向排列 */
+    align-items: center; /* 图标和文字水平居中对齐 */
+}
+
+/* 统一控制图标大小（使用视窗单位实现自适应） */
+.stat-icon {
+    width: 1.5vw; /* 随屏幕宽度缩放 */
+    height: auto;
+
+    flex-shrink: 0;
+
+}
+
+/* 统一控制数字样式 */
+.stat-text {
+    font-size: 0.5vw; /* 随屏幕宽度缩放 */
+    color: #786400;
+    margin-top: 5px; /* 图标和文字的间距 */
+    font-weight: bold;
+}
+
+
+
+
+/* Website Logo */
+.ui-Website-Logo {
+    
+    position: absolute; 
+    top: 0px; 
+    left: 0px; 
+    z-index: 100; /* 确保 Logo 在最上层 */
+
+    background-image: url('./assets/ui-Website-Logo.png'); 
+    background-size: 100% 100%; 
+    background-repeat: no-repeat; 
+
+    /* 以宽度为基准 */
+    width: 8vw; /* 占据屏幕宽度的 % */
+    aspect-ratio: 151 / 115; /* 【请替换】为你 Figma 里左上角那个框的真实 宽 / 高 数字 */
+    filter: drop-shadow(2px 2px 2px rgba(7, 7, 7, 0.6));
+    z-index: 2000;
+}
+
+
+
+/* 灯泡 */
+.ui-Lightbulb {
+    
+    position: absolute; 
+    top: 1.7vh; 
+    left: 48vw; 
+
+    background-image: url('./assets/Lightbulb.png'); 
+    background-size: 100% 100%; 
+    background-repeat: no-repeat; 
+
+    /* 以宽度为基准 */
+    width: 4vw; /* 占据屏幕宽度的 % */
+    aspect-ratio: 75 / 75; /* 【请替换】为你 Figma 里左上角那个框的真实 宽 / 高 数字 */
+
+    z-index: 1000;
+    
+}
+
+
+
+/* 右上角用户栏 */
+.ui-top-right {
+  position: absolute; 
+    top: 0px; 
+    right: 0px; 
+
+    background-image: url('./assets/Avatar Bar.png'); 
+    background-size: 100% 100%; 
+    background-repeat: no-repeat; 
+
+    /* 以宽度为基准 */
+    width: 12vw; /* 占据屏幕宽度的 % */
+    aspect-ratio: 204 / 180; /* 【请替换】为你 Figma 里左上角那个框的真实 宽 / 高 数字 */
+    filter: drop-shadow(3px 3px 2px rgba(7, 7, 7, 0.3));
+
+    z-index: 1000;
+}
+
+/* 新消息通知 */
+.ui-News {
+  position: absolute; 
+    top: 23vh; 
+    right: 0px; 
+
+    background-image: url('./assets/News.png'); 
+    background-size: 90% 90%; 
+    background-repeat: no-repeat; 
+
+    background-position: right top;
+
+    width: 19.7vw; /* 占据屏幕宽度的 % */
+    aspect-ratio: 380 / 60; /* 【请替换】为你 Figma 里左上角那个框的真实 宽 / 高 数字 */
+    filter: drop-shadow(3px 3px 2px rgba(7, 7, 7, 0.3));
+
+    z-index: 1000;
+
+}
+
+/* 左侧链条 */
+/* ================= 左侧链条与联动抽屉 ================= */
+
+/* 1. 最底层的链条骨架 */
+.ui-left-sidebar {
+    position: absolute;/* 位置：绝对的 */
+    top: 16vh; 
+    left: 0vw; 
+    height: 70vh; 
+    aspect-ratio: 38 / 750; /* 外观-比率 */
+    
+    background-image: url('./assets/ui-left-sidebar/sidebar-chain-bg.png'); 
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    filter: drop-shadow(3px 3px 2px rgba(7, 7, 7, 0.33));/* 滤镜 */
+    
+    /* 开启 Flex 布局，让里面的 12 个按钮垂直排列 */
+    display: flex;
+    flex-direction: column; /* 灵活排列方向：列 */
+    align-items: center; /* 对齐-项目：居中 */
+    padding-top: 4.77vh; /* 往下挤一点，避开链条顶部的金色尖端装饰 */
+    
+    gap: 0.1vh; /* 12个图标之间的垂直间距，请根据实际情况微调 */
+    
+    z-index: 1000;
+}
+
+/* 2. 每一个独立的交互容器 */
+.sidebar-btn {
+    position: relative; /* 位置：相对的 */
+    display: flex;
+    align-items: center;
+    width: 2.77vw; /* 图标的尺寸 */
+    height: 2.77vw;
+    cursor: pointer;/* 光标-手指 */
+    transform: translateX(0.7vw);
+}
+/* 第二组按钮 */
+.sidebar-btn2 {
+    position: relative; /* 位置：相对的 */
+    display: flex;
+    align-items: center;
+    width: 2.77vw; /* 图标的尺寸 */
+    height: 2.77vw;
+    cursor: pointer;
+    transform: translate(0.7vw, 0.85vh);
+
+}
+
+/* 3. 永远在最上层的图标 */
+.icon-box {
+    width: 100%;
+    height: 100%;
+    z-index: 2; /* 层级高于抽屉，确保抽屉从它下面钻出来 */
+    transition: transform 0.2s ease, filter 0.2s ease;/* 转变：变形 缓慢 滤镜 */
+}
+.icon-box img {
+    width: 100%;
+    height: 100%;
+}
+
+/* 4. 隐藏的抽屉底板 (核心动画准备) */
+.text-plate {
+    position: absolute;
+    left: 1.5vw; /* 初始位置隐藏在图标后方 */
+    height: 2.7vw; /* 稍微比图标矮一点 */
+    
+    background-image: url('./assets/ui-left-sidebar/drawer-plate-bg.png'); 
+    background-size: 100% 100%;
+    
+    /* 动画初始状态：宽度为0，完全透明，内容隐藏 */
+    width: 0; 
+    opacity: 0;
+    overflow: hidden; /* 溢出：隐藏 */
+    white-space: nowrap; 
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0; 
+    
+    z-index: 1; /* 层级低于图标 */
+    /* 贝塞尔曲线，让展开动画有“甩出”的机械感 */
+    transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); 
+}
+
+/* 抽屉上的文字样式 */
+.plate-title, .plate-arrow {
+    color: #786400;
+    font-weight: bold;
+    font-size: 0.8vw;
+}
+
+/* ---------------- 魔法触发区 ---------------- */
+
+/* 魔法 A：全阵列展开！
+   当鼠标悬停在整个大链条(.ui-left-sidebar)上时，让里面的所有抽屉(.text-plate)全部拉长显现 */
+.ui-left-sidebar:hover .text-plate {
+    width: 6vw; /* 展开后的宽度 */
+    opacity: 1; /* 变为不透明 */
+    padding: 0 0.8vw 0 1.5vw; /* 恢复内边距，把文字顶出来 */
+    left: 2vw; /* 向右滑出 */
+}
+
+/* 魔法 B：精准的焦点反馈！
+   当鼠标仅悬停在某一个具体按钮(.sidebar-btn)上时，只让当前的图标放大发光 */
+.sidebar-btn:hover .icon-box {
+    transform: scale(1.15);
+    filter: drop-shadow(0px 0px 8px rgba(255, 215, 0, 0.8));
+}
+
+/* 让悬停的那个抽屉里的文字变亮一点，增强焦点感 */
+.sidebar-btn:hover .plate-title {
+    color: #bfa054;
+}
+/* 第二组按钮的悬停效果 */
+
+.sidebar-btn2:hover .icon-box {
+    transform: scale(1.15);
+    filter: drop-shadow(0px 0px 8px rgba(255, 215, 0, 0.8));
+}
+
+/* 让悬停的那个抽屉里的文字变亮一点，增强焦点感 */
+.sidebar-btn2:hover .plate-title {
+    color: #bfa054;
+}

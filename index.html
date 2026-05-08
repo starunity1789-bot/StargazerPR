@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>观星者计划</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+</head>
+<body>
+    <div class="map-layer" id="map">
+        <h2>Kepler-452b </h2>
+    </div>
+
+    <div class="ui-Website-Logo"></div>
+
+    <div class="ui-Lightbulb"></div>
+
+    <div class="ui-top-right">
+
+    </div>
+
+    <div class="ui-News"></div>
+
+    <div class="ui-left-sidebar" id="ui-left-sidebar">
+        <!-- 先放12个方块看看什么效果 -->
+        <div class="sidebar-btn" id="Planetary Environment">
+            <div class="icon-box">
+                <img src="./assets/ui-left-sidebar/12icon/1Planetary Environment.png" alt="行星环境 (Planetary Environment) ">
+            </div>
+            <div class="text-plate">
+                <span class="plate-title">行星环境 </span>
+                <span class="plate-arrow">&gt;</span>
+            </div>
+        </div>
+
+        <div class="sidebar-btn" id="Political System">
+            <div class="icon-box">
+                <img src="./assets/ui-left-sidebar/12icon/2Political System.png" alt="政治体系 (Political System) ">
+            </div>
+            <div class="text-plate">
+                <span class="plate-title">政治体系 </span>
+                <span class="plate-arrow">&gt;</span>
+            </div>
+        </div>
+
+        <div class="sidebar-btn" id="Currency System">
+            <div class="icon-box">
+                <img src="./assets/ui-left-sidebar/12icon/3Currency System.png" alt="货币体系 (Currency System) ">
+            </div>
+            <div class="text-plate">
+                <span class="plate-title">货币体系 </span>
+                <span class="plate-arrow">&gt;</span>
+            </div>
+        </div>
+
+        <div class="sidebar-btn" id="Historical Timeline">
+            <div class="icon-box">
+                <img src="./assets/ui-left-sidebar/12icon/4Historical Timeline.png" alt="历史时间线 (Historical Timeline) ">
+            </div>
+            <div class="text-plate">
+                <span class="plate-title">历史时间线 </span>
+                <span class="plate-arrow">&gt;</span>
+            </div>
+        </div>
+
+        <div class="sidebar-btn" id="Megacorporations">
+            <div class="icon-box">
+                <img src="./assets/ui-left-sidebar/12icon/5Megacorporations.png" alt="巨型企业 (Megacorporations) ">
+            </div>
+            <div class="text-plate">
+                <span class="plate-title">巨型企业 </span>
+                <span class="plate-arrow">&gt;</span>
+            </div>
+        </div>
+
+        <div class="sidebar-btn" id="International Organizations">
+            <div class="icon-box">
+                <img src="./assets/ui-left-sidebar/12icon/6International Organizations.png" alt="国际组织 (International Organizations) ">
+            </div>
+            <div class="text-plate">
+                <span class="plate-title">国际组织 </span>
+                <span class="plate-arrow">&gt;</span>
+            </div>
+        </div>
+ <!-- 我试图将12个icon分成2组，这一刻我终于深刻理解了为什么前端会和设计师打架了 === -->
+
+ <div class="sidebar-btn2" id="Star Map Location">
+            <div class="icon-box">
+                <img src="./assets/ui-left-sidebar/12icon/7Star Map Location.png" alt="星图位置 (Star Map Location) ">
+            </div>
+            <div class="text-plate">
+                <span class="plate-title">星图位置 </span>
+                <span class="plate-arrow">&gt;</span>
+            </div>
+        </div>
+
+        <div class="sidebar-btn2" id="Technology Tree">
+            <div class="icon-box">
+                <img src="./assets/ui-left-sidebar/12icon/8Technology Tree.png" alt="科技树 (Technology Tree) ">
+            </div>
+            <div class="text-plate">
+                <span class="plate-title">科技树 </span>
+                <span class="plate-arrow">&gt;</span>
+            </div>
+        </div>
+
+        <div class="sidebar-btn2" id="Beliefs and Philosophy">
+            <div class="icon-box">
+                <img src="./assets/ui-left-sidebar/12icon/9Beliefs and Philosophy.png" alt="信仰与哲学 (Beliefs and Philosophy) ">
+            </div>
+            <div class="text-plate">
+                <span class="plate-title">信仰与哲学 </span>
+                <span class="plate-arrow">&gt;</span>
+            </div>
+        </div>
+
+        <div class="sidebar-btn2" id="Racial Traits">
+            <div class="icon-box">
+                <img src="./assets/ui-left-sidebar/12icon/10Racial Traits.png" alt="种族特征 (Racial Traits) ">
+            </div>
+            <div class="text-plate">
+                <span class="plate-title">种族特征 </span>
+                <span class="plate-arrow">&gt;</span>
+            </div>
+        </div>
+
+        <div class="sidebar-btn2" id="Milestones">
+            <div class="icon-box">
+                <img src="./assets/ui-left-sidebar/12icon/11Milestones.png" alt="里程碑 (Milestones) ">
+            </div>
+            <div class="text-plate">
+                <span class="plate-title">里程碑 </span>
+                <span class="plate-arrow">&gt;</span>
+            </div>
+        </div>
+
+        <div class="sidebar-btn2" id="Immigration Life Guide">
+            <div class="icon-box">
+                <img src="./assets/ui-left-sidebar/12icon/12Immigration Life Guide.png" alt="移民生活指南 (Immigration Life Guide) ">
+            </div>
+            <div class="text-plate">
+                <span class="plate-title">移民生活指南 </span>
+                <span class="plate-arrow">&gt;</span>
+            </div>
+        </div>
+        
+
+    </div>
+
+    <!-- div: 部门/区域 (Division); class: 类别/班级 (Class); ui: 用户界面 (User Interface); top: 顶部; left: 左边 -->
+<div class="ui-top-left"> 
+
+    <!-- stat: 统计 (Statistics 的缩写); module: 模块/组件 (Module) -->
+     <!-- === 第一组：人口统计 === -->
+      <div class="stat-group">
+        <div class="stat-module"> 
+        
+                    <img src="./assets/s-icon/Youth-Population.png" alt="幼年人口" class="stat-icon">
+        
+        <!-- span: 跨度/范围 (Span); id: 身份标识 (Identifier); val: 数值 (Value); pop: 人口 (Population); young: 年幼的 -->
+        <!-- text: 文本/正文 (Text) -->
+                    <span id="val-pop-young" class="stat-text">加载中...</span>
+        
+         </div> <!-- 结束“统计模块”部门 -->
+
+    <!-- 重复逻辑：stat: 统计; module: 模块 -->
+         <div class="stat-module">
+        
+        <!-- adult: 成年的/成年人 (Adult) -->
+                 <img src="./assets/s-icon/Total-Adult-Population.png" alt="成年人口" class="stat-icon">
+        
+        <!-- id: 标识; val: 数值; pop: 人口; adult: 成年 -->
+                 <span id="val-pop-adult" class="stat-text">加载中...</span>
+        
+         </div> <!-- 结束“统计模块”部门 -->
+
+    <!-- 重复逻辑：stat: 统计; module: 模块 -->
+         <div class="stat-module">
+        
+        <!-- 老年 -->
+                 <img src="./assets/s-icon/Total-Elderly-Population.png" alt="老年人口" class="stat-icon">
+        
+        <!-- id: 标识; val: 数值; pop: 人口; adult: 成年 -->
+              <span id="val-pop-elderly" class="stat-text">加载中...</span>
+        
+            </div> <!-- 结束“统计模块”部门 -->
+
+    </div> <!-- 结束第一组 -->
+
+    <!-- === 第二组：能源与经济 === -->
+        <div class="stat-group">
+            <div class="stat-module">
+        
+                 <img src="./assets/s-icon/Total-Global-Electricity-Generation.png" alt="全球电力生成" class="stat-icon">
+              <span id="val-electricity-generation" class="stat-text">加载中...</span>
+
+            </div> 
+
+            <div class="stat-module">
+        
+                 <img src="./assets/s-icon/Global-Gini-Coefficient.png" alt="全球基尼系数" class="stat-icon">
+              <span id="val-gini-coefficient" class="stat-text">加载中...</span>
+              
+            </div>
+
+            <div class="stat-module">
+        
+                 <img src="./assets/s-icon/Global-Average-Corruption-Perceptions-Index-(CPI).png" alt="全球腐败感知指数" class="stat-icon">
+              <span id="val-cpi" class="stat-text">加载中...</span>
+              
+            </div>
+</div> <!-- 结束第二组 -->
+
+<!-- === 第三组：社会安全与进步 === -->
+        <div class="stat-group">
+            <div class="stat-module">
+        
+                 <img src="./assets/s-icon/Global-Average-Violent-Crime-Rate.png" alt="全球暴力犯罪率" class="stat-icon">
+              <span id="val-violent-crime-rate" class="stat-text">加载中...</span>
+              
+            </div>
+
+            <div class="stat-module">
+        
+                 <img src="./assets/s-icon/Global-Average-Engel-Coefficient.png" alt="全球恩格尔系数" class="stat-icon">
+              <span id="val-engel-coefficient" class="stat-text">加载中...</span>
+              
+            </div>
+
+            <div class="stat-module">
+        
+                 <img src="./assets/s-icon/Global-Average-Social-Progress-Index-(SPI).png" alt="全球社会进步指数" class="stat-icon">
+              <span id="val-spi" class="stat-text">加载中...</span>
+              
+            </div>
+
+        </div> <!-- 结束第三组 -->
+
+</div> <!-- 结束“用户界面-左上角”总部门 -->
+
+
+    <script src="script.js"></script>
+</body>
+</html>
