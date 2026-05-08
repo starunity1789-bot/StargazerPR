@@ -109,3 +109,40 @@ map.fitBounds(bounds);
 // ==========================================================
 
 // ... 下面是你之前写的数据刷新和音效代码，保持不变 ...
+
+
+
+// ================= 国家领土交互层 =================
+
+// 1. 设定这个 SVG 在地图上的大致边界框 [左下角 Y, 左下角 X], [右上角 Y, 右上角 X]
+// 反复修改这四个数字，把 SVG 拼图完美地对齐到底图上。
+// 先随便写一个范围，它可能会出现在地图的某个角落。
+const countryBounds = [[1900, 2500], [2900, 3900]]; 
+
+// 2. 使用 Fetch API 动态去获取你的 SVG 文件
+fetch('./assets/MAPSVG1.svg')
+    .then(response => response.text()) // 将文件内容读取为文本
+    .then(svgText => {
+        // 3. 将文本解析为真正的网页 SVG 元素
+        const parser = new DOMParser();
+        const svgDoc = parser.parseFromString(svgText, "image/svg+xml");
+        const svgElement = svgDoc.documentElement;
+
+        // 4. 给这个 SVG 贴上一个 class 标签，方便我们等会儿用 CSS 让它发光
+        svgElement.setAttribute('class', 'interactive-country');
+
+        // 5. 将这层“贴膜”盖到地图上，并开启鼠标交互允许
+        const countryOverlay = L.svgOverlay(svgElement, countryBounds, {
+            interactive: true 
+        }).addTo(map);
+
+        // 6. （额外魔法）当鼠标点击这个国家时，左侧栏弹出提示！
+        svgElement.addEventListener('click', () => {
+            // 你还记得我们之前的音频逻辑吗？可以在这里也加个点击音效！
+            alert('你点击了未知国家！正在加载左侧百科数据...');
+            // 未来我们将在这里写逻辑：打开指定的左侧抽屉，更新人口数据等
+        });
+    })
+    .catch(error => {
+        console.error("加载 SVG 失败，请检查文件路径是否正确:", error);
+    });
