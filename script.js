@@ -84,32 +84,45 @@ UIleftSidebar.addEventListener('mouseenter', () => {
 
 // ================= 核心地图引擎 (Leaflet) =================
 
-// 1. 初始化地图容器。
-// L.CRS.Simple 是关键：它告诉引擎“这不是真实的地球经纬度，而是一个平面的游戏地图”
+
+
+// ================= 核心地图引擎 =================
+
+var mapMinResolution = Math.pow(2, 5) * 4.0; // mapMaxZoom=5, maxResolution=4.0
+
+var crs = L.CRS.Simple;
+crs.transformation = new L.Transformation(1, 0, -1, 0);
+crs.scale = function(zoom) {
+    return Math.pow(2, zoom) / mapMinResolution;
+};
+crs.zoom = function(scale) {
+    return Math.log(scale * mapMinResolution) / Math.LN2;
+};
+
 const map = L.map('map', {
-    crs: L.CRS.Simple,
-    minZoom: -2,      // 允许缩小的最小级别 (LOD 1 的关键)
-    maxZoom: 2,       // 允许放大的最大级别 (为未来的 LOD 2 和 3 预留)
-    zoomControl: false, // 隐藏默认的加减号按钮，让界面更像纯粹的游戏
-    zoomSnap: 0.1       // 允许滚轮进行极其丝滑的微调缩放
+    crs: crs,
+    minZoom: 0,
+    maxZoom: 5,
+    zoomControl: false,
+    zoomSnap: 0.1
 });
 
-// 2. 设定你的巨幅地图的物理边界 [高, 宽]
-// 注意：Leaflet 的坐标系默认是 [y, x]
-const mapHeight = 4096;
-const mapWidth = 8192;
-const bounds = [[0, 0], [mapHeight, mapWidth]];
+const mapWidth = 32768;
+const mapHeight = 16384;
 
-// 3. 将你的高清底图铺到这个边界内
-const imageOverlay = L.imageOverlay('./assets/MAP1.png', bounds).addTo(map);
+var tileExtent = [0.00000000, -16384.00000000, 32768.00000000, 0.00000000];
 
-// 4. 指令：当网页加载时，镜头自动调整到能把整张地图看全的视野
-map.fitBounds(bounds);
+L.tileLayer('./assets/map-tiles/{z}/{x}/{y}.png', {
+    minZoom: 0,
+    maxZoom: 5,
+    noWrap: true,
+    tms: false  // 注意：这里用 false
+}).addTo(map);
 
-// ==========================================================
-
-// ... 下面是你之前写的数据刷新和音效代码，保持不变 ...
-
+map.fitBounds([
+    crs.unproject(L.point(tileExtent[2], tileExtent[3])),
+    crs.unproject(L.point(tileExtent[0], tileExtent[1]))
+]);
 
 
 // ================= 国家领土交互层 =================

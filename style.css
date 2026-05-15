@@ -10,10 +10,7 @@ body {
     width: 100vw; /* 100% 视窗宽度 */
     height: 100vh; /* 100% 视窗高度 */
     background-color: #e5e5e5; /* 暂时用浅灰色代表地图白板 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #888;
+        /* 让地图层在最底层，UI 层在上面 */
 }
 
 /* --- 下面是利用绝对定位 (absolute) 让 UI 悬浮 --- */
