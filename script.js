@@ -99,23 +99,27 @@ crs.zoom = function(scale) {
     return Math.log(scale * mapMinResolution) / Math.LN2;
 };
 
+// 告诉引擎：X 坐标从 0 到 32768 是一个完整的世界，超过了就重头开始循环！
+crs.wrapLng = [0, 32768];
+
 const map = L.map('map', {
     crs: crs,
-    minZoom: 0,
-    maxZoom: 5,
+    minZoom: 2.5,
+    maxZoom: 7,
     zoomControl: false,
-    zoomSnap: 0.1
+    zoomSnap: 0.1,
+    maxBoundsViscosity: 1.0 // 【新增】：设置空气墙的硬度，1.0代表完全不可拖拽出界，就像撞到实体墙一样
 });
 
 const mapWidth = 32768;
-const mapHeight = 16384;
+const mapHeight = 20480;
 
-var tileExtent = [0.00000000, -16384.00000000, 32768.00000000, 0.00000000];
+var tileExtent = [0.00000000, -20480.00000000, 32768.00000000, 0.00000000];
 
 L.tileLayer('./assets/map-tiles/{z}/{x}/{y}.png', {
-    minZoom: 0,
-    maxZoom: 5,
-    noWrap: true,
+    minZoom: 2.5,
+    maxZoom: 7,
+    noWrap: false, // 允许水平循环
     tms: false  // 注意：这里用 false
 }).addTo(map);
 
@@ -123,6 +127,14 @@ map.fitBounds([
     crs.unproject(L.point(tileExtent[2], tileExtent[3])),
     crs.unproject(L.point(tileExtent[0], tileExtent[1]))
 ]);
+
+// 👇 【在这里新增：镜头空气墙设定】
+// 限制Y轴（上下）不能拖出地图，同时允许X轴（左右）Infinity 无限拖拽
+const verticalBounds = [
+    [-20480, -Infinity], // 底部边界（留了几百像素的余量，防止边缘太死板）
+    [ 0,  Infinity]    // 顶部边界（留了几百像素的余量）
+];
+map.setMaxBounds(verticalBounds);
 
 
 // ================= 国家领土交互层 =================
