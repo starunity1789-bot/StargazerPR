@@ -17,15 +17,13 @@
 
     <div class="ui-Lightbulb"></div>
 
-    <div class="ui-top-right">
 
-    </div>
 
     <div class="ui-News"></div>
 
     <div class="ui-left-sidebar" id="ui-left-sidebar">
         <!-- 先放12个方块看看什么效果 -->
-        <div class="sidebar-btn" id="Planetary Environment">
+        <div class="sidebar-btn" id="planetary-environment">
             <div class="icon-box">
                 <img src="./assets/ui-left-sidebar/12icon/1Planetary Environment.png" alt="行星环境 (Planetary Environment) ">
             </div>
@@ -35,7 +33,7 @@
             </div>
         </div>
 
-        <div class="sidebar-btn" id="Political System">
+        <div class="sidebar-btn" id="Political-System">
             <div class="icon-box">
                 <img src="./assets/ui-left-sidebar/12icon/2Political System.png" alt="政治体系 (Political System) ">
             </div>
@@ -45,7 +43,7 @@
             </div>
         </div>
 
-        <div class="sidebar-btn" id="Currency System">
+        <div class="sidebar-btn" id="Currency-System">
             <div class="icon-box">
                 <img src="./assets/ui-left-sidebar/12icon/3Currency System.png" alt="货币体系 (Currency System) ">
             </div>
@@ -55,7 +53,7 @@
             </div>
         </div>
 
-        <div class="sidebar-btn" id="Historical Timeline">
+        <div class="sidebar-btn" id="Historical-Timeline">
             <div class="icon-box">
                 <img src="./assets/ui-left-sidebar/12icon/4Historical Timeline.png" alt="历史时间线 (Historical Timeline) ">
             </div>
@@ -75,7 +73,7 @@
             </div>
         </div>
 
-        <div class="sidebar-btn" id="International Organizations">
+        <div class="sidebar-btn" id="International-Organizations">
             <div class="icon-box">
                 <img src="./assets/ui-left-sidebar/12icon/6International Organizations.png" alt="国际组织 (International Organizations) ">
             </div>
@@ -86,7 +84,7 @@
         </div>
  <!-- 我试图将12个icon分成2组，这一刻我终于深刻理解了为什么前端会和设计师打架了 === -->
 
- <div class="sidebar-btn2" id="Star Map Location">
+ <div class="sidebar-btn2" id="Star-Map-Location">
             <div class="icon-box">
                 <img src="./assets/ui-left-sidebar/12icon/7Star Map Location.png" alt="星图位置 (Star Map Location) ">
             </div>
@@ -96,7 +94,7 @@
             </div>
         </div>
 
-        <div class="sidebar-btn2" id="Technology Tree">
+        <div class="sidebar-btn2" id="Technology-Tree">
             <div class="icon-box">
                 <img src="./assets/ui-left-sidebar/12icon/8Technology Tree.png" alt="科技树 (Technology Tree) ">
             </div>
@@ -106,7 +104,7 @@
             </div>
         </div>
 
-        <div class="sidebar-btn2" id="Beliefs and Philosophy">
+        <div class="sidebar-btn2" id="Beliefs-and-Philosophy">
             <div class="icon-box">
                 <img src="./assets/ui-left-sidebar/12icon/9Beliefs and Philosophy.png" alt="信仰与哲学 (Beliefs and Philosophy) ">
             </div>
@@ -116,7 +114,7 @@
             </div>
         </div>
 
-        <div class="sidebar-btn2" id="Racial Traits">
+        <div class="sidebar-btn2" id="Racial-Traits">
             <div class="icon-box">
                 <img src="./assets/ui-left-sidebar/12icon/10Racial Traits.png" alt="种族特征 (Racial Traits) ">
             </div>
@@ -136,7 +134,7 @@
             </div>
         </div>
 
-        <div class="sidebar-btn2" id="Immigration Life Guide">
+        <div class="sidebar-btn2" id="Immigration-Life-Guide">
             <div class="icon-box">
                 <img src="./assets/ui-left-sidebar/12icon/12Immigration Life Guide.png" alt="移民生活指南 (Immigration Life Guide) ">
             </div>
@@ -238,7 +236,190 @@
 
         </div> <!-- 结束第三组 -->
 
+        <!-- === 第四组：历法与时间 === -->
+
+
+
+<div class="stat-group calendar-group">
+            <div class="calendar-text">
+                <span id="kepler-year"></span> /
+                <span id="kepler-month"></span> /
+                <span id="kepler-day"></span> 
+                <span id="kepler-time"></span>
+            </div>
+        </div>
+
+
+        <!-- === 结束第四组：历法与时间 === -->
+
 </div> <!-- 结束“用户界面-左上角”总部门 -->
+
+
+ <!-- 点击地图 -->
+<!-- ================= 大陆信息面板（大理石风格） ================= -->
+
+<div id="info-panel">
+
+    <!-- 顶部装饰 -->
+    <div class="panel-top-glow"></div>
+
+    <!-- 关闭按钮 -->
+    <button id="panel-close">✕</button>
+
+    <!-- 标题 -->
+    <h2 id="panel-title">大陆名称</h2>
+
+    <!-- 分隔线 -->
+    <div class="panel-divider"></div>
+
+    <!-- 正文 -->
+    <div class="panel-scroll">
+
+        <p id="panel-content">
+            请在这里填写大陆简介。
+        </p>
+
+    </div>
+
+    <!-- 底部装饰 -->
+    <div class="panel-bottom-glow"></div>
+
+</div>
+ <!-- 点击地图结束 -->
+
+
+ <!-- ===== 星球环境面板 ===== -->
+<div id="planet-panel" class="planet-panel">
+
+    <!-- 背景板 -->
+    <div class="planet-bg"></div>
+
+    <!-- 关闭按钮 -->
+    <button class="planet-close" id="planet-close">✕</button>
+
+    <!-- 左侧：行星图 + 名称框 -->
+    <div class="planet-left">
+        <div class="planet-label">类地超级宜居行星</div>
+
+        <div class="planet-name-box">
+            <div class="planet-name-cn">星间林地（开普勒-452b）</div>
+            <br>
+            <div class="planet-name-en">The Starwood（KEPLER-452B）</div>
+        </div>
+        <p class="planet-desc">
+            <br>
+            <br>
+            <br>
+            开普勒452B是一颗类地超级宜居行星<br>现在我们可以明确的认为其存在类地球的本土文明。
+        </p>
+    </div>
+
+    <!-- 基本信息表 -->
+    <div class="planet-right">
+
+
+            <div class="pt-row"><span class="pt-label"> 星球名称</span><span class="pt-value">星间林地</span></div>
+            <div class="pt-row"><span class="pt-label"> 所属星系</span><span class="pt-value">天鹅座</span></div>
+            <div class="pt-row"><span class="pt-label"> 恒星类型</span><span class="pt-value">G型主序星</span></div>
+            <div class="pt-row"><span class="pt-label"> 轨道位置</span><span class="pt-value">宜居带</span></div>
+            <div class="pt-row"><span class="pt-label"> 公转周期</span><span class="pt-value">385 地球日</span></div>
+           
+        </div>
+
+
+    <div class="planet-right2">
+
+
+            <div class="pt-row"><span class="pt-label"> 自转周期</span><span class="pt-value">约 36 小时</span></div>
+            <div class="pt-row"><span class="pt-label"> 星球半径</span><span class="pt-value">1.7 地球半径</span></div>
+            <div class="pt-row"><span class="pt-label"> 表面重力</span><span class="pt-value">约 1.01 g</span></div>
+            <div class="pt-row"><span class="pt-label"> 陆地面积</span><span class="pt-value">约 28%</span></div>
+                        <div class="pt-row"><span class="pt-label"> 大气成分</span><span class="pt-value">氮、氧、大量未知元素</span></div>
+        </div>
+
+
+    <div class="planet-right3">
+
+
+
+            <div class="pt-row"><span class="pt-label"> 地轴倾角</span><span class="pt-value">18.11°</span></div>
+            <div class="pt-row"><span class="pt-label"> 全球平均温度</span><span class="pt-value">约 14°C</span></div>
+            <div class="pt-row"><span class="pt-label"> 平均风速</span><span class="pt-value">约 11 m/s</span></div>
+            <div class="pt-row pt-highlight"><span class="pt-label">环境评价</span><span class="pt-value">盖亚星球</span></div>
+        </div>
+
+    <div class="planet-rightEXTRA">
+        <div class="EXTRA">
+            <div class="extra-box">
+                <p class="extra-title">数据来源声明*</p>
+                <p class="extra-text">观星塔是-星间林地-先驱者破碎帝国设立在地球的公益组织，总部位于罗马，由医院骑士团和国家民主研究所联合运营。观星塔提交的开普勒452B数据与NASA的数据存在不一致情况。由于电磁观测的识别能力有限，任何不一致数据应以观星塔数据为准。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="planet-rightTOP">
+        <div class="EXTRA">
+            <div class="extra-box">
+                <p class="extra-title">狂喜的门捷列夫*</p>
+                <p class="extra-text"><br>正如人类伟大先驱者们所猜测的，开普勒452B周边星域的物理参数与太阳并不完全一致。在其大气圈内更是存在一些没有被识别的元素。</p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+            <!-- /* 卫星系统 */ -->
+
+        <!-- /* 卫星系统 */ -->
+    <div class="satellite-system">
+
+        <!-- 标题行 -->
+        <div class="sat-header">
+            <span class="sat-title">卫星系统</span>
+            <span class="sat-title-en">SATELLITE SYSTEM</span>
+            <span class="sat-count-label">卫星数量</span>
+            <span class="sat-count-value">2 颗天然卫星</span>
+        </div>
+
+        <!-- 卫星展示行 -->
+        <div class="sat-body">
+
+            <!-- 主卫星 -->
+            <div class="sat-item sat-primary">
+                <div class="sat-moon sat-moon-large"></div>
+                <div class="sat-info">
+                    <div class="sat-name">✦ 主卫星</div>
+                    <div class="sat-stat-label">菲莉若雅</div>
+                    <div class="sat-stat-value">直径约 3,800 km</div>
+                </div>
+            </div>
+
+            <!-- 次卫星 -->
+            <div class="sat-item sat-secondary">
+                <div class="sat-moon sat-moon-small"></div>
+                <div class="sat-info">
+                    <div class="sat-name-sub">次卫星</div>
+                    <div class="sat-stat-label">魔王之座</div>
+                    <div class="sat-stat-value">直径约 1,750 km</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+        
+    </div>
+
+    <!-- 底部：环境概述四栏 -->
+
+
 
 
     <script src="script.js"></script>
