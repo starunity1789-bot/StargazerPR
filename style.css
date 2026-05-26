@@ -783,6 +783,25 @@ body {
     box-sizing: border-box;
 }
 
+.planet-rightBOTTOM {
+    position: absolute;
+    bottom: 7%;
+    right: 21vw;
+    top:54.5vh;
+    width: 22%;
+    box-sizing: border-box;
+}
+
+.planet-rightBOTTOM .extra-box {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
+    padding: 1vh 1vw;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 0.4vw;
+    font-size: 0.9rem;
+    color: rgba(106,106,106,0.9);
+}
+
 .EXTRA {
     display: block;
     width: 100%;
@@ -989,5 +1008,1204 @@ body {
     letter-spacing: 0.02vw;
 }
 
+/* ===================================================
+   政治体系面板
+   结构参考星球环境面板（.planet-panel），动画方式相同
+=================================================== */
+
+/* 整体容器：定位、尺寸、初始隐藏状态与动画 */
+.politics-panel {
+    position: fixed;
+    bottom: 0;
+    left: 46%;                          /* 水平居中基准点，与 planet-panel 一致 */
+    top: 12vh;
+    transform: translateX(-50%) translateY(100%); /* 初始藏在屏幕下方 */
+
+    width: 65.5vw;                        /* 比星球环境面板稍宽，因为有左侧导航栏 */
+    height: 85vh;
+
+    z-index: 5000;
+
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                opacity 0.4s ease;
+    opacity: 0;
+    pointer-events: none;               /* 隐藏时禁止所有鼠标事件 */
+}
+
+/* 激活状态：面板从下方浮出 */
+.politics-panel.active {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* 背景板：将政治体制.png铺满整个面板 */
+.politics-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('./assets/Political SystemAD.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    pointer-events: none;               /* 背景不拦截鼠标事件 */
+}
+
+/* 关闭按钮：右上角 X */
+.politics-close {
+    position: absolute;
+    top: 1.3%;
+    right: 0.3%;
+    width: 3.5vw;
+    height: 3.5vw;
+    border: none;
+    background: transparent;
+    color: #786400;
+    font-size: 1.2vw;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s, color 0.2s;
+}
+.politics-close:hover {
+    transform: scale(1.15);
+    color: #c8a030;
+}
+
+/* ===== 左侧导航栏 ===== */
+/* 竖向排列的分类按钮，对应图片左侧的图标区域 */
+.politics-nav {
+    position: absolute;
+    top: 23%;                           /* 从顶部图标下方开始 */
+    left: 2.8%;                         /* 贴近面板左边缘 */
+    width: 12%;                         /* 与图片左侧导航区等宽 */
+    display: flex;
+    flex-direction: column;             /* 垂直排列 */
+    gap: 2vh;
+}
+
+/* 单个导航按钮 */
+.politics-nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6vh 0.3vw;
+    cursor: pointer;
+    border-radius: 0.4vw;
+    transition: background 0.2s, color 0.2s;
+    color: rgba(88,72,45,0.6);
+    font-size: 0.55vw;
+    gap: 0.3vh;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(193,160,94,0.1);
+}
 
 
+
+/* 导航按钮文字标签 */
+.politics-nav-label {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* 选中状态：高亮显示当前分类 */
+.politics-nav-btn--active {
+    background: rgba(193,160,94,0.15);
+    color: #786400;
+    border-color: rgba(193,160,94,0.4);
+}
+
+/* 鼠标悬停：轻微高亮 */
+.politics-nav-btn:hover {
+    background: rgba(193,160,94,0.1);
+    color: #9a7a30;
+}
+
+/* ===== 右侧内容区 ===== */
+/* 放文案的可滚动区域，对应图片右侧大块空白 */
+.politics-content {
+    position: absolute;
+    top: 9%;                            /* 顶部留出标题栏高度 */
+    left: 15%;                          /* 左侧留出导航栏宽度 */
+    right: 3%;                          /* 右侧留出滚动条宽度 */
+    bottom: 3%;
+    overflow-y: scroll;                 /* 允许纵向滚动 */
+    padding: 1.5vh 1.5vw;
+    box-sizing: border-box;
+
+    /* 隐藏浏览器默认滚动条，改用自定义滚动条 */
+    scrollbar-width: none;              /* Firefox */
+}
+.politics-content::-webkit-scrollbar {
+    display: none;                      /* Chrome / Safari */
+}
+
+/* ===== 文案文字样式 ===== */
+
+/* 大标题：面板主题名称 */
+.pol-title {
+
+    color: #3f3f3f;
+    font-size: 1.1vw;
+    font-weight: 700;
+    margin: 0.25vh 0 0.3vh 0;
+    letter-spacing: 0.05vw;
+    
+}
+
+/* 副标题：英文说明行 + 年份 */
+.pol-subtitle {
+    color: rgba(88,72,45,0.55);
+    font-size: 0.5vw;
+    letter-spacing: 0.1vw;
+    margin: 0 0 0.8vh 0;
+}
+
+/* 分隔线 */
+.pol-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, rgba(193,160,94,0.6), transparent);
+    margin-bottom: 1.2vh;
+}
+
+/* 小节标题：■ 开头的分类名 */
+.pol-section {
+    color: #786400;
+    font-size: 0.75vw;
+    font-weight: 700;
+    margin: 1.2vh 0 0.4vh 0;
+    letter-spacing: 0.05vw;
+}
+
+/* 正文段落 */
+.pol-body {
+    color: rgba(60,50,35,0.85);
+    font-size: 0.65vw;
+    line-height: 2;
+    margin: 0 0 0.5vh 0;
+    text-align: justify;
+    letter-spacing: 0.02vw;
+}
+
+/* 底部备注：小字声明 */
+.pol-footnote {
+    color: rgba(88,72,45,0.45);
+    font-size: 0.5vw;
+    margin-top: 2vh;
+    line-height: 1.8;
+    border-top: 1px solid rgba(193,160,94,0.2);
+    padding-top: 0.8vh;
+}
+
+/* ===== 自定义滚动条 ===== */
+/* 轨道：图片右侧黑线对应的固定背景条 */
+.politics-scrollbar {
+    position: absolute;
+    top: 9%;
+    right: 0.8%;                        /* 贴近面板右边缘 */
+    width: 0.5vw;
+    bottom: 3%;
+    background: rgba(193,160,94,0.15);  /* 轨道颜色：淡金色 */
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+/* 滑块：表示当前阅读位置，高度由JS动态计算 */
+.politics-scrollbar-thumb {
+    position: absolute;
+    top: 0;                             /* 初始在顶部，JS会更新这个值 */
+    left: 0;
+    width: 100%;
+    height: 30%;                        /* 初始高度占轨道30%，JS会根据内容比例调整 */
+    background: rgba(193,160,94,0.7);   /* 滑块颜色：深金色 */
+    border-radius: 999px;
+    transition: top 0.05s linear;      /* 滑动时平滑过渡 */
+}
+
+/* ===================================================
+   货币体系面板
+   整体逻辑与 politics-panel 完全一致
+   背景图：Currency_SystemAD.png
+   所有文字区块用 position:absolute 叠加在背景图上
+=================================================== */
+
+/* 面板容器：初始藏在屏幕下方，active后浮出 */
+.currency-panel {
+    position: fixed;
+    bottom: 0;
+    left: 50%;                              /* 水平居中 */
+    top: 14vh;                               /* 距顶部留出顶栏高度 */
+    transform: translateX(-50%) translateY(100%); /* 初始藏在屏幕下方 */
+
+    width: 78vw;                            /* 宽度略大，适配横版背景图比例 */
+    height: 80vh;
+
+    z-index: 5000;
+
+    /* 从下到上浮出动画，与政治体系面板一致 */
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                opacity 0.4s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* 激活状态：面板浮出 */
+.currency-panel.active {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* 背景图：铺满整个面板，使用 object-fit:fill 拉伸填满 */
+.currency-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;                       /* 与政治体系面板背景图处理方式一致 */
+    pointer-events: none;                   /* 背景图不拦截鼠标事件 */
+}
+
+/* 关闭按钮：右上角 X，与其他面板风格统一 */
+.currency-close {
+    position: absolute;
+    top: 2.4%;
+    right: 1.2%;
+    width: 5vw;
+    height: 5vw;
+    border: none;
+    background: transparent;
+    color: #786400;
+    font-size: 1.3vw;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s, color 0.2s;
+}
+.currency-close:hover {
+    transform: scale(1.15);
+    color: #c8a030;
+}
+
+.currency-title {
+    position: absolute;
+    top: 4.5%;
+    left: 3%;
+    color: #786400;
+    font-size: 1.2vw;
+    font-weight: 700;
+    letter-spacing: 0.1vw;
+}
+
+/* =============================================
+   通用区块样式
+   所有文字区块都叠加在背景图上，用 position:absolute 定位
+   修改 top/left/width/height 来对准背景图的各个卡槽
+============================================= */
+.cur-block {
+    position: absolute;
+    z-index: 2;                             /* 在背景图之上 */
+    box-sizing: border-box;
+    padding: 0.8vh 0.8vw;
+    overflow: hidden;
+}
+
+/* 区块标题：金色小标题，与政治体系面板的 pol-section 风格一致 */
+.cur-block-title {
+    color: #786400;
+    font-size: 0.65vw;
+    font-weight: 700;
+    margin: 0 0 0.5vh 0;
+    letter-spacing: 0.05vw;
+}
+
+/* 区块正文：深棕色小字 */
+.cur-block-body {
+    color: rgba(60, 50, 35, 0.85);
+    font-size: 0.55vw;
+    line-height: 1.8;
+    margin: 0;
+    text-align: justify;
+}
+
+/* =============================================
+   左上：货币体系概述区块
+   对准背景图左上方的浅色大卡槽
+   ⚠ 根据实际图片位置微调 top/left/width/height
+============================================= */
+.cur-overview {
+    top: 28%;
+    left: 8%;
+    width: 24%;
+    height: 25%;
+}
+
+/* =============================================
+   左下：三大自然矿石区块
+   对准背景图左下方三个矿石图标区域
+============================================= */
+.cur-minerals {
+    top: 48%;
+    left: 12%;
+    width: 29%;
+    height: 52%;
+}
+
+/* 单个矿石条目 */
+.cur-mineral-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3.8vh;               /* 三个矿石之间的间距，微调以对齐图标 */
+    padding-left: 3vw;   
+             /* 左侧留出图标宽度，文字从图标右侧开始 */
+}
+
+/* 矿石名称：稍大字号 */
+.cur-mineral-name {
+    color: #786400;
+    font-size: 0.6vw;
+    font-weight: 700;
+    margin: 0 0 0.2vh 0;
+}
+
+/* 矿石描述：小字 */
+.cur-mineral-desc {
+    color: rgba(60, 50, 35, 0.8);
+    font-size: 0.5vw;
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* =============================================
+   中下：汇率基准区块
+   对准背景图中央星球下方的横向卡槽
+============================================= */
+.cur-exchange {
+    top: 75%;
+    left: 33.5%;
+    width: 29%;
+    height: 24%;
+}
+
+/* =============================================
+   中央统计数字行
+   对准背景图星球正下方四个图标+数字的位置
+   图标已在背景图中，这里只叠加文字
+============================================= */
+.cur-stats-row {
+    position: absolute;
+    z-index: 2;
+    top: 62%;                               /* ⚠ 根据图片中四个图标的实际位置微调 */
+    left: 33.1%;
+    width: 29.5%;
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* 单个统计项 */
+.cur-stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2vh;
+}
+
+/* 统计标签：图标上方或下方的说明文字 */
+.cur-stat-label {
+    color: rgba(88, 72, 45, 0.6);
+    font-size: 0.45vw;
+    margin: 0;
+    text-align: center;
+    letter-spacing: 0.03vw;
+}
+
+/* 统计数字：大号金色数字 */
+.cur-stat-value {
+    color: #5a4200;
+    font-size: 1.2vw;
+    font-weight: 700;
+    margin: 0;
+    text-align: center;
+}
+
+/* =============================================
+   右侧：主要货币一览表
+   对准背景图右侧的表格区域
+   图标列已在背景图中，文字列叠加在图标右侧
+============================================= */
+.cur-table {
+    top: 27%;
+    left: 65%;
+    width: 36%;
+    height: 80%;
+    padding: 0.5vh 0.5vw;
+}
+
+/* 表格顶部标题行 */
+.cur-table-header {
+    margin-bottom: 0.8vh;
+    padding-bottom: 0.4vh;
+    border-bottom: 1px solid rgba(193, 160, 94, 0.3);
+}
+
+/* 列标题行 */
+.cur-table-cols {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.3vh 0;
+    border-bottom: 1px solid rgba(193, 160, 94, 0.2);
+    margin-bottom: 0.2vh;
+}
+
+/* 数据行：每行对应一种货币 */
+.cur-table-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1.2vh 0;                      /* 行高，需与背景图中图标的行间距对齐 */
+    border-bottom: 1px solid rgba(193, 160, 94, 0.1);
+}
+
+/* 弱化行（其他主权、非货币经济体）：颜色稍淡 */
+.cur-table-row--dim {
+    opacity: 0.65;
+}
+
+/* 图标列：留出背景图图标的位置，文字不从这里开始 */
+.cur-col-icon {
+    width: 2.5vw;                           /* ⚠ 根据背景图图标实际宽度调整 */
+    flex-shrink: 0;
+}
+
+/* 货币名称列 */
+.cur-col-name {
+    flex: 2;
+    color: rgba(60, 50, 35, 0.9);
+    font-size: 0.55vw;
+    font-weight: 600;
+}
+
+/* 所属国家列 */
+.cur-col-region {
+    flex: 2.5;
+    color: rgba(88, 72, 45, 0.65);
+    font-size: 0.5vw;
+    margin-left: 1vw;
+}
+
+/* 全球占比列 */
+.cur-col-pct {
+    flex: 1;
+    color: rgba(60, 50, 35, 0.85);
+    font-size: 0.55vw;
+    font-weight: 600;
+    text-align: right;
+    margin-right: 6vw;
+}
+
+/* 第一名占比：金色高亮 */
+.cur-pct-top {
+    color: #786400;
+    font-weight: 700;
+}
+
+/* 列标题文字样式（复用 cur-col-* 但字色更淡） */
+.cur-table-cols .cur-col-name,
+.cur-table-cols .cur-col-region,
+.cur-table-cols .cur-col-pct {
+    color: rgba(88, 72, 45, 0.45);
+    font-size: 0.48vw;
+    font-weight: 400;
+}
+
+
+/* 货币面板 —— 标题区块 */
+.cur-title-block {
+    position: absolute;
+    top: 5%;          /* 根据背景图调整 */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 10;
+    width: 70%;
+    font-family: "Noto Serif SC", "Noto Serif JP", "源ノ明朝", "Yu Mincho", "游明朝", "宋体", SimSun, Georgia, serif;
+}
+
+.cur-main-title {
+    font-size: 2.2vw;
+    font-weight: 700;
+    color: #3a2e1a;
+    letter-spacing: 0.15vw;
+    margin: 0 0 0.3vh 0;
+}
+
+.cur-title-desc {
+    font-size: 0.65vw;
+    color: #5a4e35;
+    line-height: 1.8;
+    margin: 0;
+
+}
+
+
+/* ===================================================
+   历史时间线面板
+   整体逻辑与 politics-panel 完全一致
+   背景图：HistoricalTimelineAD.png
+   时间轴在背景图中间的横向长方框区域内横向滚动
+=================================================== */
+
+/* 面板容器：初始藏在屏幕下方，active后浮出 */
+.timeline-panel {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    top: 18vh;                               /* 距顶部留出顶栏高度 */
+    transform: translateX(-50%) translateY(100%); /* 初始藏在屏幕下方 */
+
+    width: 77vw;                            /* 宽版面，适配横向时间轴 */
+    height: 66vh;
+
+    z-index: 5000;
+
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                opacity 0.4s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* 激活状态：面板浮出 */
+.timeline-panel.active {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* 背景图：铺满整个面板 */
+.timeline-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* 关闭按钮：右上角，参考图样式"✕ 退出" */
+.timeline-close {
+    position: absolute;
+    top: 7.8%;
+    right: 2.75%;
+    border: none;
+    background: transparent;
+    color: #786400;
+    font-size: 1.5vw;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    letter-spacing: 0.05vw;
+    transition: transform 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.3vw;
+}
+.timeline-close:hover {
+    transform: scale(1.1);
+    color: #c8a030;
+}
+
+/* 面板标题区：对应背景图顶部标题框 */
+.tl-title-block {
+    position: absolute;
+    z-index: 2;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    pointer-events: none;
+}
+
+/* 主标题大字 */
+.tl-main-title {
+    color: #3f3520;
+    font-size: 2.1vw;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0.3vw;
+    font-family: "Noto Serif SC", "Noto Serif JP", "源ノ明朝", "Yu Mincho", "游明朝", "宋体", SimSun, Georgia, serif;
+}
+
+/* 副标题 */
+.tl-subtitle {
+    color: rgba(88, 72, 45, 0.6);
+    font-size: 0.55vw;
+    margin: 0.3vh 0 0 0;
+    letter-spacing: 0.15vw;
+}
+
+/* =============================================
+   时间轴横向滚动区域
+   对应背景图中间的大横向长方框
+   ⚠ top/height 需根据背景图实际长方框位置微调
+============================================= */
+.tl-scroll-area {
+    position: absolute;
+    z-index: 2;
+    top: 17%;                               /* ⚠ 长方框上边缘位置，微调以对准背景图 */
+    left: 4.4%;
+    right: 4.85%;
+    height: 62%;                            /* ⚠ 长方框高度，微调 */
+    overflow-x: scroll;                     /* 横向滚动 */
+    overflow-y: hidden;                     /* 禁止纵向滚动 */
+    cursor: grab;                           /* 鼠标样式：抓手 */
+    scrollbar-width: thin;                  /* Firefox：滚动条 */
+}
+.tl-scroll-area::-webkit-scrollbar {
+    display: thin;                          /* Chrome/Safari：滚动条 */
+}
+.tl-scroll-area:active {
+    cursor: grabbing;                       /* 拖动时：握紧手 */
+}
+
+/* 时间轴内容轨道：所有节点横向排列在这里 */
+/* 宽度由JS动态计算并设置，保证所有节点都能放下 */
+.tl-track {
+    position: relative;
+    height: 100%;
+    /* width 由 JS 动态设置 */
+    min-width: 100%;
+}
+
+/* 时间轴中央横线：贯穿整个轨道 */
+.tl-line {
+    position: absolute;
+    top: 50%;                               /* 垂直居中 */
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgba(193, 160, 94, 0.8) 2%,
+        rgba(193, 160, 94, 0.8) 98%,
+        transparent
+    );
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* =============================================
+   纪元色块：标记大纪元的背景颜色区间
+   position:absolute，left/width 由JS计算
+============================================= */
+.tl-era {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    /* left 和 width 由 JS 动态设置 */
+    display: flex;
+    align-items: flex-end;                  /* 标签在底部 */
+    padding-bottom: 1vh;
+    box-sizing: border-box;
+    pointer-events: none;
+}
+
+/* 奇数纪元：淡金色调 */
+.tl-era:not(.tl-era--alt) {
+    background: rgba(193, 160, 94, 0.04);
+}
+
+/* 偶数纪元：更淡 */
+.tl-era--alt {
+    background: rgba(193, 160, 94, 0.01);
+}
+
+/* 纪元标签文字 */
+.tl-era-label {
+    color: rgba(120, 100, 0, 0.35);
+    font-size: 0.6vw;
+    letter-spacing: 0.08vw;
+    padding-left: 0.5vw;
+    white-space: nowrap;
+}
+
+/* =============================================
+   事件节点
+   position:absolute，left 由JS根据年份计算
+   tl-node--up：卡片在轴线上方
+   tl-node--down：卡片在轴线下方
+============================================= */
+.tl-node {
+    position: absolute;
+    /* left 由 JS 动态设置 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: all;
+}
+
+/* 上方节点：从轴线向上排列（卡片-竖线-圆点） */
+.tl-node--up {
+    bottom: 50%;                            /* 从轴线处开始向上 */
+    flex-direction: column-reverse;         /* 圆点在下，卡片在上 */
+    transform: translateX(-50%);            /* 水平居中对齐 */
+}
+
+/* 下方节点：从轴线向下排列（圆点-竖线-卡片） */
+.tl-node--down {
+    top: 50%;                               /* 从轴线处开始向下 */
+    flex-direction: column;                 /* 圆点在上，卡片在下 */
+    transform: translateX(-50%);
+}
+
+/* 圆点：在轴线上的标记点 */
+.tl-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(193, 160, 94, 0.8);
+    border: 2px solid rgba(120, 96, 0, 0.6);
+    flex-shrink: 0;
+    z-index: 3;
+}
+
+/* 特殊节点圆点：重要事件，金色更深更大 */
+.tl-dot--special {
+    width: 14px;
+    height: 14px;
+    background: #c8a030;
+    border-color: #786400;
+    box-shadow: 0 0 6px rgba(200, 160, 48, 0.5);
+}
+
+/* 竖线：连接圆点和卡片 */
+.tl-stem {
+    width: 1px;
+    height: 3vh;                            /* 连接线高度 */
+    background: rgba(193, 160, 94, 0.5);
+    flex-shrink: 0;
+}
+
+/* 事件卡片 */
+.tl-card {
+    background: rgba(255, 252, 245, 0.92);
+    border: 1px solid rgba(193, 160, 94, 0.4);
+    border-radius: 0vw;/* 圆角矩形 */
+    padding: 0.5vh 0.6vw;
+    width: 10vw;                            /* 卡片宽度，可调整 */
+    box-shadow: 0 2px 8px rgba(120, 96, 0, 0.1);
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+.tl-card:hover {
+    box-shadow: 0 4px 16px rgba(120, 96, 0, 0.2);
+    border-color: rgba(193, 160, 94, 0.7);
+}
+
+/* 特殊卡片：重要事件，金色边框 */
+.tl-card--special {
+    border-color: rgba(193, 160, 94, 0.7);
+    background: rgba(255, 250, 235, 0.96);
+}
+
+/* 卡片内：年份行 */
+.tl-card-year {
+    color: #786400;
+    font-size: 0.5vw;
+    font-weight: 700;
+    margin: 0 0 0.2vh 0;
+    letter-spacing: 0.03vw;
+}
+
+/* 卡片内：分类标签 */
+.tl-card-tag {
+    font-size: 0.45vw;
+    font-weight: 600;
+    margin: 0 0 0.2vh 0;
+    display: inline-block;
+    padding: 0.1vh 0.3vw;
+    border-radius: 2px;
+}
+
+/* 各分类标签颜色 */
+.tl-tag--science  { background: rgba(100,150,200,0.15); color: #2a5080; }
+.tl-tag--culture  { background: rgba(100,180,100,0.15); color: #2a6030; }
+.tl-tag--politics { background: rgba(180,140,80,0.15);  color: #6a4a10; }
+.tl-tag--war      { background: rgba(200,80,80,0.15);   color: #8a2020; }
+.tl-tag--religion { background: rgba(160,100,200,0.15); color: #5a1080; }
+.tl-tag--tech     { background: rgba(80,160,180,0.15);  color: #1a5060; }
+.tl-tag--economy  { background: rgba(200,180,80,0.15);  color: #6a5a10; }
+.tl-tag--disaster { background: rgba(220,100,60,0.15);  color: #8a3010; }
+.tl-tag--natural  { background: rgba(80,200,160,0.15);  color: #1a6050; }
+
+/* 卡片内：正文 */
+.tl-card-text {
+    color: rgba(60, 50, 35, 0.85);
+    font-size: 0.5vw;
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* 底部时间刻度轴 */
+/* ⚠ top 值需与背景图下方横线位置对齐，微调 */
+.tl-ruler {
+    position: absolute;
+    top:23%;                              /* 根据背景图中时间刻度轴的实际位置微调 */
+    z-index: 2;
+    bottom: 12%;                            /* ⚠ 微调以对准背景图底部横线 */
+    left: 9%;
+    right: 9%;
+    height: 3vh;
+    display: flex;
+    align-items: flex-start;
+    pointer-events: none;
+    overflow: hidden;
+    font-size: 2vh;
+}
+
+/* 底部提示文字 */
+.tl-hint {
+    position: absolute;
+    z-index: 2;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(0, 0, 0, 0.45);
+    font-size: 0.5vw;
+    letter-spacing: 0.15vw;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+
+
+/* 轨道末尾留白 */
+.tl-end-spacer {
+    display: inline-block;
+    width: 12vw;
+    height: 1px;
+}
+
+
+
+/* ===================================================
+   巨型企业面板
+   整体逻辑与政治体系面板完全一致
+   背景图：MegacorporationsAD.png
+   左侧信息栏 + 右侧可滚动排行榜
+=================================================== */
+
+/* 面板容器：初始藏在屏幕下方，active后浮出 */
+.mega-panel {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    top: 13vh;
+    transform: translateX(-50%) translateY(100%);
+    width: 70vw;
+    height: 85vh;
+    z-index: 5000;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                opacity 0.4s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* 激活状态 */
+.mega-panel.active {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* 背景图 */
+.mega-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* 关闭按钮 */
+.mega-close {
+    position: absolute;
+    top: 4.5%;
+    right: 3%;
+    border: none;
+    background: transparent;
+    color: #786400;
+    font-size: 1vw;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    letter-spacing: 0.05vw;
+    transition: transform 0.2s, color 0.2s;
+}
+.mega-close:hover {
+    transform: scale(1.1);
+    color: #c8a030;
+}
+
+/* =============================================
+   左侧信息栏
+   对应背景图左侧竖向装饰区域
+   ⚠ top/left/width 根据背景图实际位置微调
+============================================= */
+.mega-sidebar {
+    position: absolute;
+    z-index: 2;
+    top: 25%;                                /* ⚠ 微调 */
+    left: 0.5%;
+    width: 17%;                             /* ⚠ 微调 */
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    padding: 0 0.5vw;
+}
+
+/* 主标题 */
+.mega-main-title {
+    color: #3f3520;
+    font-size: 1.1vw;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0.1vw;
+    text-align: center;
+}
+
+/* 副标题 */
+.mega-subtitle {
+    color: rgba(88, 72, 45, 0.6);
+    font-size: 0.48vw;
+    margin: 0;
+    text-align: center;
+    letter-spacing: 0.08vw;
+}
+
+/* 概览数据容器 */
+.mega-overview {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8vh;
+    margin-top: 1vh;
+}
+
+/* 单个数据项 */
+.mega-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5vh 0;
+    border-bottom: 1px solid rgba(193, 160, 94, 0.2);
+}
+
+/* 数据标签 */
+.mega-stat-label {
+    color: rgba(88, 72, 45, 0.55);
+    font-size: 0.45vw;
+    margin: 0;
+    letter-spacing: 0.05vw;
+}
+
+/* 数据数值 */
+.mega-stat-value {
+    color: #5a4200;
+    font-size: 1.3vw;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* 底部备注 */
+.mega-footnote {
+    color: rgba(88, 72, 45, 0.4);
+    font-size: 0.42vw;
+    line-height: 1.7;
+    margin-top: auto;
+    text-align: center;
+}
+
+/* =============================================
+   右侧排行榜主体
+   对应背景图右侧横线表格区域
+   纵向滚动，隐藏默认滚动条
+   ⚠ top/left/width/height 根据背景图实际位置微调
+============================================= */
+.mega-table-wrap {
+    position: absolute;
+    z-index: 2;
+    top: 17%;                                /* ⚠ 微调，对准表格顶部横线 */
+    left: 18%;                              /* ⚠ 微调，对准背景图表格左边缘 */
+    right: 6%;
+    bottom: 11%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+.mega-table-wrap::-webkit-scrollbar {
+    display: none;
+}
+
+/* 表头行 */
+.mega-table-header {
+    display: flex;
+    align-items: center;
+    padding: 0.6vh 0.5vw;
+    background: rgba(193, 160, 94, 0.12);
+    border-bottom: 1px solid rgba(193, 160, 94, 0.4);
+    position: sticky;                       /* 表头固定，滚动时不消失 */
+    top: 1;
+    z-index: 3;
+}
+
+/* 梯队分隔标题行 */
+.mega-tier-label {
+    padding: 0.5vh 0.8vw;
+    font-size: 0.52vw;
+    font-weight: 700;
+    letter-spacing: 0.08vw;
+    border-bottom: 1px solid rgba(193, 160, 94, 0.25);
+    position: sticky;                       /* 梯队标题也固定 */
+    top: 2.4vh;                             /* 紧贴表头下方 */
+    z-index: 2;
+}
+
+/* 各梯队标题颜色 */
+.mega-tier-label--1 { background: rgba(200,160,48,0.12); color: #6a4400; }
+.mega-tier-label--2 { background: rgba(180,140,80,0.10); color: #5a4010; }
+.mega-tier-label--3 { background: rgba(160,140,100,0.08); color: #5a4818; }
+.mega-tier-label--4 { background: rgba(193,160,94,0.06); color: #6a5428; }
+.mega-tier-label--5 { background: rgba(193,160,94,0.04); color: #786438; }
+
+/* 数据行：每行对应一个企业 */
+.mega-row {
+    display: flex;
+    align-items: flex-start;
+    padding: 0.55vh 0.5vw;
+    border-bottom: 1px solid rgba(193, 160, 94, 0.12);
+    transition: background 0.15s;
+}
+.mega-row:hover {
+    background: rgba(193, 160, 94, 0.06);
+}
+
+/* 各梯队行的左侧颜色条 */
+.mega-row--tier1 { border-left: 3px solid rgba(200,160,48,0.6); }
+.mega-row--tier2 { border-left: 3px solid rgba(160,120,60,0.5); }
+.mega-row--tier3 { border-left: 3px solid rgba(140,110,70,0.4); }
+.mega-row--tier4 { border-left: 3px solid rgba(193,160,94,0.3); }
+.mega-row--tier5 { border-left: 3px solid rgba(193,160,94,0.15); }
+
+/* =============================================
+   列宽定义
+   flex 值决定各列的相对宽度
+============================================= */
+
+/* 排名列 */
+.mg-col-rank {
+    flex: 0 0 3.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 排名数字 */
+.mg-rank-num {
+    color: #786400;
+    font-size: 0.9vw;
+    font-weight: 700;
+}
+
+/* 企业名称列（最宽） */
+.mg-col-name {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15vh;
+    padding-right: 0.5vw;
+}
+
+/* 企业中文名 */
+.mg-name-cn {
+    color: #3f3520;
+    font-size: 0.65vw;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* 企业描述小字 */
+.mg-name-desc {
+    color: rgba(88, 72, 45, 0.6);
+    font-size: 0.48vw;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* 国家/地区列 */
+.mg-col-region {
+    flex: 2;
+    color: rgba(60, 50, 35, 0.75);
+    font-size: 0.5vw;
+    padding-right: 0.5vw;
+    display: flex;
+    align-items: center;
+}
+
+/* 行业列 */
+.mg-col-industry {
+    flex: 1.5;
+    color: rgba(60, 50, 35, 0.7);
+    font-size: 0.5vw;
+    display: flex;
+    align-items: center;
+}
+
+/* 梯队标签列 */
+.mg-col-tier {
+    flex: 0 0 4vw;
+    font-size: 0.45vw;
+    font-weight: 600;
+    text-align: center;
+    padding: 0.2vh 0.3vw;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 梯队标签颜色 */
+.mg-tier--planetary { background: rgba(200,160,48,0.15); color: #6a4400; }
+.mg-tier--state     { background: rgba(160,100,60,0.15); color: #6a3010; }
+.mg-tier--global    { background: rgba(100,140,180,0.15); color: #2a4060; }
+.mg-tier--regional  { background: rgba(100,160,120,0.15); color: #1a4030; }
+.mg-tier--local     { background: rgba(160,160,160,0.12); color: #504840; }
+
+/* 表头列标题样式（复用列宽，字色更淡） */
+.mega-table-header .mg-col-rank,
+.mega-table-header .mg-col-name,
+.mega-table-header .mg-col-region,
+.mega-table-header .mg-col-industry,
+.mega-table-header .mg-col-tier {
+    color: rgba(88, 72, 45, 0.5);
+    font-size: 0.48vw;
+    font-weight: 400;
+}
+
+/* 底部声明 */
+.mega-footer {
+    padding: 1.5vh 0.5vw;
+    text-align: center;
+    border-top: 1px solid rgba(193, 160, 94, 0.2);
+    margin-top: 0.5vh;
+}
+.mega-footer p {
+    color: rgba(88, 72, 45, 0.4);
+    font-size: 0.42vw;
+    margin: 0.2vh 0;
+}

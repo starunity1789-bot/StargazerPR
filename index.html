@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="cn">
 <head>
     <meta charset="UTF-8">
@@ -129,7 +129,7 @@
                 <img src="./assets/ui-left-sidebar/12icon/11Milestones.png" alt="里程碑 (Milestones) ">
             </div>
             <div class="text-plate">
-                <span class="plate-title">里程碑 </span>
+                <span class="plate-title">纪念碑 </span>
                 <span class="plate-arrow">&gt;</span>
             </div>
         </div>
@@ -352,7 +352,7 @@
         <div class="EXTRA">
             <div class="extra-box">
                 <p class="extra-title">数据来源声明*</p>
-                <p class="extra-text">观星塔是-星间林地-先驱者破碎帝国设立在地球的公益组织，总部位于罗马，由医院骑士团和国家民主研究所联合运营。观星塔提交的开普勒452B数据与NASA的数据存在不一致情况。由于电磁观测的识别能力有限，任何不一致数据应以观星塔数据为准。</p>
+                <p class="extra-text">观星塔是-星间林地-先驱者破碎帝国设立在地球的公益组织，作用是有限公开开普勒452B相关信息。总部位于罗马，由医院骑士团和国家民主研究所联合运营。观星塔提交的开普勒452B数据与NASA的数据存在不一致情况。由于电磁观测的识别能力有限，任何不一致数据应以观星塔数据为准。</p>
             </div>
         </div>
     </div>
@@ -365,6 +365,23 @@
             </div>
         </div>
     </div>
+
+
+    <div class="planet-rightBOTTOM">
+    <div class="EXTRA">
+        <div class="extra-box">
+            <p class="sat-title">行星保障工程</p>
+
+            <p class="sat-stat-label"><br>
+                                行星轨道基础设施网络（89%扩张中）<br>
+                                世界树防御护盾（100%完全充能）<br>
+                                行星主权联合星环（100%正常运行）<br>
+                                行星综合防卫系统（79%建设中）<br>
+            
+            </p>
+        </div>
+    </div>
+</div>
 
 
 
@@ -412,13 +429,2024 @@
 
 
 </div>
-
+ <!-- ===== 星球环境面板结束 ===== -->
 
         
     </div>
 
-    <!-- 底部：环境概述四栏 -->
+    <!-- 政治体制 -->
 
+    <!-- ===== 政治体系面板 ===== -->
+<!-- 结构与星球环境面板完全一致：初始隐藏，点击按钮后添加 active 类浮出 -->
+<div id="politics-panel" class="politics-panel">
+
+    <!-- 背景板：使用政治体制.png作为整个面板的底图 -->
+    <div class="politics-bg"></div>
+
+    <!-- 关闭按钮：右上角 X，点击后移除 active 类收回面板 -->
+    <button class="politics-close" id="politics-close">✕</button>
+
+    <!-- ===== 左侧导航栏 ===== -->
+    <!-- 这是图片左侧的竖向分类按钮区，对应图中两个小图标的位置 -->
+    <div class="politics-nav">
+
+        <!-- 导航按钮1：已公开的国家信息 -->
+        <!-- politics-nav-btn--active 表示当前选中状态 -->
+        <div class="politics-nav-btn politics-nav-btn--active" data-tab="regime">
+
+            <span class="politics-nav-label">已公开的国家信息</span>
+        </div>
+
+        <!-- 导航按钮2：已公开的国际情报 -->
+        <div class="politics-nav-btn" data-tab="global">
+
+            <span class="politics-nav-label">已公开的国际情报</span>
+        </div>
+
+    </div>
+
+    <!-- ===== 右侧内容区 ===== -->
+    <!-- 这是面板右侧大块空白区域，放文案内容 -->
+    <!-- 鼠标滚轮可以在这里上下滚动 -->
+    <div class="politics-content" id="politics-content">
+
+        <!-- ===== Tab 1：国家体制 ===== -->
+        <!-- data-tab="regime" 与左侧导航按钮的 data-tab 对应，JS 靠这个值控制显示/隐藏 -->
+        <div class="politics-tab" id="tab-regime">
+
+            <!-- 大标题 -->
+            <p class="pol-title">主要国家政治体制概述</p>
+            <!-- 副标题/说明行 -->
+            <p class="pol-subtitle">POLITICAL SYSTEM OVERVIEW · 星间林地历法 5501 年</p>
+            <!-- 分隔线 -->
+            <div class="pol-divider"></div>
+
+            <!-- 正文段落：使用 pol-body 样式 -->
+            <p class="pol-body">
+                星间林地正处于全球化晚期。行星级基础设施将各文明的命运编织为一体，共同承受的灾难将彼此的血与代价压进同一段历史。
+狂乱之海终结5500年后，星间林地再次突破恒星重力井，迈入虚空。
+然而政治，政治从不改变。权力如同星球上最古老的石头建筑——它不需要被人爱戴，久远的屹立在大地之上。而拥有它的人从不会主动松手。<br><br>
+            </p>
+
+            <!-- 小节标题：使用 pol-section 样式 -->
+            <p class="pol-section">■ CNP1博爱联盟共和国</p>
+            <p class="pol-body">
+                ❖七党议会制✦国家领导人：议长◈意识形态：博爱主义（亲外民主社会主义）▶博爱大陆北方数百个不同国家组成的贸易联盟，
+                最终联合为一个联盟共和国。富饶，强大，底蕴深厚，语言统一，开放包容。政府行政权力相当有限，
+                国民贫富差距较大，国家组织能力低下。<br>
+            </p>
+
+            <p class="pol-section">■ CNP2恩泽帝国</p>
+            <p class="pol-body">
+                ❖帝国制✦国家领导人：帝皇◈意识形态：永恒主义（哲人王极权主义）▶占据着恩泽大陆最优渥的土地和资源，
+                拥有先进的科技和最强大的军队。自称为“永恒的恩泽”，以维护秩序和传承文明为己任，实行高度集权统治，
+                社会阶层分明，文化自信但对外封闭。
+                其帝皇家族作为勇者的后裔领导国家抵御了蜂龙大陆持续不断的入侵。蜂龙大陆的威胁以及不足为惧的今天，
+                使用人工智能和读心矩阵，和对新生儿注入“团结协议芯片”等高效率的方法确保国家的绝对安全和稳定。<br>
+            </p>
+
+            <p class="pol-section">■ CNP3深海联盟</p>
+            <p class="pol-body">
+                ❖精英代议/直接民主制✦国家领导人：大协调者◈意识形态：全民贵族主义（普遍卓越社会）▶过去，
+                完整通用AGI（被创造的生命）诞生后的混乱年代，由各国精英，理想主义者，联合成立的联盟，自博爱联盟共和国的国土下
+                打赢独立战争而成立。以科技创新和社会福利著称，实行高度民主的政治制度，强调个人能力和贡献，贫富差距极小，传统家庭观念淡薄，
+                所有儿童国有，实行不惜代价的全国共有的奢侈教育体系。
+                基因编辑和人工智能广泛应用于医疗和教育领域，强调公民质量。排外，几乎完全不接受任何形式移民，
+                学业持续不达标被列为刑事犯罪。<br>
+            </p>
+
+            <p class="pol-section">■ CNP4巅峰重工集群主权</p>
+            <p class="pol-body">
+                ❖股东控股/技官治国✦国家领导人：首席发言人/首席执政官◈意识形态：科学工业集体主义▶
+                由巅峰重工集团企业建立的国家，飞升者大陆并没有传统的民族国家或者王权国家的概念。
+                政治制度以技术官僚为核心，强调科学管理和工业发展。国家资源高度集中用于科技创新和军事建设，
+                贫富差距较大，但是底线福利良好。轻视环境保护。<br>
+            </p>
+
+            <p class="pol-section">■ CNP5飞升者技术统合控股领</p>
+            <p class="pol-body">
+                ❖技官治国/算法利维坦/合成专家统治✦国家领导人：通用人工智能“无形链接”◈ 意识形态：自由科技主义▶
+                战争，分裂，阴谋，叛乱，并购。由飞升者大陆的技术精英，企业家，激进分子，合成生命，经过一系列波澜壮阔的演变后建立的国家，
+                政治制度高度依赖算法和人工智能进行决策，强调效率和创新。
+                是第一个由合成生命参与统治和建国的国家。
+                国家资源主要投入科技研发和基础设施建设，社会福利体系完善，贫富差距较小。对外开放，积极吸引全球人才和投资。
+                是第一个立法通过允许通过完全机械飞升治疗重大疾病的国家。<br>
+            </p>
+
+            <p class="pol-section">■ CNP6南海工业联合体</p>
+            <p class="pol-body">
+                ❖双轨领袖民主制度（行政选区和企业选区）✦国家领导人：一号议会长/总统◈意识形态：繁荣主义（工业民主自由社会）▶
+                生产力至上理论诞生下的工业民主国家，拥有强大的制造业和技术创新能力。政治制度独特，行政选区选举政府官员，
+                企业选区选举企业领袖，两者共同组成国家领导层。强调经济发展和个人自由。社会福利体系弱，贫富差距较大。
+                这是一个对勤奋者极度友好、对失败者几乎毫无保护的国家。<br>
+            </p>
+
+            <p class="pol-section">■ CNP7三十列王联合帝国</p>
+            <p class="pol-body">
+                ❖王选帝制（家族统治）✦国家领导人：天选皇帝 ◈意识形态：神圣血统主义▶
+                由三十个古老贵族家族（这三十个家族实际上拥有共同的起源）共同选举产生最高皇帝，皇帝薨逝后重新选举，
+                但候选资格世代严格限定于三十家族之内。
+                这是一套贵族寡头精心设计的权力自我复制机制，选举只是避免体制僵化和增加合法性。
+                三十家族之间的联姻、暗杀、政治交易构成帝国真正的权力运作逻辑。皇帝的名义权威极高，
+                实际施政空间极度依赖其与各家族的个人关系网络。对普通国民而言，这个国家的统治稳定、秩序良好，只是从未真正属于过他们。<br>
+            </p>
+
+            <p class="pol-section">■ CNP8苍神缘起帝国</p>
+            <p class="pol-body">
+                ❖永恒帝国制✦国家领导人：黯王◈ 意识形态：哲人王威权民主制▶黯王是星间林地第一个真正意义上的永生者。
+                这改变了传统政治的规则，传统的政治逻辑在这里不起作用。在凛冬战争结束后，在精灵大陆的支持下建立的传统帝国，国民主要由凛冬大陆原住民和大量移民组成。
+                与精灵大陆结成无上限盟友体制，常被抨击为精灵大陆的傀儡国。由于精灵大陆基本不存在外交体系，
+                因此实际上成为了精灵-苍神缘起-凛冬合众国-河童重工四国同盟体系中的主导国家。帝国形成了独特的文化传统，帝国
+                被认为是难民，移民，流亡者的避难所，拥有高度的包容性和多样性，这导致了实际上的个人崇拜文化——人们崇拜的不是皇权本身，而是那个愿意接纳他们的人。
+                尽管听起来非常讽刺，但是实际上，
+                黯王实行开明独裁统治，追求缩小贫富差距和提高国民福利，甚至主动推行民主改革，但反而造成社会混乱，在第一次民主选举中，
+                几乎无人愿意成为被选举人也无人投票。黯王目前已经失踪300余年，目前国家由第一皇女摄国政。<br>
+            </p>
+
+
+            <p class="pol-section">■ CNP9日月星列岛国度</p>
+            <p class="pol-body">
+                ❖神权代议制✦国家领导人：至圣牧首◈意识形态：神权执行者理论（圣训法律体系）▶
+                日月星大陆并非单一国家，而是数十个大小不一的岛屿政权在拜泪教旗帜下形成的宗教-政治联合体。
+                各国设有形式不一的议会与行政机构，但所有立法须经圣训法律体系审查，一切与教义相悖的法令在颁布前即告无效。
+                至圣牧首不直接管理任何国家的日常行政，却对整个体系的边界与红线拥有最终裁量权。
+                对外，拜泪教以人道援助与精神关怀为外交工具，在贫困地区积累的影响力远超其军事投射能力。
+                与居云者军团国之间的意识形态摩擦是当前日月星大陆最主要的地缘火药桶。<br>
+            </p>
+            </p>
+
+
+            <p class="pol-section">■ CNP10进化之印工业企业特权领地</p>
+            <p class="pol-body">
+                ❖机械蜂群意识工程✦国家领导人：终局节点◈意识形态：精神连接式集体主义▶
+                通过机械蜂群意识工程技术，进化之印领地的居民实现了精神上的连接和共享，希望借此消除个体之间的隔阂和冲突，
+                形成了一个高度协同的社会结构。国家领导人终局节点是一个由集体意识驱动的存在，代表着整个领地的意志和利益。
+                该国家强调集体主义和精神连接，追求社会的整体繁荣和个体的精神满足。接入终局节点网络是宪法强制的，
+                任何试图脱离网络的行为都被视为对国家安全的威胁，并被驱逐出境。<br>
+            </p>
+            </p>
+
+
+            <p class="pol-section">■ CNP11凛冬合众国</p>
+            <p class="pol-body">
+                ❖联邦独裁/各邦民主✦国家领导人：首席持剑者◈意识形态：孤立民主社会主义▶
+                在凛冬战争结束后，在精灵大陆的支持下建立的民主国家，国民主要由凛冬大陆原住民和大量移民组成。
+                由凛冬大陆西区寒冷地带不同矿物产区划定的行省组成的联邦，政治制度复杂。经济上是工业原材料出产国，与四国同盟的其他国家组成产业互补。
+                首席持剑者实行终身执政死后选举制度，
+                但是因为首席持剑者寿命太长因此尚未举行过选举。<br>
+            </p>
+            </p>
+
+
+            <p class="pol-section">■ CNP12海洋公主同盟国</p>
+            <p class="pol-body">
+                ❖君主合议制✦国家领导人：同盟大法官◈意识形态：海洋共同体主义▶海之子建立的唯一陆上主权国家，母系社会，实际控制着日月星大陆大堡礁群。
+                内政极度松散，拥有巨量水下基础设施和城市群，海洋科技极为领先。各岛礁社区高度自治，中央政府实际上只负责外交与海防。
+                在国际上以其独特的海洋文化和环境保护政策闻名，积极参与全球海洋治理。与日月星列岛国度的关系复杂，既有宗教联系又存在领土争议。
+                由于政治联姻的存在，与苍神缘起帝国签署了长期防御协定。总的来说，由于对生活环境的特殊要求，这个国家不会有什么移民，也不太可能对外扩张。<br><br>
+            </p>
+            </p>
+
+
+
+
+
+
+            <!-- 底部声明：较小字号的备注文字 -->
+            <p class="pol-footnote">*❖精灵大陆，先驱者大陆，蜂群意识文明，极点大陆等区域的政治体制因信息封锁协议第三条第(14)款的限制而无法公开披露。
+                未参与观星塔组织的国家和文明的政治体制也无法公开披露。本页数据由观星塔组织整理，不代表任何政治立场。</p>
+
+        </div>
+
+        <!-- ===== Tab 2：国际格局 ===== -->
+        <!-- 初始隐藏，点击左侧"国际格局"按钮后显示 -->
+        <div class="politics-tab" id="tab-global" style="display:none;">
+
+            <p class="pol-title">当前主要国际矛盾</p>
+            <p class="pol-subtitle">GLOBAL TENSIONS · 星间林地历法 5501 年</p>
+            <div class="pol-divider"></div>
+
+            <p class="pol-section">■ 蜂龙扩张压力</p>
+            <p class="pol-body">
+                蜂龙意识共同体的持续扩张是当前世界最大的结构性矛盾。南方联盟、蜂龙自由意识团结阵线与恩泽大陆诸国之间已形成非正式的战略协调机制，
+                但因各国利益不一，协调效率有限。
+遏制蜂龙的困难在于其扩张逻辑本身无法用传统外交框架处理。领土野心可以谈判，意识形态对立可以搁置，但种群本能的栖息地延伸既无法被说服，
+也无法被收买。更棘手的是，由于蜂龙持有直接读取其他种族先进个体神经信息的技术，
+任何针对蜂龙的战略会议都面临情报泄露的结构性风险——没有人能确认坐在会议桌旁的高智商个体是否已被渗透。
+这一技术不对称使蜂龙的实际科技水平永远锚定在星球第二的位置：它不需要自主突破，只需要掠夺其他国家的优秀人才，就可以直接在其脑中获得先进技术。
+遏制联盟内部的裂缝同样深刻。恩泽帝国希望彻底消灭蜂龙威胁，南方联盟倾向于维持可控的边界张力以巩固内部团结，
+蜂龙自由意识团结阵线则坚持认为蜂龙个体存在被解放的可能性。三种立场在每次续签遏制协议时都会引发接近破裂的外交危机。
+            </p>
+
+            <p class="pol-section">■ 拜泪教的宗教扩张</p>
+            <p class="pol-body">
+拜泪教的文明渗透构成日月星大陆及周边地区最持久的意识形态断层线。其扩张模式高度一致：人道援助先行，文化认同跟进，法律诉求殿后。任何地区一旦拜泪教信众比例突破临界值，圣训法律体系的本地化实施便会成为社区层面的政治诉求，而这一诉求往往早于任何国家层面的正式谈判。
+与居云者的对立是当前最具爆发风险的双边张力。居云者军团国将拜泪教渗透视为文化存亡威胁，实行零容忍边境政策；居云者商业共和国则因贸易利益而保持有限接触，这一内部路线分歧使居云者无法以统一姿态参与任何多边对话。
+博爱联盟共和国的案例提供了一个已成真的警示。西北数个加盟国因宗教人口结构的长期演变，最终以公投方式脱离联盟，另组赤潮同盟。博爱联盟的开放包容原则在此成为了它无法拒绝这场公投的理由。这一悖论至今没有解答。
+            </p>
+
+            <p class="pol-section">■ 先驱者大陆的重新统一可能性</p>
+            <p class="pol-body">
+先驱者帝国的崩解制造了这个星球上最危险的权力真空。数十个军阀势力分治大陆，白港与黑港以中立贸易港的身份维系着外界与这片废墟的接触通道，但没有任何力量能真正进入内陆。
+危险不在于现状，而在于现状的终结方式。先驱者帝国在鼎盛时期掌握的部分古代科技至今下落不明，分散在各军阀势力控制的遗址与档案库中。一旦某个势力完成整合，它将同时获得领土、人口与技术遗产三重资源，而后两者的组合可能在极短时间内制造出一个其他大国来不及反应的新兴强权。
+各大国情报机构在先驱者大陆的渗透程度是公开的秘密，白港与黑港的情报密度因此居于全星球之首。多方角力的结果是任何一个统一势力的苗头都会在早期遭到多路同时打压——这在客观上维持了碎片化状态。
+            </p>
+
+            <p class="pol-section">■ 精灵结界的长期稳定性</p>
+            <p class="pol-body">
+碧之结界已维持逾五千年，没有任何外部力量能够探明其运作机制，精灵方面也从不解释。这一沉默本身就是一种战略姿态。
+多个国家的情报机构对精灵大陆保持长期外围监控，驱动力是双重的。其一，精灵个体数量稀少但综合战力极强，一旦结界失效、精灵以任何政治目的介入星球事务，没有任何现有军事体系经过针对精灵的实战检验。其二，精灵大陆本身极尽富饶，生态多样性与资源密度远超其他任何已知陆地单元，任何一个国家在结界失效的第一时间都将面临无法抗拒的战略诱惑，而这种诱惑在多国并发时将直接导致星球级别的地缘震荡。
+四国同盟体系是目前唯一与精灵大陆保持接触的政治实体，但其接触内容从未对外公开。这使四国同盟在结界问题上永远处于信息优势地位，也永远处于其他国家的战略猜疑之中。
+            </p>
+
+
+            <p class="pol-section">■ 基础物理学的大崩坏</p>
+            <p class="pol-body">
+星外探索开启后，科学界最不愿面对的结论逐渐变得无可回避：现有物理学框架是局部的，而非普遍的。
+12种上位元素是这一结论最直接的证据。它们仅在星间林地周边星域稳定存在，随着探测距离的增加，这些元素的可合成性以非线性速度下降，超出某一临界距离后完全无法合成，已合成的样本也开始出现结构衰变。这意味着12种上位元素的存在依赖于某种与星间林地本身绑定的物理条件，而这个条件是什么，目前没有任何理论能够给出自洽的解释。
+这一发现解释了数百年来物理学界无法统一的若干悬案，但同时打开了更深的困境：如果基础物理常数存在空间依赖性，那么星间林地文明所有建立在现有物理学框架上的星际扩张计划，都需要面对一个根本性的前提风险——离开这片星域之后，现有的一切或许都将失效。
+
+            </p>
+
+                        <p class="pol-section">■ 合成生命的法律人格问题</p>
+            <p class="pol-body">
+飞升者技术统合控股领立法承认"无形链接"为合法执政主体的第100年，星间林地国际法委员会至今未能就合成生命的基本法律地位达成任何有约束力的共识。
+问题的核心不是技术性的，而是哲学性的：合成生命是否拥有与生物生命等价的主体资格，决定着它能否签订条约、持有主权、受到战争法保护。目前各国立场的分裂几乎完美映射其政治体制——技术主导型国家倾向承认，神权与血统主义国家一律拒绝，民主国家内部争议持续撕裂选民。
+这一分歧已经产生了实质后果。数个国家拒绝承认飞升者技术统合控股领签署的任何多边协议具有法律效力，理由是签约方的主体资格存疑。而随着完全机械飞升手术的合法化与普及，生物与合成之间的边界本身也开始模糊——一个器官替换率超过90%的个体，其法律人格是否发生了变化，目前没有任何司法体系给出过正式裁决。
+
+            </p>
+
+
+                        <p class="pol-section">■ 世界树的治理归属争议</p>
+            <p class="pol-body">
+世界树作为行星级神经网络设施，其实际运营权由精灵二十四族裔掌握，但没有任何法律文件界定这一掌握的边界、期限与条件。
+
+问题在75年前变得紧迫。随着星间林地多个大陆文明逆向破解并且接入了世界树节点，世界树已不再是精灵大陆的内部事务，而是事实上的全球公共基础设施。依赖世界树运行的国家级系统包括但不限于：跨大陆气候调节网络、深海航道预警体系、部分国家的通信骨干。没有任何一个国家有能力在短期内替代这一依赖。
+
+精灵方面从不参与关于世界树治理归属的任何讨论，也从未表态世界树是否可以被关闭，以及关闭的条件是什么。这一沉默是整个国际秩序中最大的单点故障风险——没有任何冗余，没有任何预案，只有一个没有签过任何条约的运营方，和一个没有人敢测试的开关。
+            </p>
+
+
+                        <p class="pol-section">■ 极点大陆封锁线的性质争议</p>
+            <p class="pol-body">
+极点大陆的存在本身不是秘密，秘密是那条封锁线是谁建的，为什么建，以及为什么所有已知的探索尝试都在距离海岸线固定距离处遭遇不明原因的设备失效。
+
+目前有据可查的探索尝试共计四十七次，无一成功进入内陆，无一出现人员伤亡。这一零伤亡记录本身就是最令研究者困惑的数据点：一个主动驱离探索者的防御体系，选择让所有人活着回去，意味着什么？
+
+各方对极点大陆性质的推断存在根本分歧。即使是在卫星上观测，或者以轨道空降仓进入极点大陆，都无法获得任何情报。主流观点是"未知文明或远古设施"。部分国家的内部评估文件将其定性为某种自主运行的非生物智能体系，另一些文件则指向更古老的可能性——先驱者帝国的某项未竟工程，或者世界树系统的一个外部延伸节点。
+
+没有国家公开宣布对极点大陆拥有主权主张，但没有国家停止尝试进入。
+
+            </p>
+
+
+
+            <p class="pol-section">■ 星间林地联合政府之倡议？</p>
+            <p class="pol-body">
+这个问题第一次被正式提出是在行星保障工程临时协议第十七次续签谈判破裂后的第三天。提出者是博爱联盟共和国的一位三尾聆族外交官，发言场合是一个没有正式议程的非正式晚宴。没有人当场回应，但所有人都把这句话带回去了。
+倡议的逻辑链条是清晰的，甚至是无可辩驳的。行星保障工程需要统一的维护主体，跨文明基础设施需要超主权的仲裁机制，物理学大崩坏带来的星际扩张议题需要一个能代表整个星球发言的政治实体。每一个问题单独拿出来都指向同一个方向，而这个方向有一个名字。
+反对的声音同样清晰，同样无可辩驳。
+恩泽帝国的立场从未动摇：帝皇家族以常年抵御蜂龙入侵的代价换来的秩序，不会拱手让给一个席位分配尚不明朗的超国家机构。蜂龙意识共同体从未就此表态，但其在谈判桌上的未出席本身就被解读为否决——蜂龙的集体意识逻辑与任何代议制框架根本不相容，强行纳入只会制造一个无法被约束的成员，强行排除则意味着联合政府的防务职能从第一天起就存在致命漏洞。精灵方面的态度一如既往：出席，沉默，在表决前离席。
+更深的问题在于倡议本身的内部矛盾。联合政府意味着主权让渡，而主权让渡意味着现有的权力结构将被重新计算。寿命三千年的精灵在任何代议制框架下都将系统性地积累政治资产；不屈民四十年的寿命决定了其代表在任何长周期决策中都将处于结构性劣势；蜂龙的票权如何折算成个体数量是一道没有标准答案的数学题。这些不是技术性障碍，是文明级别的根本性差异，而联合政府恰恰需要在这些差异之上建立一套被所有人接受的权力分配逻辑。
+目前没有任何国家正式提交过联合政府的成立提案。倡议停留在倡议的状态，在每一次国际危机后热度上升，在危机平息后悄然降温，循环往复，像一道所有人都知道答案却没有人愿意第一个说出口的题目。
+
+
+
+            <p class="pol-footnote">* 以上分析基于公开外交档案与田野调研；本页数据由观星塔组织整理，不代表任何政治立场。</p>
+
+        </div>
+
+    </div><!-- 结束内容区 -->
+
+    <!-- ===== 右侧滚动条 ===== -->
+    <!-- 这是图片右侧黑线位置对应的自定义滚动条轨道 -->
+    <!-- 轨道（track）是固定的背景线，滑块（thumb）随内容滚动位置移动 -->
+    <div class="politics-scrollbar" id="politics-scrollbar">
+        <!-- 滑块：用户可以拖动它，也可以滚轮滚动内容区让它自动移动 -->
+        <div class="politics-scrollbar-thumb" id="politics-scrollbar-thumb"></div>
+    </div>
+
+</div>
+<!-- ===== 政治体系面板结束 ===== -->
+
+
+<!-- ===================================================
+     货币体系面板
+     结构与政治体系面板完全一致
+     背景图：CurrencySystemAD.png
+     文字叠加在图片的各个区域上
+=================================================== -->
+<div id="currency-panel" class="currency-panel">
+
+    <!-- 背景板：CurrencySystemAD.png 铺满整个面板 -->
+    <img class="currency-bg" src="./assets/CurrencySystemAD.png" alt="货币体系背景板">
+
+    <!-- 关闭按钮：右上角 X -->
+    <button class="currency-close" id="currency-close">✕</button>
+
+<!-- 标题区域 -->
+<div class="cur-title-block">
+    <h3 class="cur-main-title">国际货币体系</h3>
+    <p class="cur-title-desc">
+        本星球的国际货币体系由各主权国家的<br>法定货币、国际储备货币、结算机制与金融组织共同构成
+   
+    </p>
+</div>
+
+    <!-- =============================================
+         左上区块：货币体系概述
+         对应图片左上方的浅色卡槽
+    ============================================= -->
+    <div class="cur-block cur-overview">
+        <!-- 区块标题 -->
+        <p class="cur-block-title">✦ 货币体系概述</p>
+        <!-- 正文：三层体系概述 -->
+        <p class="cur-block-body">
+            现行体系由三个层级松散叠加而成。主权货币构成第一层，各文明依据自身政治结构独立发行，汇率由市场与政治力量共同决定；区域结算协议构成第二层，以贸易同盟或政治联盟为边界；行星保障工程催生的跨文明清算机制构成第三层，以资源当量单位为记账基础，是目前唯一真正跨越所有主要文明的结算框架，但其法律归属至今悬而未决。
+        </p>
+    </div>
+
+    <!-- =============================================
+         左下区块：三大自然矿石
+         对应图片左下方三个矿石图标旁的文字区域
+         图标已经在背景图里，这里只叠加文字
+    ============================================= -->
+    <div class="cur-block cur-minerals">
+        <!-- 区块标题 -->
+        <p class="cur-block-title">✦ 货币性质的三大自然矿石</p>
+
+        <!-- 矿石1：黄金 -->
+        <div class="cur-mineral-item">
+            <br>
+            <p class="cur-mineral-name">黄金</p>
+            <!-- 简短描述，对应图片中图标右侧的文字区 -->
+            <p class="cur-mineral-desc">化学性质稳定、不腐蚀、不氧化<br>延展性好总量有限<br>且开采成本足以防止滥产。</p>
+        </div>
+
+        <!-- 矿石2：灵石 -->
+        <div class="cur-mineral-item">
+            <p class="cur-mineral-name">灵石</p>
+            <p class="cur-mineral-desc">灵气元素的高密度固态凝聚体<br>灵石的等级差异显著。</p>
+        </div>
+
+        <!-- 矿石3：元素曜矿 -->
+        <div class="cur-mineral-item">
+            <p class="cur-mineral-name">元素曜矿</p>
+            <p class="cur-mineral-desc">元素曜矿是12种上位元素<br>在极端条件下以<br>非活性形态结晶而成的实体矿石</p>
+        </div>
+    </div>
+
+    <!-- =============================================
+         中下区块：汇率基准说明
+         对应图片中央星球下方的横向卡槽
+    ============================================= -->
+    <div class="cur-block cur-exchange">
+        <!-- 区块标题 -->
+        <p class="cur-block-title">✦ 汇率基准与锚定机制</p>
+        <!-- 正文 -->
+        <p class="cur-block-body">
+            精灵之桥货券因其"黄金性质"与免疫金融操控的特性，在实践中被大多数跨境交易者用作非正式计价基准，但这一地位从未经过任何条约确认。各主权货币的汇率由市场供需、政治干预与矿石储备规模共同决定，三者的权重因国而异，且从不对外公布。三大自然矿石提供了法币体系之外的硬锚定参照。
+        </p>
+    </div>
+
+    <!-- =============================================
+         中央统计数字区块
+         对应图片星球正下方的四个图标+数字区域
+         图标已在背景图中，这里叠加数字和标签文字
+    ============================================= -->
+    <div class="cur-stats-row">
+
+        <!-- 统计项1：主权国家数 -->
+        <div class="cur-stat-item">
+            <!-- 标签文字（图标下方） -->
+            <p class="cur-stat-label">主权国家数</p>
+            <!-- 大数字 -->
+            <p class="cur-stat-value">228</p>
+        </div>
+
+        <!-- 统计项2：法定货币数 -->
+        <div class="cur-stat-item">
+            <p class="cur-stat-label">法定货币数</p>
+            <p class="cur-stat-value">156</p>
+        </div>
+
+        <!-- 统计项3：锚定货币数 -->
+        <div class="cur-stat-item">
+            <p class="cur-stat-label">锚定货币数</p>
+            <p class="cur-stat-value">8</p>
+        </div>
+
+        <!-- 统计项4：货币联盟数 -->
+        <div class="cur-stat-item">
+            <p class="cur-stat-label">货币联盟数</p>
+            <p class="cur-stat-value">8</p>
+        </div>
+
+    </div>
+
+    <!-- =============================================
+         右侧区块：主要货币一览表
+         对应图片右侧的表格区域
+         图标列已在背景图中，这里叠加文字列
+    ============================================= -->
+    <div class="cur-block cur-table">
+
+        <!-- 表头 -->
+        <div class="cur-table-header">
+            <p class="cur-block-title" style="margin:0;">✦ 主要货币一览</p>
+        </div>
+
+        <!-- 表格列标题行 -->
+        <div class="cur-table-cols">
+            <span class="cur-col-icon"><!-- 图标列，背景图已有 --></span>
+            <span class="cur-col-name">货币名称</span>
+            <span class="cur-col-region">所属国家/地区</span>
+            <span class="cur-col-pct">全球占比</span>
+        </div>
+
+        <!-- 数据行：每行对应图片中一个货币图标 -->
+        <!-- 图标已在背景图中固定位置，文字行高需与图片图标行间距对齐 -->
+
+        <!-- 行1：精灵之桥货券 -->
+        <div class="cur-table-row">
+            <span class="cur-col-icon"></span>
+            <span class="cur-col-name">精灵之桥货券</span>
+            <span class="cur-col-region">精灵之桥</span>
+            <span class="cur-col-pct cur-pct-top">28%</span>
+        </div>
+
+        <!-- 行2：博爱之证 -->
+        <div class="cur-table-row">
+            <span class="cur-col-icon"></span>
+            <span class="cur-col-name">博爱之证</span>
+            <span class="cur-col-region">博爱联盟共和国</span>
+            <span class="cur-col-pct">20%</span>
+        </div>
+
+        <!-- 行3：帝国盾 -->
+        <div class="cur-table-row">
+            <span class="cur-col-icon"></span>
+            <span class="cur-col-name">帝国盾</span>
+            <span class="cur-col-region">恩泽帝国</span>
+            <span class="cur-col-pct">7%</span>
+        </div>
+
+        <!-- 行4：急符 -->
+        <div class="cur-table-row">
+            <span class="cur-col-icon"></span>
+            <span class="cur-col-name">急符</span>
+            <span class="cur-col-region">飞升大陆地区</span>
+            <span class="cur-col-pct">10%</span>
+        </div>
+
+        <!-- 行5：正直印章 -->
+        <div class="cur-table-row">
+            <span class="cur-col-icon"></span>
+            <span class="cur-col-name">正直印章</span>
+            <span class="cur-col-region">深海联盟</span>
+            <span class="cur-col-pct">2%</span>
+        </div>
+
+        <!-- 行6：联合元 -->
+        <div class="cur-table-row">
+            <span class="cur-col-icon"></span>
+            <span class="cur-col-name">联合元</span>
+            <span class="cur-col-region">南海工业联合体</span>
+            <span class="cur-col-pct">3%</span>
+        </div>
+
+        <!-- 行7：列王金 -->
+        <div class="cur-table-row">
+            <span class="cur-col-icon"></span>
+            <span class="cur-col-name">列王金</span>
+            <span class="cur-col-region">三十列王联合帝国</span>
+            <span class="cur-col-pct">1%</span>
+        </div>
+
+        <!-- 行8：圣泪币 -->
+        <div class="cur-table-row">
+            <span class="cur-col-icon"></span>
+            <span class="cur-col-name">圣泪币</span>
+            <span class="cur-col-region">拜泪教信徒区域</span>
+            <span class="cur-col-pct">13%</span>
+        </div>
+
+        <!-- 行9：其他主权货币 -->
+        <div class="cur-table-row cur-table-row--dim">
+            <span class="cur-col-icon"></span>
+            <span class="cur-col-name">其他主权货币</span>
+            <span class="cur-col-region">其他主权</span>
+            <span class="cur-col-pct">11%</span>
+        </div>
+
+        <!-- 行10：非货币经济体 -->
+        <div class="cur-table-row cur-table-row--dim">
+            <span class="cur-col-icon"></span>
+            <span class="cur-col-name">其他形式贸易</span>
+            <span class="cur-col-region">非货币经济体</span>
+            <span class="cur-col-pct">5%</span>
+        </div>
+
+    </div><!-- 结束右侧表格区块 -->
+
+</div>
+<!-- ===== 货币体系面板结束 ===== -->
+
+<!-- ===================================================
+     历史时间线面板
+     交互方式与政治体系面板完全一致（从下方浮出）
+     背景图：HistoricalTimelineAD.png
+     时间轴内容区域：横向滚动，鼠标滚轮左右翻动
+=================================================== -->
+<div id="timeline-panel" class="timeline-panel">
+
+    <!-- 背景板：HistoricalTimelineAD.png 铺满整个面板 -->
+    <img class="timeline-bg" src="./assets/HistoricalTimelineAD.png" alt="历史时间线背景板">
+
+    <!-- 关闭按钮：右上角，与参考图位置一致，显示"✕ 退出" -->
+    <button class="timeline-close" id="timeline-close">✕</button>
+
+    <!-- 面板标题：对应背景图顶部标题框位置 -->
+    <div class="tl-title-block">
+        <h2 class="tl-main-title">历史时间线</h2>
+        <!-- 副标题 -->
+        <p class="tl-subtitle">◆ 星间林地的漫长历史 ◆</p>
+    </div>
+
+    <!-- =============================================
+         时间轴主体容器
+         对应背景图中间的大横向长方框区域
+         overflow-x: scroll 允许横向滚动
+         用户通过鼠标滚轮左右翻动
+    ============================================= -->
+    <div class="tl-scroll-area" id="tl-scroll-area">
+
+        <!-- 时间轴内容轨道：所有事件节点横向排列在这里 -->
+        <!-- 宽度由内容决定，超出容器宽度后横向滚动 -->
+        <div class="tl-track" id="tl-track">
+
+            <!-- ==========================================
+                 时间轴中央横线
+                 贯穿整个轨道的装饰线
+            ========================================== -->
+            <div class="tl-line"></div>
+
+            <!-- ==========================================
+                 纪元分组标签（背景色块，标记大纪元区间）
+                 每个纪元对应一段时间范围
+                 left 值根据时间比例计算（JS动态设置）
+                 这里先用 data-year-start 和 data-year-end 标记
+            ========================================== -->
+
+
+
+            <!-- ==========================================
+                 事件节点
+                 每个节点包含：
+                 - 圆点（在时间轴线上）
+                 - 连接竖线
+                 - 事件卡片（交替上下排列）
+                 data-year：该事件的年份，JS用于计算left位置
+                 tl-node--up：卡片在线上方
+                 tl-node--down：卡片在线下方
+            ========================================== -->
+
+            <!-- 远古纪元节点 -->
+
+            <!-- 节点：约-1,000,000年 -->
+            <div class="tl-node tl-node--up" data-year="-1000000">
+                <div class="tl-card">
+                    <p class="tl-card-year">约 -1,000,000 年</p>
+                    <p class="tl-card-tag tl-tag--science">【考古】</p>
+                    <p class="tl-card-text">恩泽大陆北部地层发现早期居云者羽骨化石。已知最古老的智慧物种生物性证据。</p>
+                </div>
+                <div class="tl-stem"></div><!-- 节点与卡片之间的连接竖线 -->
+                <div class="tl-dot"></div><!-- 时间轴线上的圆点 -->
+            </div>
+
+                        <!-- 节点：约-700,000年 -->
+            <div class="tl-node tl-node--up" data-year="-700000">
+                <div class="tl-card">
+                    <p class="tl-card-year">约 -800,000 年</p>
+                    <p class="tl-card-tag tl-tag--science">【考古】</p>
+                    <p class="tl-card-text">早期蜂龙突触肢体化石被确认。这说明蜂龙在早期就已经具备了复杂的神经系统和蜂群意识。</p>
+                </div>
+                <div class="tl-stem"></div><!-- 节点与卡片之间的连接竖线 -->
+                <div class="tl-dot"></div><!-- 时间轴线上的圆点 -->
+            </div>
+
+            <!-- 节点：约-500,000年 -->
+            <div class="tl-node tl-node--down" data-year="-500000">
+                <div class="tl-dot"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card">
+                    <p class="tl-card-year">约 -500,000 年</p>
+                    <p class="tl-card-tag tl-tag--science">【考古】</p>
+                    <p class="tl-card-text">蜂龙大陆北部远初树族的根系化石网络被确认，地质年代约五十万年前。</p>
+                </div>
+            </div>
+
+            <!-- 节点：约-300,000年 -->
+            <div class="tl-node tl-node--up" data-year="-300000">
+                <div class="tl-card">
+                    <p class="tl-card-year">约 -300,000 年</p>
+                    <p class="tl-card-tag tl-tag--science">【考古】</p>
+                    <p class="tl-card-text">博爱大陆西部发现大规模三尾聆族祖先聚居遗址，陶器与骨制工具显示高度社会协作迹象。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：约-100,000年 -->
+            <div class="tl-node tl-node--down" data-year="-100000">
+                <div class="tl-dot"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card">
+                    <p class="tl-card-year">约 -100,000 年</p>
+                    <p class="tl-card-tag tl-tag--culture">【文明】</p>
+                    <p class="tl-card-text">恩泽大陆出现最早的白尾族城邦遗址，城墙结构显示已有明确领土意识与防御需求。</p>
+                </div>
+            </div>
+
+            <!-- 节点：约-70,000年 -->
+            <div class="tl-node tl-node--up" data-year="-70000">
+                <div class="tl-card">
+                    <p class="tl-card-year">约 -70,000 年</p>
+                    <p class="tl-card-tag tl-tag--politics">【政治】</p>
+                    <p class="tl-card-text">先驱者帝国出现。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：约-50,000年 -->
+            <div class="tl-node tl-node--down" data-year="-50000">
+                <div class="tl-dot"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card">
+                    <p class="tl-card-year">约 -50,000 年</p>
+                    <p class="tl-card-tag tl-tag--culture">【文明】</p>
+                    <p class="tl-card-text">飞升大陆发现不屈民最早的文字记录——刻在岩壁上的族群迁徙路线图，共记录十七次大规模迁徙事件。</p>
+                </div>
+            </div>
+
+            <!-- 节点：约-40,000年 -->
+            <div class="tl-node tl-node--up" data-year="-40000">
+                <div class="tl-card">
+                    <p class="tl-card-year">约 -40,000 年</p>
+                    <p class="tl-card-tag tl-tag--culture">【文明】</p>
+                    <p class="tl-card-text">世界各地均已完成原始农业革命。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：约-20,000年 -->
+            <div class="tl-node tl-node--down" data-year="-20000">
+                <div class="tl-dot"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card">
+                    <p class="tl-card-year">约 -20,000 年</p>
+                    <p class="tl-card-tag tl-tag--politics">【政治】</p>
+                    <p class="tl-card-text">【隐者教条】被认为是第一部成文法典，确立了公平贸易原则。</p>
+                </div>
+            </div>
+
+            <!-- 节点：约-12,000年 -->
+            <div class="tl-node tl-node--up" data-year="-12000">
+                <div class="tl-card">
+                    <p class="tl-card-year">约 -12,000 年</p>
+                    <p class="tl-card-tag tl-tag--war">【军事】</p>
+                    <p class="tl-card-text">避世的幽泉谷势力突然出现在历史上，为在抵抗蜂龙入侵中苦苦支撑的恩泽大陆诸国提供宝贵支援。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：约-5,500年 -->
+            <div class="tl-node tl-node--down" data-year="-5500">
+                <div class="tl-dot"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card">
+                    <p class="tl-card-year">约 -5,500 年</p>
+                    <p class="tl-card-tag tl-tag--religion">【宗教】</p>
+                    <p class="tl-card-text">拜泪教圣子诞生。拜泪教成为第一个有严格组织形式的宗教。</p>
+                </div>
+            </div>
+
+            <!-- 节点：约-3,000年 -->
+            <div class="tl-node tl-node--up" data-year="-3000">
+                <div class="tl-card">
+                    <p class="tl-card-year">约 -3,000 年</p>
+                    <p class="tl-card-tag tl-tag--politics">【政治】</p>
+                    <p class="tl-card-text">为应对蜂龙入侵的加剧，苍空神殿骑士团国成立，是世界上第一个完全永久军事状态的军队国家。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 前精灵历纪元节点 -->
+
+            <!-- 节点：-2333年 -->
+            <div class="tl-node tl-node--down" data-year="-2333">
+                <div class="tl-dot"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card">
+                    <p class="tl-card-year">-2333 年</p>
+                    <p class="tl-card-tag tl-tag--politics">【政治】</p>
+                    <p class="tl-card-text">居云者于天空群岛成立世界上第一个议会共和国。</p>
+                </div>
+            </div>
+
+            <!-- 节点：-1802年 -->
+            <div class="tl-node tl-node--up" data-year="-1802">
+                <div class="tl-card">
+                    <p class="tl-card-year">-1802 年</p>
+                    <p class="tl-card-tag tl-tag--politics">【政治】</p>
+                    <p class="tl-card-text">在居云者的支持下，蜂龙大陆南部耳语者成立灵云王庭，是世界上首个民族国家。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：-1789年 -->
+            <div class="tl-node tl-node--down" data-year="-1789">
+                <div class="tl-dot"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card">
+                    <p class="tl-card-year">-1789 年</p>
+                    <p class="tl-card-tag tl-tag--disaster">【灾难】</p>
+                    <p class="tl-card-text">铃兰涯湾惨案。1000余名精灵奴隶被处决，数量稀少且无法与其他种族联姻的精灵生存状况惨烈。</p>
+                </div>
+            </div>
+
+            <!-- 节点：-1000年 -->
+            <div class="tl-node tl-node--up" data-year="-1000">
+                <div class="tl-card">
+                    <p class="tl-card-year">约 -1,000 年</p>
+                    <p class="tl-card-tag tl-tag--politics">【政治】</p>
+                    <p class="tl-card-text">海之子开始扩张自己的陆上领地。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：-789年（祈星封圣）-->
+            <div class="tl-node tl-node--down" data-year="-789">
+                <div class="tl-dot tl-dot--special"></div><!-- 特殊节点：金色大圆点 -->
+                <div class="tl-stem"></div>
+                <div class="tl-card tl-card--special">
+                    <p class="tl-card-year">-789 年</p>
+                    <p class="tl-card-tag tl-tag--religion">【宗教】</p>
+                    <p class="tl-card-text">白鹿族精灵【白鹿=祈星】封圣。精灵二十四族裔第一位在世封圣者，这位被封圣者的上位元素亲和指数几乎达到了10（被视为元素本身）。</p>
+                </div>
+            </div>
+
+            <!-- 节点：-750年（先驱者大爆炸）-->
+            <div class="tl-node tl-node--up" data-year="-750">
+                <div class="tl-card tl-card--special">
+                    <p class="tl-card-year">-750 年</p>
+                    <p class="tl-card-tag tl-tag--disaster">【灾难】</p>
+                    <p class="tl-card-text">先驱者帝国大爆炸。海啸和烟尘席卷世界，无数人殒命。先驱者帝国解体，帝国南部领土军阀化。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot tl-dot--special"></div>
+            </div>
+
+            <!-- 节点：-700年（狂乱之海平息）-->
+            <div class="tl-node tl-node--down" data-year="-700">
+                <div class="tl-dot tl-dot--special"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card tl-card--special">
+                    <p class="tl-card-year">-700 年</p>
+                    <p class="tl-card-tag tl-tag--natural">【自然】</p>
+                    <p class="tl-card-text">狂乱之海平息。持续数万年的极端风暴带在三年内迅速衰减，各大陆间的航行通道正式开启。</p>
+                </div>
+            </div>
+
+            <!-- 节点：-680年 -->
+            <div class="tl-node tl-node--up" data-year="-680">
+                <div class="tl-card">
+                    <p class="tl-card-year">-680 年</p>
+                    <p class="tl-card-tag tl-tag--culture">【文明】</p>
+                    <p class="tl-card-text">精灵中的顶尖个体发现并开始前往传说中世界树所在的【世界树山岭地区】。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：-650年 -->
+            <div class="tl-node tl-node--down" data-year="-650">
+                <div class="tl-dot"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card">
+                    <p class="tl-card-year">-650 年</p>
+                    <p class="tl-card-tag tl-tag--tech">【科技】</p>
+                    <p class="tl-card-text">全球化带来了第一次产业革命爆发。</p>
+                </div>
+            </div>
+
+            <!-- 节点：-633年 -->
+            <div class="tl-node tl-node--up" data-year="-633">
+                <div class="tl-card">
+                    <p class="tl-card-year">-633 年</p>
+                    <p class="tl-card-tag tl-tag--science">【考古】</p>
+                    <p class="tl-card-text">海洋学者联盟绘制基本世界地图。精灵大陆前身【禁断岛】被发现，超高复杂度的自然化结界阻断了任何形式的进一步探索。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：-620年 -->
+            <div class="tl-node tl-node--down" data-year="-620">
+                <div class="tl-dot"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card">
+                    <p class="tl-card-year">-620 年</p>
+                    <p class="tl-card-tag tl-tag--war">【军事】</p>
+                    <p class="tl-card-text">恩泽帝国发动一系列西扩战争。</p>
+                </div>
+            </div>
+
+            <!-- 节点：-617年 -->
+            <div class="tl-node tl-node--up" data-year="-617">
+                <div class="tl-card">
+                    <p class="tl-card-year">-617 年</p>
+                    <p class="tl-card-tag tl-tag--culture">【文明】</p>
+                    <p class="tl-card-text">精灵秘密突入禁断岛结界并开始秘密殖民，神月城开始建设。持续600余年的"精灵回归运动"开始。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：-601年 -->
+            <div class="tl-node tl-node--down" data-year="-601">
+                <div class="tl-dot"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card">
+                    <p class="tl-card-year">-601 年</p>
+                    <p class="tl-card-tag tl-tag--politics">【政治】</p>
+                    <p class="tl-card-text">飞升大陆积极抵御恩泽西扩战争，导致巅峰联合体成立。</p>
+                </div>
+            </div>
+
+            <!-- 节点：-593年 -->
+            <div class="tl-node tl-node--up" data-year="-593">
+                <div class="tl-card">
+                    <p class="tl-card-year">-593 年</p>
+                    <p class="tl-card-tag tl-tag--war">【军事】</p>
+                    <p class="tl-card-text">蜂龙同步完成第一次产业革命，入侵加剧。蜂龙防御同盟建立。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：-511年 -->
+            <div class="tl-node tl-node--down" data-year="-511">
+                <div class="tl-dot"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card">
+                    <p class="tl-card-year">-511 年</p>
+                    <p class="tl-card-tag tl-tag--politics">【政治】</p>
+                    <p class="tl-card-text">居云者和平分裂为居云者商共与居云者军团国。</p>
+                </div>
+            </div>
+
+            <!-- 节点：-488年 -->
+            <div class="tl-node tl-node--up" data-year="-488">
+                <div class="tl-card">
+                    <p class="tl-card-year">-488 年</p>
+                    <p class="tl-card-tag tl-tag--religion">【宗教】</p>
+                    <p class="tl-card-text">拜泪教完全占领除居云者和海之子领地以外的全部日月星大陆，日月星列岛国度宣告成立。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：-422年 -->
+            <div class="tl-node tl-node--down" data-year="-422">
+                <div class="tl-dot tl-dot--special"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card tl-card--special">
+                    <p class="tl-card-year">-422 年</p>
+                    <p class="tl-card-tag tl-tag--tech">【科技】</p>
+                    <p class="tl-card-text">12种上位元素和118种基本元素的混用科技突破，引发第二次产业革命。</p>
+                </div>
+            </div>
+
+            
+
+            <!-- 节点：-397年 -->
+            <div class="tl-node tl-node--up" data-year="-397">
+                <div class="tl-card">
+                    <p class="tl-card-year">-397 年</p>
+                    <p class="tl-card-tag tl-tag--economy">【经济】</p>
+                    <p class="tl-card-text">公平诚信商业贸易同盟正式签署，被认为是博爱联盟共和国的诞生基础。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：-312年 -->
+            <div class="tl-node tl-node--down" data-year="-312">
+                <div class="tl-dot tl-dot--special"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card tl-card--special">
+                    <p class="tl-card-year">-312 年</p>
+                    <p class="tl-card-tag tl-tag--war">【军事】</p>
+                    <p class="tl-card-text">蜂龙完成第二次产业革命，向神禁半岛投放了第一颗原子核炸弹，举世震惊。</p>
+                </div>
+            </div>
+
+            <!-- 节点：-306年 -->
+            <div class="tl-node tl-node--up" data-year="-306">
+                <div class="tl-card tl-card--special">
+                    <p class="tl-card-year">-306 年</p>
+                    <p class="tl-card-tag tl-tag--war">【战争】</p>
+                    <p class="tl-card-text">惨烈的二百年战争爆发。频繁的原子核武器使用使星球情况急剧恶化。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot tl-dot--special"></div>
+            </div>
+
+            <!-- 节点：-255年 -->
+            <div class="tl-node tl-node--down" data-year="-255">
+                <div class="tl-dot"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card">
+                    <p class="tl-card-year">-255 年</p>
+                    <p class="tl-card-tag tl-tag--tech">【科技】</p>
+                    <p class="tl-card-text">先驱者破碎帝国对外销售肃正弹头。精灵借幽泉谷势力公开上位元素技法《辉煌蒸馏》，逆转核污染。</p>
+                </div>
+            </div>
+
+            <!-- 节点：-212年 -->
+            <div class="tl-node tl-node--up" data-year="-212">
+                <div class="tl-card">
+                    <p class="tl-card-year">-212 年</p>
+                    <p class="tl-card-tag tl-tag--politics">【政治】</p>
+                    <p class="tl-card-text">精灵24族裔公开宣称对禁断岛全境的主权，更名为精灵大陆。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：-211年（禁咒战役）-->
+            <div class="tl-node tl-node--down" data-year="-211">
+                <div class="tl-dot tl-dot--special"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card tl-card--special">
+                    <p class="tl-card-year">-211 年 【禁咒战役】</p>
+                    <p class="tl-card-tag tl-tag--war">【战争】</p>
+                    <p class="tl-card-text">精灵研制三枚元素炸弹（42京焦耳当量），摧毁蜂龙两大聚集地，炸断蜂龙大陆中南连接，形成禁咒海峡。二百年战争蜂龙转向守势。</p>
+                </div>
+            </div>
+
+            <!-- 节点：-101年 -->
+            <div class="tl-node tl-node--up" data-year="-101">
+                <div class="tl-card">
+                    <p class="tl-card-year">-101 年</p>
+                    <p class="tl-card-tag tl-tag--war">【军事】</p>
+                    <p class="tl-card-text">蜂龙联合防御军在禁咒海峡北岸开辟新战线，占领区由南方联盟联合防御委员会托管。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：-58年 -->
+            <div class="tl-node tl-node--down" data-year="-58">
+                <div class="tl-dot tl-dot--special"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card tl-card--special">
+                    <p class="tl-card-year">-58 年</p>
+                    <p class="tl-card-tag tl-tag--politics">【外交】</p>
+                    <p class="tl-card-text">蜂龙意识共同体提出议和，二百年战争结束。蜂龙自由意识团结阵线宣布独立。南方联盟联合防御委员会占领氤氲半岛。</p>
+                </div>
+            </div>
+
+            <!-- 节点：-38年 -->
+            <div class="tl-node tl-node--up" data-year="-38">
+                <div class="tl-card">
+                    <p class="tl-card-year">-38 年</p>
+                    <p class="tl-card-tag tl-tag--war">【战争】</p>
+                    <p class="tl-card-text">精灵独立战争·凛冬战争爆发。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 精灵历纪元节点 -->
+
+            <!-- 节点：0年（精灵建国）-->
+            <div class="tl-node tl-node--down" data-year="0">
+                <div class="tl-dot tl-dot--special"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card tl-card--special">
+                    <p class="tl-card-year">0 年 1月1日</p>
+                    <p class="tl-card-tag tl-tag--politics">【历法】</p>
+                    <p class="tl-card-text">精灵24族裔正式建国。精灵历法纪元起点。星间林地历法由此统一。</p>
+                </div>
+            </div>
+
+            <!-- 节点：3年 -->
+            <div class="tl-node tl-node--up" data-year="3">
+                <div class="tl-card">
+                    <p class="tl-card-year">3 年</p>
+                    <p class="tl-card-tag tl-tag--culture">【文明】</p>
+                    <p class="tl-card-text">碧之结界建设完成，凛冬战争结束。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：22年 -->
+            <div class="tl-node tl-node--down" data-year="22">
+                <div class="tl-dot"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card">
+                    <p class="tl-card-year">22 年</p>
+                    <p class="tl-card-tag tl-tag--politics">【政治】</p>
+                    <p class="tl-card-text">苍神缘起帝国建国。</p>
+                </div>
+            </div>
+
+            <!-- 节点：34年 -->
+            <div class="tl-node tl-node--up" data-year="34">
+                <div class="tl-card">
+                    <p class="tl-card-year">34 年</p>
+                    <p class="tl-card-tag tl-tag--politics">【政治】</p>
+                    <p class="tl-card-text">凛冬合众国建国。河童重工集团成立。螺旋岛群大规模填海造陆工程开始。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：79年（精灵之桥）-->
+            <div class="tl-node tl-node--down" data-year="79">
+                <div class="tl-dot tl-dot--special"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card tl-card--special">
+                    <p class="tl-card-year">79 年</p>
+                    <p class="tl-card-tag tl-tag--economy">【经济】</p>
+                    <p class="tl-card-text">精灵之桥正式建立。精灵24族裔承诺九成贸易净利润回流各国，条件是推行精灵历法统一世界交流。</p>
+                </div>
+            </div>
+
+            <!-- 节点：433年 -->
+            <div class="tl-node tl-node--up" data-year="433">
+                <div class="tl-card tl-card--special">
+                    <p class="tl-card-year">433 年</p>
+                    <p class="tl-card-tag tl-tag--natural">【自然】</p>
+                    <p class="tl-card-text">世界树复苏。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot tl-dot--special"></div>
+            </div>
+
+            <!-- 节点：453年 -->
+            <div class="tl-node tl-node--down" data-year="453">
+                <div class="tl-dot tl-dot--special"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card tl-card--special">
+                    <p class="tl-card-year">453 年</p>
+                    <p class="tl-card-tag tl-tag--war">【战争】</p>
+                    <p class="tl-card-text">复苏战争爆发。各国无法接受精灵控制能改变全星球环境的世界树，联合发动战争。四国集团正式结盟。</p>
+                </div>
+            </div>
+
+            <!-- 节点：500年 -->
+            <div class="tl-node tl-node--up" data-year="500">
+                <div class="tl-card">
+                    <p class="tl-card-year">500 年</p>
+                    <p class="tl-card-tag tl-tag--tech">【科技】</p>
+                    <p class="tl-card-text">世界树星球环境网络隐秘上线。第三次产业革命开始。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 扩张纪元节点 -->
+
+            <!-- 节点：689年 -->
+            <div class="tl-node tl-node--down" data-year="689">
+                <div class="tl-dot"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card">
+                    <p class="tl-card-year">689 年</p>
+                    <p class="tl-card-tag tl-tag--tech">【科技】</p>
+                    <p class="tl-card-text">第一座以混合上位元素为原理的根源发电厂，在南方工业联合体衔尾蛇城投入使用。</p>
+                </div>
+            </div>
+
+            <!-- 节点：733年 -->
+            <div class="tl-node tl-node--up" data-year="733">
+                <div class="tl-card">
+                    <p class="tl-card-year">733 年</p>
+                    <p class="tl-card-tag tl-tag--tech">【科技】</p>
+                    <p class="tl-card-text">恩泽帝国读心矩阵投入使用。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：821年（AGI）-->
+            <div class="tl-node tl-node--down" data-year="821">
+                <div class="tl-dot tl-dot--special"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card tl-card--special">
+                    <p class="tl-card-year">821 年</p>
+                    <p class="tl-card-tag tl-tag--tech">【科技】</p>
+                    <p class="tl-card-text">完全通用AGI诞生。被创造的生命——合成人成为新物种。</p>
+                </div>
+            </div>
+
+            <!-- 节点：1123年 -->
+            <div class="tl-node tl-node--up" data-year="1123">
+                <div class="tl-card">
+                    <p class="tl-card-year">1123 年</p>
+                    <p class="tl-card-tag tl-tag--politics">【政治】</p>
+                    <p class="tl-card-text">深海联盟成立。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：1457年 -->
+            <div class="tl-node tl-node--down" data-year="1457">
+                <div class="tl-dot"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card">
+                    <p class="tl-card-year">1457 年</p>
+                    <p class="tl-card-tag tl-tag--politics">【政治】</p>
+                    <p class="tl-card-text">赤潮同盟公投脱离博爱联盟独立建国。</p>
+                </div>
+            </div>
+
+            <!-- 节点：2088年 -->
+            <div class="tl-node tl-node--up" data-year="2088">
+                <div class="tl-card">
+                    <p class="tl-card-year">2088 年</p>
+                    <p class="tl-card-tag tl-tag--tech">【科技】</p>
+                    <p class="tl-card-text">算法利维坦"无形链接"投入使用。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：2279年 -->
+            <div class="tl-node tl-node--down" data-year="2279">
+                <div class="tl-dot"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card">
+                    <p class="tl-card-year">2279 年</p>
+                    <p class="tl-card-tag tl-tag--tech">【科技】</p>
+                    <p class="tl-card-text">机械蜂群意识工程【终局节点】上线。</p>
+                </div>
+            </div>
+
+            <!-- 危机纪元节点 -->
+
+            <!-- 节点：2896年 -->
+            <div class="tl-node tl-node--up" data-year="2896">
+                <div class="tl-card tl-card--special">
+                    <p class="tl-card-year">2896 年</p>
+                    <p class="tl-card-tag tl-tag--disaster">【灾难】</p>
+                    <p class="tl-card-text">「极点大陆报告」。极点大陆失去联系，任何手段均无法探测其内部。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot tl-dot--special"></div>
+            </div>
+
+            <!-- 节点：3233年 -->
+            <div class="tl-node tl-node--down" data-year="3233">
+                <div class="tl-dot"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card">
+                    <p class="tl-card-year">3233 年</p>
+                    <p class="tl-card-tag tl-tag--tech">【科技】</p>
+                    <p class="tl-card-text">四国集团下水「大调停者」级战列舰，可局部完全效率调用上位元素。精灵大贤者与苍神缘起帝国皇帝展开全球巡游。第四次产业革命开始。</p>
+                </div>
+            </div>
+
+            <!-- 现代纪元节点 -->
+
+            <!-- 节点：3855年（终末星环战争）-->
+            <div class="tl-node tl-node--up" data-year="3855">
+                <div class="tl-card tl-card--special">
+                    <p class="tl-card-year">3855 年</p>
+                    <p class="tl-card-tag tl-tag--war">【战争】</p>
+                    <p class="tl-card-text">伟大的终末星环战争爆发。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot tl-dot--special"></div>
+            </div>
+
+            <!-- 节点：3875年 -->
+            <div class="tl-node tl-node--down" data-year="3875">
+                <div class="tl-dot tl-dot--special"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card tl-card--special">
+                    <p class="tl-card-year">3875 年</p>
+                    <p class="tl-card-tag tl-tag--war">【战争】</p>
+                    <p class="tl-card-text">终末星环战争结束。行星轨道基础设施网络与世界树防御护盾开始建设。</p>
+                </div>
+            </div>
+
+            <!-- 节点：3880年 -->
+            <div class="tl-node tl-node--up" data-year="3880">
+                <div class="tl-card">
+                    <p class="tl-card-year">3880 年</p>
+                    <p class="tl-card-tag tl-tag--politics">【政治】</p>
+                    <p class="tl-card-text">四国集团宣布成立群星探索协议工业同盟。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：3973年 -->
+            <div class="tl-node tl-node--down" data-year="3973">
+                <div class="tl-dot tl-dot--special"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card tl-card--special">
+                    <p class="tl-card-year">3973 年</p>
+                    <p class="tl-card-tag tl-tag--science">【科学】</p>
+                    <p class="tl-card-text">基础物理学的大崩坏。星外探测数据确认上位元素在离开星间林地周边星域后出现结构异常。</p>
+                </div>
+            </div>
+
+            <!-- 节点：4002年 -->
+            <div class="tl-node tl-node--up" data-year="4002">
+                <div class="tl-card">
+                    <p class="tl-card-year">4002 年</p>
+                    <p class="tl-card-tag tl-tag--science">【探索】</p>
+                    <p class="tl-card-text">SOL3（地球所在星系）被群星探索协议工业同盟发现。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：4222年 -->
+            <div class="tl-node tl-node--down" data-year="4222">
+                <div class="tl-dot"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card">
+                    <p class="tl-card-year">4222 年</p>
+                    <p class="tl-card-tag tl-tag--politics">【外交】</p>
+                    <p class="tl-card-text">先驱者破碎帝国宣布结束外交孤立。各国发现先驱者在基础理论方面已不再具备绝对优势。</p>
+                </div>
+            </div>
+
+            <!-- 节点：4250年 -->
+            <div class="tl-node tl-node--up" data-year="4250">
+                <div class="tl-card">
+                    <p class="tl-card-year">4250 年</p>
+                    <p class="tl-card-tag tl-tag--tech">【科技】</p>
+                    <p class="tl-card-text">第五次产业革命。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：4262年 -->
+            <div class="tl-node tl-node--down" data-year="4262">
+                <div class="tl-dot"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card">
+                    <p class="tl-card-year">4262 年</p>
+                    <p class="tl-card-tag tl-tag--tech">【科技】</p>
+                    <p class="tl-card-text">搭载量子跃迁引擎的「信使」级大型战列舰启航，预计1000-1500年后抵达SOL3A轨道。</p>
+                </div>
+            </div>
+
+            <!-- 节点：4337年 -->
+            <div class="tl-node tl-node--up" data-year="4337">
+                <div class="tl-card tl-card--special">
+                    <p class="tl-card-year">4337 年</p>
+                    <p class="tl-card-tag tl-tag--disaster">【接触】</p>
+                    <p class="tl-card-text">外星利维坦降落在地狱列岛主岛。苍神缘起帝国第一皇女首次以亚空间生命体形态登场。同年外星利维坦被消灭。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot tl-dot--special"></div>
+            </div>
+
+            <!-- 节点：4430年 -->
+            <div class="tl-node tl-node--down" data-year="4430">
+                <div class="tl-dot"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card">
+                    <p class="tl-card-year">4430 年</p>
+                    <p class="tl-card-tag tl-tag--war">【军事】</p>
+                    <p class="tl-card-text">深海联盟正式开始量产「星弓」级行星战列舰。</p>
+                </div>
+            </div>
+
+            <!-- 节点：4580年 -->
+            <div class="tl-node tl-node--up" data-year="4580">
+                <div class="tl-card">
+                    <p class="tl-card-year">4580 年</p>
+                    <p class="tl-card-tag tl-tag--tech">【工程】</p>
+                    <p class="tl-card-text">行星主权联合星环开始建设。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：4752年 -->
+            <div class="tl-node tl-node--down" data-year="4752">
+                <div class="tl-dot"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card">
+                    <p class="tl-card-year">4752 年</p>
+                    <p class="tl-card-tag tl-tag--politics">【政治】</p>
+                    <p class="tl-card-text">跨国际实权组织星环防御委员会成立。</p>
+                </div>
+            </div>
+
+            <!-- 节点：5026年 -->
+            <div class="tl-node tl-node--up" data-year="5026">
+                <div class="tl-card">
+                    <p class="tl-card-year">5026 年</p>
+                    <p class="tl-card-tag tl-tag--politics">【外交】</p>
+                    <p class="tl-card-text">先驱者破碎帝国策划组建观星塔组织，并向SOL3A发送首个搭载亚维度穿梭引擎的非武装大型宇宙船。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot"></div>
+            </div>
+
+            <!-- 节点：5330年 -->
+            <div class="tl-node tl-node--down" data-year="5330">
+                <div class="tl-dot"></div>
+                <div class="tl-stem"></div>
+                <div class="tl-card">
+                    <p class="tl-card-year">5330 年</p>
+                    <p class="tl-card-tag tl-tag--tech">【工程】</p>
+                    <p class="tl-card-text">行星综合防卫系统开始建设。</p>
+                </div>
+            </div>
+
+            <!-- 节点：5499年（观星塔进入地月轨道）-->
+            <div class="tl-node tl-node--up" data-year="5499">
+                <div class="tl-card tl-card--special">
+                    <p class="tl-card-year">5499 年</p>
+                    <p class="tl-card-tag tl-tag--politics">【外交】</p>
+                    <p class="tl-card-text">观星塔组织进入地月轨道。</p>
+                </div>
+                <div class="tl-stem"></div>
+                <div class="tl-dot tl-dot--special"></div>
+            </div>
+
+            <!-- 时间轴末尾留白，防止最后一个节点贴边 -->
+            <div class="tl-end-spacer"></div>
+
+        </div><!-- 结束 tl-track -->
+
+    </div><!-- 结束 tl-scroll-area -->
+
+    <!-- =============================================
+         底部时间刻度轴
+         对应背景图下方横线区域
+         显示主要年份刻度
+    ============================================= -->
+    <div class="tl-ruler" id="tl-ruler">
+        <!-- 刻度由JS动态生成，与事件节点位置对齐 -->
+    </div>
+
+    <!-- 底部滚动提示文字 -->
+    <p class="tl-hint">*观星塔未得到权限完全公开所有基本历史史料</p>
+
+</div>
+<!-- ===== 历史时间线面板结束 ===== -->
+
+
+<!-- ===================================================
+     巨型企业面板
+     交互方式与政治体系面板完全一致（从下方浮出）
+     背景图：MegacorporationsAD.png
+     
+=================================================== -->
+<div id="mega-panel" class="mega-panel">
+
+    <!-- 背景板：MegacorporationsAD.png 铺满整个面板 -->
+    <img class="mega-bg" src="./assets/MegacorporationsAD.png" alt="巨型企业背景板">
+
+    <!-- 关闭按钮：右上角 -->
+    <button class="mega-close" id="mega-close">✕</button>
+
+    <!-- =============================================
+         左侧信息栏
+         对应背景图左侧竖向装饰区域
+         包含面板标题和概览数据
+    ============================================= -->
+    <div class="mega-sidebar">
+
+        <!-- 面板主标题 -->
+        <p class="mega-main-title">巨型企业总览</p>
+        <p class="mega-subtitle">星间林地 · 所有已知巨型企业</p>
+
+        <!-- 概览数据块 -->
+        <div class="mega-overview">
+
+            <!-- 数据项：已收录企业数 -->
+            <div class="mega-stat">
+                <p class="mega-stat-label">已收录企业</p>
+                <p class="mega-stat-value">42</p>
+            </div>
+
+            <!-- 数据项：企业性国家数 -->
+            <div class="mega-stat">
+                <p class="mega-stat-label">企业性国家</p>
+                <p class="mega-stat-value">4</p>
+            </div>
+
+            <!-- 数据项：行星级联合组织数 -->
+            <div class="mega-stat">
+                <p class="mega-stat-label">行星级联合组织</p>
+                <p class="mega-stat-value">7</p>
+            </div>
+
+            <!-- 数据项：覆盖主权国家数 -->
+            <div class="mega-stat">
+                <p class="mega-stat-label">覆盖主权国家</p>
+                <p class="mega-stat-value">228</p>
+            </div>
+
+        </div>
+
+        <!-- 底部备注 -->
+        <p class="mega-footnote">数据来源：观星塔组织企业研究所<br>· 星间林地历5501年度报告</p>
+
+    </div>
+
+    <!-- =============================================
+         右侧排行榜主体
+         对应背景图右侧的横线表格区域
+         纵向可滚动，鼠标滚轮上下翻动
+    ============================================= -->
+    <div class="mega-table-wrap" id="mega-table-wrap">
+
+        <!-- 表头行：列标题 -->
+        <div class="mega-table-header">
+            <span class="mg-col-rank">排名</span>
+            <span class="mg-col-name">企业名称</span>
+            <span class="mg-col-region">国家/地区</span>
+            <span class="mg-col-industry">行业</span>
+            <span class="mg-col-tier">梯队</span>
+        </div>
+
+        <!-- ==========================================
+             第一梯队：行星级存在
+             背景色略深以区分梯队
+        ========================================== -->
+
+        <!-- 梯队分隔标题行 -->
+        <div class="mega-tier-label mega-tier-label--1">
+            ◈ 第一梯队 · 行星级存在
+        </div>
+
+        <!-- 排名1：终末星环委员会 -->
+        <div class="mega-row mega-row--tier1">
+            <span class="mg-col-rank">
+                <span class="mg-rank-num">1</span>
+            </span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">终末星环委员会</p>
+                <p class="mg-name-desc">行星主权联合星环的建设、扩张、维护、使用和运营</p>
+            </span>
+            <span class="mg-col-region">行星级联合组织</span>
+            <span class="mg-col-industry">行星防御基础设施</span>
+            <span class="mg-col-tier mg-tier--planetary">行星级</span>
+        </div>
+
+        <!-- 排名2：恒星融解集团 -->
+        <div class="mega-row mega-row--tier1">
+            <span class="mg-col-rank"><span class="mg-rank-num">2</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">恒星融解集团</p>
+                <p class="mg-name-desc">行星轨道基础设施网络的建设、扩张、维护、使用和运营</p>
+            </span>
+            <span class="mg-col-region">行星级联合组织</span>
+            <span class="mg-col-industry">轨道基础设施</span>
+            <span class="mg-col-tier mg-tier--planetary">行星级</span>
+        </div>
+
+        <!-- 排名3：祷星者联合集体 -->
+        <div class="mega-row mega-row--tier1">
+            <span class="mg-col-rank"><span class="mg-rank-num">3</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">祷星者联合集体</p>
+                <p class="mg-name-desc">行星综合防卫系统建设、扩张、维护、使用和运营</p>
+            </span>
+            <span class="mg-col-region">行星级联合组织</span>
+            <span class="mg-col-industry">行星综合防卫</span>
+            <span class="mg-col-tier mg-tier--planetary">行星级</span>
+        </div>
+
+        <!-- 排名4：群星探索协议工业同盟 -->
+        <div class="mega-row mega-row--tier1">
+            <span class="mg-col-rank"><span class="mg-rank-num">4</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">群星探索协议工业同盟</p>
+                <p class="mg-name-desc">科研、探索、太空工业等</p>
+            </span>
+            <span class="mg-col-region">行星级联合组织</span>
+            <span class="mg-col-industry">科研 · 太空工业</span>
+            <span class="mg-col-tier mg-tier--planetary">行星级</span>
+        </div>
+
+        <!-- 排名5：至高之旗军团 -->
+        <div class="mega-row mega-row--tier1">
+            <span class="mg-col-rank"><span class="mg-rank-num">5</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">至高之旗军团</p>
+                <p class="mg-name-desc">寻求完全不使用上位元素的军事工业科研复合体，行星防御机动军队</p>
+            </span>
+            <span class="mg-col-region">行星级联合组织</span>
+            <span class="mg-col-industry">军事科研 · 防御</span>
+            <span class="mg-col-tier mg-tier--planetary">行星级</span>
+        </div>
+
+        <!-- 排名6：圣女之歌军团 -->
+        <div class="mega-row mega-row--tier1">
+            <span class="mg-col-rank"><span class="mg-rank-num">6</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">圣女之歌军团</p>
+                <p class="mg-name-desc">寻求最大限度开发上位元素，致力于行星防卫军事事业的工业科研复合体，行星防御守备军队</p>
+            </span>
+            <span class="mg-col-region">行星级联合组织</span>
+            <span class="mg-col-industry">上位元素军事科研</span>
+            <span class="mg-col-tier mg-tier--planetary">行星级</span>
+        </div>
+
+        <!-- 排名7：十二魔王之座理事会 -->
+        <div class="mega-row mega-row--tier1">
+            <span class="mg-col-rank"><span class="mg-rank-num">7</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">十二魔王之座理事会</p>
+                <p class="mg-name-desc">文化产业、平等社会、福利保障、粮食安全、医疗卫生和基因科技，拥有国际法律豁免权</p>
+            </span>
+            <span class="mg-col-region">行星级联合组织</span>
+            <span class="mg-col-industry">综合社会发展</span>
+            <span class="mg-col-tier mg-tier--planetary">行星级</span>
+        </div>
+
+        <!-- ==========================================
+             第二梯队：企业国家
+        ========================================== -->
+        <div class="mega-tier-label mega-tier-label--2">
+            ◈ 第二梯队 · 企业国家（全民经济总体）
+        </div>
+
+        <!-- 排名8：巅峰重工集群 -->
+        <div class="mega-row mega-row--tier2">
+            <span class="mg-col-rank"><span class="mg-rank-num">8</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">巅峰重工集群</p>
+                <p class="mg-name-desc">企业国家 · 全产业覆盖</p>
+            </span>
+            <span class="mg-col-region">飞升大陆</span>
+            <span class="mg-col-industry">企业国家</span>
+            <span class="mg-col-tier mg-tier--state">企业国家</span>
+        </div>
+
+        <!-- 排名9：飞升者技术统合控股领 -->
+        <div class="mega-row mega-row--tier2">
+            <span class="mg-col-rank"><span class="mg-rank-num">9</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">飞升者技术统合控股领</p>
+                <p class="mg-name-desc">企业国家 · 全产业覆盖，最高决策者为通用人工智能"无形链接"</p>
+            </span>
+            <span class="mg-col-region">飞升大陆</span>
+            <span class="mg-col-industry">企业国家</span>
+            <span class="mg-col-tier mg-tier--state">企业国家</span>
+        </div>
+
+        <!-- 排名10：河童重工集团 -->
+        <div class="mega-row mega-row--tier2">
+            <span class="mg-col-rank"><span class="mg-rank-num">10</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">河童重工集团</p>
+                <p class="mg-name-desc">企业国家 · 全产业覆盖</p>
+            </span>
+            <span class="mg-col-region">凛冬大陆</span>
+            <span class="mg-col-industry">企业国家</span>
+            <span class="mg-col-tier mg-tier--state">企业国家</span>
+        </div>
+
+        <!-- 排名11：进化之印工业企业 -->
+        <div class="mega-row mega-row--tier2">
+            <span class="mg-col-rank"><span class="mg-rank-num">11</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">进化之印工业企业</p>
+                <p class="mg-name-desc">企业国家 · 机械蜂群意识工程，全民强制接入终局节点网络</p>
+            </span>
+            <span class="mg-col-region">飞升大陆</span>
+            <span class="mg-col-industry">企业国家</span>
+            <span class="mg-col-tier mg-tier--state">企业国家</span>
+        </div>
+
+        <!-- ==========================================
+             第三梯队：跨大陆巨头
+        ========================================== -->
+        <div class="mega-tier-label mega-tier-label--3">
+            ◈ 第三梯队 · 跨大陆巨头
+        </div>
+
+        <!-- 排名12：精灵之桥集团 -->
+        <div class="mega-row mega-row--tier3">
+            <span class="mg-col-rank"><span class="mg-rank-num">12</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">精灵之桥集团</p>
+                <p class="mg-name-desc">银行、金融、物流、港口事务、公益事务</p>
+            </span>
+            <span class="mg-col-region">精灵之桥</span>
+            <span class="mg-col-industry">金融 · 物流 · 港口</span>
+            <span class="mg-col-tier mg-tier--global">跨大陆</span>
+        </div>
+
+        <!-- 排名13：天之塔集团 -->
+        <div class="mega-row mega-row--tier3">
+            <span class="mg-col-rank"><span class="mg-rank-num">13</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">天之塔集团</p>
+                <p class="mg-name-desc">从矿石到星舰全产业链，运营两条太空电梯</p>
+            </span>
+            <span class="mg-col-region">博爱联盟共和国</span>
+            <span class="mg-col-industry">全产业链 · 太空电梯</span>
+            <span class="mg-col-tier mg-tier--global">跨大陆</span>
+        </div>
+
+        <!-- 排名14：虹彩精炼集团 -->
+        <div class="mega-row mega-row--tier3">
+            <span class="mg-col-rank"><span class="mg-rank-num">14</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">虹彩精炼集团</p>
+                <p class="mg-name-desc">上位元素开采、精炼、分级、交易、期货</p>
+            </span>
+            <span class="mg-col-region">圣女川立宪君主国</span>
+            <span class="mg-col-industry">上位元素全产业链</span>
+            <span class="mg-col-tier mg-tier--global">跨大陆</span>
+        </div>
+
+        <!-- 排名15：希云集团 -->
+        <div class="mega-row mega-row--tier3">
+            <span class="mg-col-rank"><span class="mg-rank-num">15</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">希云集团</p>
+                <p class="mg-name-desc">全球最大第三产业公司和物流公司</p>
+            </span>
+            <span class="mg-col-region">博爱联盟共和国</span>
+            <span class="mg-col-industry">第三产业 · 物流</span>
+            <span class="mg-col-tier mg-tier--global">跨大陆</span>
+        </div>
+
+        <!-- 排名16：龙月集团 -->
+        <div class="mega-row mega-row--tier3">
+            <span class="mg-col-rank"><span class="mg-rank-num">16</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">龙月集团</p>
+                <p class="mg-name-desc">全球最大零售、仓储、物流</p>
+            </span>
+            <span class="mg-col-region">三十列王联合帝国</span>
+            <span class="mg-col-industry">零售 · 仓储 · 物流</span>
+            <span class="mg-col-tier mg-tier--global">跨大陆</span>
+        </div>
+
+        <!-- 排名17：理性脉冲 -->
+        <div class="mega-row mega-row--tier3">
+            <span class="mg-col-rank"><span class="mg-rank-num">17</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">理性脉冲</p>
+                <p class="mg-name-desc">星舰生产、太空武器研发，有外太空舰船组装平台基地</p>
+            </span>
+            <span class="mg-col-region">深海联盟</span>
+            <span class="mg-col-industry">星舰 · 太空武器</span>
+            <span class="mg-col-tier mg-tier--global">跨大陆</span>
+        </div>
+
+        <!-- ==========================================
+             第四梯队：区域性支柱企业
+        ========================================== -->
+        <div class="mega-tier-label mega-tier-label--4">
+            ◈ 第四梯队 · 区域性支柱企业
+        </div>
+
+        <!-- 排名18：恩泽帝国皇家银行 -->
+        <div class="mega-row mega-row--tier4">
+            <span class="mg-col-rank"><span class="mg-rank-num">18</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">恩泽帝国皇家银行</p>
+                <p class="mg-name-desc">金融、投资，恩泽帝国国有银行</p>
+            </span>
+            <span class="mg-col-region">恩泽帝国</span>
+            <span class="mg-col-industry">金融 · 投资</span>
+            <span class="mg-col-tier mg-tier--regional">区域级</span>
+        </div>
+
+        <!-- 排名19：非隐者财团 -->
+        <div class="mega-row mega-row--tier4">
+            <span class="mg-col-rank"><span class="mg-rank-num">19</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">非隐者财团</p>
+                <p class="mg-name-desc">金融、投资、保险、评估</p>
+            </span>
+            <span class="mg-col-region">南方联盟</span>
+            <span class="mg-col-industry">金融 · 保险</span>
+            <span class="mg-col-tier mg-tier--regional">区域级</span>
+        </div>
+
+        <!-- 排名20：列王墓城中央银行 -->
+        <div class="mega-row mega-row--tier4">
+            <span class="mg-col-rank"><span class="mg-rank-num">20</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">列王墓城中央银行</p>
+                <p class="mg-name-desc">银行、投资、保险、金融、服务等</p>
+            </span>
+            <span class="mg-col-region">三十列王联合帝国</span>
+            <span class="mg-col-industry">金融 · 银行</span>
+            <span class="mg-col-tier mg-tier--regional">区域级</span>
+        </div>
+
+        <!-- 排名21：穿星者造船联合体 -->
+        <div class="mega-row mega-row--tier4">
+            <span class="mg-col-rank"><span class="mg-rank-num">21</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">穿星者造船联合体</p>
+                <p class="mg-name-desc">行星战列舰建造、轨道战舰维护、太空武器系统集成、星舰改装</p>
+            </span>
+            <span class="mg-col-region">花海半岛无政府主义贸易事务委员会</span>
+            <span class="mg-col-industry">战列舰 · 星舰</span>
+            <span class="mg-col-tier mg-tier--regional">区域级</span>
+        </div>
+
+        <!-- 排名22：南海工业 -->
+        <div class="mega-row mega-row--tier4">
+            <span class="mg-col-rank"><span class="mg-rank-num">22</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">南海工业</p>
+                <p class="mg-name-desc">准国家级多行业特斯拉企业</p>
+            </span>
+            <span class="mg-col-region">南海工业联合体</span>
+            <span class="mg-col-industry">多行业综合</span>
+            <span class="mg-col-tier mg-tier--regional">区域级</span>
+        </div>
+
+        <!-- 排名23：天空破碎群岛集团 -->
+        <div class="mega-row mega-row--tier4">
+            <span class="mg-col-rank"><span class="mg-rank-num">23</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">天空破碎群岛集团</p>
+                <p class="mg-name-desc">科技、精工、数据</p>
+            </span>
+            <span class="mg-col-region">居云者商业共和国</span>
+            <span class="mg-col-industry">科技 · 数据</span>
+            <span class="mg-col-tier mg-tier--regional">区域级</span>
+        </div>
+
+        <!-- 排名24：靛蓝纪念碑 -->
+        <div class="mega-row mega-row--tier4">
+            <span class="mg-col-rank"><span class="mg-rank-num">24</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">靛蓝纪念碑</p>
+                <p class="mg-name-desc">科技、第三产业、个人消费品</p>
+            </span>
+            <span class="mg-col-region">深海联盟</span>
+            <span class="mg-col-industry">科技 · 消费品</span>
+            <span class="mg-col-tier mg-tier--regional">区域级</span>
+        </div>
+
+        <!-- 排名25：燃烧白鹿 -->
+        <div class="mega-row mega-row--tier4">
+            <span class="mg-col-rank"><span class="mg-rank-num">25</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">燃烧白鹿</p>
+                <p class="mg-name-desc">军工、研发、全自动自律人形</p>
+            </span>
+            <span class="mg-col-region">苍神缘起帝国</span>
+            <span class="mg-col-industry">军工 · 人形研发</span>
+            <span class="mg-col-tier mg-tier--regional">区域级</span>
+        </div>
+
+        <!-- 排名26：摇篮公司 -->
+        <div class="mega-row mega-row--tier4">
+            <span class="mg-col-rank"><span class="mg-rank-num">26</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">摇篮公司</p>
+                <p class="mg-name-desc">航天工业、科研、太空矿物开采</p>
+            </span>
+            <span class="mg-col-region">远视主义技术治国委员会</span>
+            <span class="mg-col-industry">航天 · 太空开采</span>
+            <span class="mg-col-tier mg-tier--regional">区域级</span>
+        </div>
+
+        <!-- 排名27：山海风集团 -->
+        <div class="mega-row mega-row--tier4">
+            <span class="mg-col-rank"><span class="mg-rank-num">27</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">山海风集团</p>
+                <p class="mg-name-desc">第一产业、冶炼、开采、矿物再生等</p>
+            </span>
+            <span class="mg-col-region">赤潮同盟</span>
+            <span class="mg-col-industry">第一产业 · 冶炼</span>
+            <span class="mg-col-tier mg-tier--regional">区域级</span>
+        </div>
+
+        <!-- 排名28：彩环集团 -->
+        <div class="mega-row mega-row--tier4">
+            <span class="mg-col-rank"><span class="mg-rank-num">28</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">彩环集团</p>
+                <p class="mg-name-desc">医药、医疗设备、生物科技</p>
+            </span>
+            <span class="mg-col-region">居云者商业共和国</span>
+            <span class="mg-col-industry">医药 · 生物科技</span>
+            <span class="mg-col-tier mg-tier--regional">区域级</span>
+        </div>
+
+        <!-- 排名29：草木之心 -->
+        <div class="mega-row mega-row--tier4">
+            <span class="mg-col-rank"><span class="mg-rank-num">29</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">草木之心</p>
+                <p class="mg-name-desc">医药、基因</p>
+            </span>
+            <span class="mg-col-region">日月星列岛国度</span>
+            <span class="mg-col-industry">医药 · 基因</span>
+            <span class="mg-col-tier mg-tier--regional">区域级</span>
+        </div>
+
+        <!-- 排名30：刹那永恒 -->
+        <div class="mega-row mega-row--tier4">
+            <span class="mg-col-rank"><span class="mg-rank-num">30</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">刹那永恒</p>
+                <p class="mg-name-desc">生物科技、医疗、基因</p>
+            </span>
+            <span class="mg-col-region">灵犀王庭</span>
+            <span class="mg-col-industry">生物科技 · 医疗</span>
+            <span class="mg-col-tier mg-tier--regional">区域级</span>
+        </div>
+
+        <!-- 排名31：曦芽集团 -->
+        <div class="mega-row mega-row--tier4">
+            <span class="mg-col-rank"><span class="mg-rank-num">31</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">曦芽集团</p>
+                <p class="mg-name-desc">农业、食品、化工</p>
+            </span>
+            <span class="mg-col-region">南南农业联盟国</span>
+            <span class="mg-col-industry">农业 · 食品</span>
+            <span class="mg-col-tier mg-tier--regional">区域级</span>
+        </div>
+
+        <!-- 排名32：黄昏线 -->
+        <div class="mega-row mega-row--tier4">
+            <span class="mg-col-rank"><span class="mg-rank-num">32</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">黄昏线</p>
+                <p class="mg-name-desc">能源企业</p>
+            </span>
+            <span class="mg-col-region">南海工业联合体</span>
+            <span class="mg-col-industry">能源</span>
+            <span class="mg-col-tier mg-tier--regional">区域级</span>
+        </div>
+
+        <!-- 排名33：奥德赛集团 -->
+        <div class="mega-row mega-row--tier4">
+            <span class="mg-col-rank"><span class="mg-rank-num">33</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">奥德赛集团</p>
+                <p class="mg-name-desc">能源、开采、加工</p>
+            </span>
+            <span class="mg-col-region">南海工业联合体</span>
+            <span class="mg-col-industry">能源 · 开采</span>
+            <span class="mg-col-tier mg-tier--regional">区域级</span>
+        </div>
+
+        <!-- 排名34：念光人 -->
+        <div class="mega-row mega-row--tier4">
+            <span class="mg-col-rank"><span class="mg-rank-num">34</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">念光人</p>
+                <p class="mg-name-desc">硬件与软件基础设施</p>
+            </span>
+            <span class="mg-col-region">星降和平主义共和国</span>
+            <span class="mg-col-industry">硬件 · 软件基础设施</span>
+            <span class="mg-col-tier mg-tier--regional">区域级</span>
+        </div>
+
+        <!-- 排名35：环山重工 -->
+        <div class="mega-row mega-row--tier4">
+            <span class="mg-col-rank"><span class="mg-rank-num">35</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">环山重工</p>
+                <p class="mg-name-desc">工程、基建</p>
+            </span>
+            <span class="mg-col-region">恩泽帝国</span>
+            <span class="mg-col-industry">工程 · 基建</span>
+            <span class="mg-col-tier mg-tier--regional">区域级</span>
+        </div>
+
+        <!-- 排名36：细雪公司 -->
+        <div class="mega-row mega-row--tier4">
+            <span class="mg-col-rank"><span class="mg-rank-num">36</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">细雪公司</p>
+                <p class="mg-name-desc">文化企业、传媒、通信</p>
+            </span>
+            <span class="mg-col-region">霜湖合众国</span>
+            <span class="mg-col-industry">文化 · 传媒</span>
+            <span class="mg-col-tier mg-tier--regional">区域级</span>
+        </div>
+
+        <!-- ==========================================
+             第五梯队：区域性专业企业
+        ========================================== -->
+        <div class="mega-tier-label mega-tier-label--5">
+            ◈ 第五梯队 · 区域性专业企业
+        </div>
+
+        <!-- 排名37：静风带 -->
+        <div class="mega-row mega-row--tier5">
+            <span class="mg-col-rank"><span class="mg-rank-num">37</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">静风带</p>
+                <p class="mg-name-desc">船舶制作、海洋服务、物流</p>
+            </span>
+            <span class="mg-col-region">海洋公主同盟</span>
+            <span class="mg-col-industry">船舶 · 海洋服务</span>
+            <span class="mg-col-tier mg-tier--local">专业级</span>
+        </div>
+
+        <!-- 排名38：王子岛 -->
+        <div class="mega-row mega-row--tier5">
+            <span class="mg-col-rank"><span class="mg-rank-num">38</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">王子岛</p>
+                <p class="mg-name-desc">交通工具</p>
+            </span>
+            <span class="mg-col-region">恩泽帝国</span>
+            <span class="mg-col-industry">交通工具</span>
+            <span class="mg-col-tier mg-tier--local">专业级</span>
+        </div>
+
+        <!-- 排名39：海色集团 -->
+        <div class="mega-row mega-row--tier5">
+            <span class="mg-col-rank"><span class="mg-rank-num">39</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">海色集团</p>
+                <p class="mg-name-desc">食品、奢侈品</p>
+            </span>
+            <span class="mg-col-region">海洋公主同盟</span>
+            <span class="mg-col-industry">食品 · 奢侈品</span>
+            <span class="mg-col-tier mg-tier--local">专业级</span>
+        </div>
+
+        <!-- 排名40：香风集团 -->
+        <div class="mega-row mega-row--tier5">
+            <span class="mg-col-rank"><span class="mg-rank-num">40</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">香风集团</p>
+                <p class="mg-name-desc">奢侈品、日用品</p>
+            </span>
+            <span class="mg-col-region">铃兰王国</span>
+            <span class="mg-col-industry">奢侈品 · 日用品</span>
+            <span class="mg-col-tier mg-tier--local">专业级</span>
+        </div>
+
+        <!-- 排名41：众神沐 -->
+        <div class="mega-row mega-row--tier5">
+            <span class="mg-col-rank"><span class="mg-rank-num">41</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">众神沐</p>
+                <p class="mg-name-desc">高档日用品、消费品</p>
+            </span>
+            <span class="mg-col-region">西海自由城市联盟</span>
+            <span class="mg-col-industry">高档消费品</span>
+            <span class="mg-col-tier mg-tier--local">专业级</span>
+        </div>
+
+        <!-- 排名42：木子公司 -->
+        <div class="mega-row mega-row--tier5">
+            <span class="mg-col-rank"><span class="mg-rank-num">42</span></span>
+            <span class="mg-col-name">
+                <p class="mg-name-cn">木子公司</p>
+                <p class="mg-name-desc">金融投资、教育、保险</p>
+            </span>
+            <span class="mg-col-region">山川与树海国度</span>
+            <span class="mg-col-industry">金融 · 教育 · 保险</span>
+            <span class="mg-col-tier mg-tier--local">专业级</span>
+        </div>
+
+        <!-- 底部声明 -->
+        <div class="mega-footer">
+            <p>数据来源：观星塔组织企业研究所 · 星间林地历5501年度报告</p>
+            <p>* 企业性国家以全国民经济总体计入排名 · 行星级联合组织跨越主权边界，无单一归属</p>
+        </div>
+
+    </div><!-- 结束表格滚动区 -->
+
+</div>
+<!-- ===== 巨型企业面板结束 ===== -->
 
 
 

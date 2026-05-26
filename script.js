@@ -608,3 +608,422 @@ document.addEventListener('click', (e) => {
         planetPanel.classList.remove('active');
     }
 });
+
+
+
+// ===================================================
+// 政治体系面板交互
+// 逻辑与星球环境面板（planet-panel）完全对称
+// ===================================================
+
+// --- 获取面板相关元素 ---
+const politicsPanel = document.getElementById('politics-panel');   // 整个面板
+const politicsClose = document.getElementById('politics-close');   // 关闭按钮
+const politicsContent = document.getElementById('politics-content'); // 内容滚动区
+const scrollbarThumb = document.getElementById('politics-scrollbar-thumb'); // 自定义滚动条滑块
+const scrollbarTrack = document.getElementById('politics-scrollbar'); // 滚动条轨道
+
+// --- 打开面板 ---
+// 点击左侧链条上的"政治体系"按钮时触发
+document.getElementById('Political-System').addEventListener('click', () => {
+    politicsPanel.classList.add('active'); // 添加 active 类，CSS动画从下方浮出
+    updateScrollbarThumb(); // 打开时立即更新滑块位置和尺寸
+});
+
+// --- 关闭面板：点击 X 按钮 ---
+politicsClose.addEventListener('click', () => {
+    politicsPanel.classList.remove('active'); // 移除 active 类，面板收回屏幕下方
+});
+
+// --- 关闭面板：点击面板外部区域 ---
+document.addEventListener('click', (e) => {
+    if (
+        politicsPanel.classList.contains('active') &&      // 面板当前是打开的
+        !politicsPanel.contains(e.target) &&               // 点击位置不在面板内部
+        e.target.closest('#Political-System') === null     // 点击位置不是打开按钮
+    ) {
+        politicsPanel.classList.remove('active');
+    }
+});
+
+// ===== 左侧导航Tab切换 =====
+// 获取所有导航按钮
+const politicsNavBtns = document.querySelectorAll('.politics-nav-btn');
+
+politicsNavBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+
+        // 第一步：把所有按钮的选中状态移除
+        politicsNavBtns.forEach(b => b.classList.remove('politics-nav-btn--active'));
+
+        // 第二步：给当前点击的按钮加上选中状态
+        btn.classList.add('politics-nav-btn--active');
+
+        // 第三步：读取当前按钮对应的 tab 名称（data-tab 属性）
+        const targetTab = btn.dataset.tab; // 例如 "regime" 或 "global"
+
+        // 第四步：隐藏所有 tab 内容区
+        document.querySelectorAll('.politics-tab').forEach(tab => {
+            tab.style.display = 'none';
+        });
+
+        // 第五步：显示对应的 tab 内容区
+        // 规则：tab 的 id = "tab-" + data-tab 的值
+        document.getElementById('tab-' + targetTab).style.display = 'block';
+
+        // 第六步：切换tab后滚动区回到顶部，并更新滑块
+        politicsContent.scrollTop = 0;
+        updateScrollbarThumb();
+    });
+});
+
+// ===== 自定义滚动条逻辑 =====
+
+// 【函数】更新滑块的位置和尺寸
+// 每次内容区滚动、或面板打开、或切换Tab时调用
+function updateScrollbarThumb() {
+    const { scrollTop, scrollHeight, clientHeight } = politicsContent;
+
+    // 计算滑块高度比例：可见区域 / 总内容高度
+    // 例如内容是显示区的3倍高，滑块就占轨道的1/3
+    const thumbHeightRatio = clientHeight / scrollHeight;
+    const thumbHeight = Math.max(thumbHeightRatio * 100, 10); // 最小10%，防止太小难以点击
+
+    // 计算滑块顶部位置：当前滚动进度 * 剩余轨道空间
+    const scrollRatio = scrollTop / (scrollHeight - clientHeight);
+    const thumbTop = scrollRatio * (100 - thumbHeight);
+
+    // 将计算结果写入滑块样式（百分比单位，相对于轨道高度）
+    scrollbarThumb.style.height = thumbHeight + '%';
+    scrollbarThumb.style.top = thumbTop + '%';
+}
+
+// 【事件】内容区滚动时，实时更新滑块位置
+politicsContent.addEventListener('scroll', updateScrollbarThumb);
+
+// 【事件】拖动滑块时，同步更新内容区的滚动位置
+let isDraggingThumb = false; // 标记：是否正在拖动滑块
+let dragStartY = 0;          // 拖动开始时鼠标的Y坐标
+let dragStartScrollTop = 0;  // 拖动开始时内容区的滚动位置
+
+// 鼠标按下滑块：开始拖动
+scrollbarThumb.addEventListener('mousedown', (e) => {
+    isDraggingThumb = true;
+    dragStartY = e.clientY;                     // 记录鼠标起始Y坐标
+    dragStartScrollTop = politicsContent.scrollTop; // 记录内容区起始滚动位置
+    e.preventDefault(); // 防止拖动时选中文字
+});
+
+// 鼠标移动：如果正在拖动，计算并更新滚动位置
+document.addEventListener('mousemove', (e) => {
+    if (!isDraggingThumb) return; // 没在拖动就忽略
+
+    const deltaY = e.clientY - dragStartY; // 鼠标移动了多少像素
+
+    // 将鼠标移动量换算成内容滚动量
+    // 逻辑：鼠标移动 1px 轨道 = 内容移动 (总内容高度/轨道高度) px
+    const trackHeight = scrollbarTrack.clientHeight;
+    const { scrollHeight, clientHeight } = politicsContent;
+    const scrollAmount = (deltaY / trackHeight) * scrollHeight;
+
+    // 更新内容区滚动位置，clamp 防止超出边界
+    politicsContent.scrollTop = Math.max(
+        0,
+        Math.min(dragStartScrollTop + scrollAmount, scrollHeight - clientHeight)
+    );
+});
+
+// 鼠标松开：结束拖动
+document.addEventListener('mouseup', () => {
+    isDraggingThumb = false;
+});
+
+// 【事件】点击轨道空白处：跳转到对应位置（不是拖动，而是直接跳）
+scrollbarTrack.addEventListener('click', (e) => {
+    if (e.target === scrollbarThumb) return; // 点的是滑块本身，不处理
+
+    const trackRect = scrollbarTrack.getBoundingClientRect();
+    const clickRatio = (e.clientY - trackRect.top) / trackRect.height; // 点击位置占轨道的比例
+    const { scrollHeight, clientHeight } = politicsContent;
+    politicsContent.scrollTop = clickRatio * (scrollHeight - clientHeight); // 按比例跳转
+});
+
+
+
+// ===================================================
+// 货币体系面板交互
+// 逻辑与政治体系面板完全对称，无左侧Tab导航
+// ===================================================
+
+// --- 获取货币面板相关元素 ---
+const currencyPanel = document.getElementById('currency-panel');  // 整个面板
+const currencyClose = document.getElementById('currency-close'); // 关闭按钮
+
+// --- 打开面板 ---
+// 点击左侧侧边栏"货币体系"按钮时触发
+document.getElementById('Currency-System').addEventListener('click', () => {
+    currencyPanel.classList.add('active'); // 添加 active，CSS动画从下方浮出
+});
+
+// --- 关闭面板：点击 X 按钮 ---
+currencyClose.addEventListener('click', () => {
+    currencyPanel.classList.remove('active'); // 移除 active，面板收回下方
+});
+
+// --- 关闭面板：点击面板外部区域 ---
+document.addEventListener('click', (e) => {
+    if (
+        currencyPanel.classList.contains('active') &&       // 面板当前是打开的
+        !currencyPanel.contains(e.target) &&                // 点击位置不在面板内部
+        e.target.closest('#Currency-System') === null       // 点击位置不是打开按钮
+    ) {
+        currencyPanel.classList.remove('active');
+    }
+});
+
+
+
+// ===================================================
+// 历史时间线面板交互
+// 与政治体系面板开关逻辑完全一致
+// 额外增加：时间轴横向定位计算、鼠标滚轮横向滚动
+// ===================================================
+
+// --- 获取面板相关元素 ---
+const timelinePanel   = document.getElementById('timeline-panel');   // 整个面板
+const timelineClose   = document.getElementById('timeline-close');   // 关闭按钮
+const tlScrollArea    = document.getElementById('tl-scroll-area');   // 横向滚动区
+const tlTrack         = document.getElementById('tl-track');         // 轨道
+const tlRuler         = document.getElementById('tl-ruler');         // 底部刻度轴
+
+// --- 打开面板 ---
+document.getElementById('Historical-Timeline').addEventListener('click', () => {
+    timelinePanel.classList.add('active');
+    // 面板打开后初始化时间轴（只执行一次）
+    if (!tlTrack.dataset.initialized) {
+        initTimeline();
+        tlTrack.dataset.initialized = 'true';
+    }
+});
+
+// --- 关闭面板：点击 X 按钮 ---
+timelineClose.addEventListener('click', () => {
+    timelinePanel.classList.remove('active');
+});
+
+// --- 关闭面板：点击面板外部区域 ---
+document.addEventListener('click', (e) => {
+    if (
+        timelinePanel.classList.contains('active') &&
+        !timelinePanel.contains(e.target) &&
+        e.target.closest('#Historical-Timeline') === null
+    ) {
+        timelinePanel.classList.remove('active');
+    }
+});
+
+// =====================================================
+// 时间轴初始化函数
+// 根据每个节点的 data-year 属性计算其在轨道上的 left 位置
+// 年份范围：-1,000,000 到 5,501
+// =====================================================
+function initTimeline() {
+
+    // --- 时间范围配置 ---
+    const YEAR_MIN   = -1000000;    // 时间轴最左侧年份
+    const YEAR_MAX   =  5501;       // 时间轴最右侧年份
+    const TRACK_PAD  =  120;        // 左右留白（px）
+    // 轨道总宽度：节点越多、时间跨度越大，这里设大一些让节点不拥挤
+    const TRACK_WIDTH = 70000;       // px，可调整
+
+    // 设置轨道宽度
+    tlTrack.style.width = TRACK_WIDTH + 'px';
+
+    // --- 年份→像素的映射函数 ---
+    // 注意：时间轴是对数压缩的，因为 -1,000,000 到 -3000 年跨度极大
+    // 但 -3000 到 5501 年的事件密集
+    // 使用分段线性映射：远古部分压缩，近代部分展开
+    function yearToX(year) {
+        // 分段映射配置：[年份起点, 年份终点, 对应的像素起点, 像素终点]
+        const segments = [
+            [-1000000, -5000,  TRACK_PAD,              TRACK_WIDTH * 0.22],  // 远古：极度压缩
+            [-5000,    -789,   TRACK_WIDTH * 0.18,     TRACK_WIDTH * 0.30],  // 前精灵历早期
+            [-789,     0,      TRACK_WIDTH * 0.30,     TRACK_WIDTH * 0.45],  // 前精灵历晚期（事件密集）
+            [0,        500,    TRACK_WIDTH * 0.45,     TRACK_WIDTH * 0.52],  // 精灵历早期
+            [500,      2500,   TRACK_WIDTH * 0.52,     TRACK_WIDTH * 0.65],  // 扩张纪元
+            [2500,     3855,   TRACK_WIDTH * 0.65,     TRACK_WIDTH * 0.75],  // 危机纪元
+            [3855,     5501,   TRACK_WIDTH * 0.75,     TRACK_WIDTH - TRACK_PAD] // 现代纪元
+        ];
+
+        // 找到年份所在的分段并做线性插值
+        for (const [ys, ye, xs, xe] of segments) {
+            if (year >= ys && year <= ye) {
+                const ratio = (year - ys) / (ye - ys);
+                return xs + ratio * (xe - xs);
+            }
+        }
+        // 超出范围的容错
+        if (year < YEAR_MIN) return TRACK_PAD;
+        return TRACK_WIDTH - TRACK_PAD;
+    }
+
+    // --- 定位所有事件节点 ---
+    const nodes = tlTrack.querySelectorAll('.tl-node');
+    nodes.forEach(node => {
+        const year = parseFloat(node.dataset.year); // 读取 data-year 属性
+        const x = yearToX(year);
+        node.style.left = x + 'px';               // 设置水平位置
+    });
+
+    // --- 定位所有纪元色块 ---
+    const eras = tlTrack.querySelectorAll('.tl-era');
+    eras.forEach(era => {
+        const yearStart = parseFloat(era.dataset.yearStart);
+        const yearEnd   = parseFloat(era.dataset.yearEnd);
+        const xStart    = yearToX(yearStart);
+        const xEnd      = yearToX(yearEnd);
+        era.style.left  = xStart + 'px';
+        era.style.width = (xEnd - xStart) + 'px';
+    });
+
+    // --- 生成底部刻度轴 ---
+    // 在关键年份处显示刻度标记
+    const tickYears = [
+        -1000000, -500000, -100000, -50000, -12000, -5000, -3000,
+        -2333, -1802, -1000, -789, -750, -700, -650, -593, -511,
+        -422, -312, -306, -211, -58, 0, 79, 433, 500, 821,
+        1123, 1457, 2088, 2279, 2896, 3233, 3855, 3875, 3973,
+        4002, 4222, 4250, 4337, 4580, 4752, 5026, 5330, 5499
+    ];
+
+    tlRuler.style.width = TRACK_WIDTH + 'px'; // 刻度轴与轨道等宽
+    tlRuler.style.position = 'relative';
+
+    tickYears.forEach(year => {
+        const x = yearToX(year);
+
+        // 刻度容器
+        const tick = document.createElement('div');
+        tick.style.cssText = `
+            position: absolute;
+            left: ${x}px;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        `;
+
+        // 刻度短竖线
+        const line = document.createElement('div');
+        line.style.cssText = `
+            width: 1px;
+            height: 8px;
+            background: rgba(193,160,94,0.6);
+        `;
+
+        // 刻度年份文字
+        const label = document.createElement('div');
+        // 远古年份显示简化（如 -1,000,000 → -100万）
+        let displayYear;
+        if (year <= -100000) {
+            displayYear = (year / 10000).toFixed(0) + '万';
+        } else {
+            displayYear = year.toString();
+        }
+        label.style.cssText = `
+            color: rgba(120,100,0,0.5);
+            font-size: 0.38vw;
+            white-space: nowrap;
+            margin-top: 2px;
+        `;
+        label.textContent = displayYear;
+
+        tick.appendChild(line);
+        tick.appendChild(label);
+        tlRuler.appendChild(tick);
+    });
+
+    // 同步刻度轴的横向滚动位置
+    tlScrollArea.addEventListener('scroll', () => {
+        tlRuler.style.marginLeft = -tlScrollArea.scrollLeft + 'px';
+    });
+}
+
+// =====================================================
+// 鼠标滚轮横向滚动
+// 在滚动区域内，滚轮上下滚动被转换为左右滚动
+// =====================================================
+tlScrollArea.addEventListener('wheel', (e) => {
+    e.preventDefault();                     // 阻止页面纵向滚动
+    // 将纵向滚动量（deltaY）转换为横向滚动
+    tlScrollArea.scrollLeft += e.deltaY * 2.5; // 乘以系数控制速度，可调整
+}, { passive: false });                     // passive:false 才能 preventDefault
+
+// =====================================================
+// 鼠标拖动横向滚动（抓住拖动）
+// =====================================================
+let tlIsDragging  = false;  // 是否正在拖动
+let tlDragStartX  = 0;      // 拖动开始时鼠标X坐标
+let tlScrollStart = 0;      // 拖动开始时的scrollLeft值
+
+// 鼠标按下：开始拖动
+tlScrollArea.addEventListener('mousedown', (e) => {
+    tlIsDragging  = true;
+    tlDragStartX  = e.clientX;
+    tlScrollStart = tlScrollArea.scrollLeft;
+    e.preventDefault();
+});
+
+// 鼠标移动：如果在拖动，更新滚动位置
+document.addEventListener('mousemove', (e) => {
+    if (!tlIsDragging) return;
+    const deltaX = e.clientX - tlDragStartX;   // 鼠标移动距离
+    tlScrollArea.scrollLeft = tlScrollStart - deltaX; // 向右拖动→内容向左滚动
+});
+
+// 鼠标松开：结束拖动
+document.addEventListener('mouseup', () => {
+    tlIsDragging = false;
+});
+
+
+
+// ===================================================
+// 巨型企业面板交互
+// 逻辑与政治体系面板完全对称
+// 无额外复杂交互，只有开关和滚轮滚动
+// ===================================================
+
+// --- 获取面板相关元素 ---
+const megaPanel = document.getElementById('mega-panel');   // 整个面板
+const megaClose = document.getElementById('mega-close');   // 关闭按钮
+const megaTableWrap = document.getElementById('mega-table-wrap'); // 右侧滚动区
+
+// --- 打开面板 ---
+// ⚠ 'Mega-Corporations' 需与 index.html 中左侧按钮的 id 一致，按实际修改
+document.getElementById('Megacorporations').addEventListener('click', () => {
+    megaPanel.classList.add('active');
+});
+
+// --- 关闭面板：点击 X 按钮 ---
+megaClose.addEventListener('click', () => {
+    megaPanel.classList.remove('active');
+});
+
+// --- 关闭面板：点击面板外部区域 ---
+document.addEventListener('click', (e) => {
+    if (
+        megaPanel.classList.contains('active') &&
+        !megaPanel.contains(e.target) &&
+        e.target.closest('#Megacorporations') === null
+    ) {
+        megaPanel.classList.remove('active');
+    }
+});
+
+// --- 鼠标滚轮纵向滚动（右侧排行榜区域）---
+// 右侧表格区域默认支持滚轮滚动，这里额外加速系数让体验更流畅
+megaTableWrap.addEventListener('wheel', (e) => {
+    e.stopPropagation(); // 阻止事件冒泡到页面，防止干扰地图
+    // 不需要 preventDefault，保持默认纵向滚动行为即可
+}, { passive: true });
