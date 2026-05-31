@@ -2209,3 +2209,281 @@ body {
     font-size: 0.42vw;
     margin: 0.2vh 0;
 }
+
+/* ===================================================
+   国际组织面板
+   整体逻辑与政治体系面板完全一致
+   背景图：InternationalOrganizationsAD.png
+   8条行对应背景图中8条预制横线格子
+=================================================== */
+
+/* 面板容器：初始藏在屏幕下方，active后浮出 */
+.intorg-panel {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    top: 14vh;
+    transform: translateX(-50%) translateY(100%); /* 初始藏在屏幕下方 */
+    width: 65vw;
+    height: 80vh;
+    z-index: 5000;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                opacity 0.4s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* 激活状态：面板浮出 */
+.intorg-panel.active {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* 背景图：铺满整个面板 */
+.intorg-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* 关闭按钮：右上角 */
+.intorg-close {
+    position: absolute;
+    top: 2%;
+    right: 1.9%;
+    border: none;
+    background: transparent;
+    color: #786400;
+    font-size: 1vw;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    letter-spacing: 0.05vw;
+    transition: transform 0.2s, color 0.2s;
+}
+.intorg-close:hover {
+    transform: scale(1.1);
+    color: #c8a030;
+}
+
+/* =============================================
+   顶部标题区
+   ⚠ top/left 根据背景图标题框实际位置微调
+============================================= */
+.intorg-title-block {
+    position: absolute;
+    z-index: 2;
+    top: 6%;                                /* ⚠ 微调 */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    pointer-events: none;
+    font-family: "Noto Serif SC", "Noto Serif JP", "源ノ明朝", "Yu Mincho", "游明朝", "宋体", SimSun, Georgia, serif;
+}
+
+.intorg-main-title {
+    color: #3f3520;
+    font-size: 1.3vw;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0.2vw;
+}
+
+.intorg-subtitle {
+    color: rgba(88, 72, 45, 0.55);
+    font-size: 0.48vw;
+    margin: 0.2vh 0 0 0;
+    letter-spacing: 0.1vw;
+}
+
+/* =============================================
+   右上角统计信息块
+   对应背景图右上角地球图标旁的小方框
+   ⚠ top/right 根据背景图实际位置微调
+============================================= */
+.intorg-stat-block {
+    position: absolute;
+    z-index: 2;
+    top: 8%;                                /* ⚠ 微调 */
+    right: 9%;                              /* ⚠ 微调 */
+    text-align: center;
+
+}
+
+.intorg-stat-label {
+    color: rgba(88, 72, 45, 0.5);
+    font-size: 0.5vw;
+    margin: 0;
+}
+
+.intorg-stat-value {
+    color: #5a4200;
+    font-size: 0.7vw;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* =============================================
+   表头行
+   对应背景图顶部深色横条
+   ⚠ top 根据背景图横条实际位置微调
+============================================= */
+.intorg-header {
+    position: absolute;
+    z-index: 2;
+    top: 18%;                               /* ⚠ 微调，对准背景图深色表头横条 */
+    left: 3%;
+    right: 1.5%;
+    display: flex;
+    align-items: center;
+    padding: 0 0.5vw;
+    height: 4%;
+}
+
+/* =============================================
+   8条组织行
+   position:absolute，每行叠加在背景图对应横线上
+   top值按8行平均分布，⚠ 全部需要微调
+   行高约为 (100% - 表头位置 - 底部留白) / 8
+============================================= */
+
+/* 所有行的通用样式 */
+.intorg-row {
+    position: absolute;
+    z-index: 2;
+    left: 3%;
+    right: 5.5%;
+    display: flex;
+    align-items: flex-start;          /* 顶部对齐，简述文字较长时不会撑歪 */
+    padding: 0.8vh 0.5vw;
+    box-sizing: border-box;
+    transition: background 0.15s;
+}
+.intorg-row:hover {
+    background: rgba(193, 160, 94, 0.05);
+    border-radius: 0.3vw;
+}
+
+/* 第1行：top从表头下方开始，每行约占总高的10% */
+/* ⚠ 以下所有top值都需在浏览器F12中对准背景图横线微调 */
+.intorg-row--1 { top: 23%; height: 9.5%; }
+.intorg-row--2 { top: 32%; height: 9.5%; }
+.intorg-row--3 { top: 41%; height: 9.5%; }
+.intorg-row--4 { top: 49.5%; height: 9.5%; }
+.intorg-row--5 { top: 58%; height: 9.5%; }
+.intorg-row--6 { top: 66%; height: 9.5%; }
+.intorg-row--7 { top: 74.5%; height: 9.5%; }
+.intorg-row--8 { top: 83%; height: 9.5%; }
+
+/* =============================================
+   列宽定义
+   与表头列宽完全一致
+============================================= */
+
+/* 排名列：对应背景图左侧徽章区域 */
+.io-col-rank {
+    flex: 0 0 6%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 0.2vh;
+}
+
+/* 排名数字：背景图已有金属质感徽章，文字叠加在徽章上 */
+.io-rank-num {
+    font-size: 0.7vw;
+    font-weight: 700;
+    color: #5a4200;
+}
+/* 金牌：第1名 */
+.io-rank--gold   { color: #8a6000; }
+/* 银牌：第2名 */
+.io-rank--silver { color: #606060; }
+/* 铜牌：第3名 */
+.io-rank--bronze { color: #7a4820; }
+
+/* 组织名称列 */
+.io-col-name {
+    flex: 0 0 16%;
+    padding-right: 0.5vw;
+    margin-left: 1vw;
+}
+
+.io-name-cn {
+    color: #3f3520;
+    font-size: 0.62vw;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.4;
+    margin-left: 1vw;
+}
+
+
+/* ===== 总部位置列（Headquarters Column）===== */
+.io-col-hq {
+
+    flex: 0 0 14%;
+    /* flex-grow: 0   → 不参与剩余空间分配（不自动变宽）
+       flex-shrink: 0 → 空间不足时不压缩
+       flex-basis:14% → 初始宽度固定占父容器 14% */
+
+    color: rgba(60, 50, 35, 0.75);
+    /* 文字颜色：
+       RGB(60,50,35) = 深棕灰色
+       Alpha=0.75 → 75% 不透明（略透明） */
+
+    font-size: 0.5vw;
+    /* 字体大小：
+       vw = viewport width（视口宽度）
+       0.5vw 表示屏幕宽度的 0.5%
+       页面越宽，字体越大 */
+
+    line-height: 1.5;
+    /* 行高：
+       每行高度 = 字体大小 × 1.5
+       用于控制上下行间距 */
+
+    padding-right: 1vw;
+    /* 右内边距：
+       内容距离右边界留出 0.5vw 空间
+       作用：与下一列形成视觉间隔 */
+}
+
+/* 成员国数量列 */
+.io-col-members {
+    flex: 0 0 7%;
+    color: #786400;
+    font-size: 0.7vw;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* 简述列：最宽，放正文 */
+.io-col-desc {
+    flex: 1;
+    color: rgba(60, 50, 35, 0.82);
+    font-size: 0.5vw;
+    line-height: 1.75;
+}
+
+/* =============================================
+   底部备注
+   ⚠ bottom 根据背景图底部位置微调
+============================================= */
+.intorg-footnote {
+    position: absolute;
+    z-index: 2;
+    bottom: 1.5%;
+    left: 75%;
+    transform: translateX(-50%);
+    color: rgba(88, 72, 45, 0.4);
+    font-size: 0.42vw;
+    white-space: nowrap;
+    pointer-events: none;
+    top: 91%; /* ⚠ 微调以对准背景图底部横线 */
+}

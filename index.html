@@ -732,9 +732,6 @@
 
 <!-- ===================================================
      货币体系面板
-     结构与政治体系面板完全一致
-     背景图：CurrencySystemAD.png
-     文字叠加在图片的各个区域上
 =================================================== -->
 <div id="currency-panel" class="currency-panel">
 
@@ -954,9 +951,6 @@
 
 <!-- ===================================================
      历史时间线面板
-     交互方式与政治体系面板完全一致（从下方浮出）
-     背景图：HistoricalTimelineAD.png
-     时间轴内容区域：横向滚动，鼠标滚轮左右翻动
 =================================================== -->
 <div id="timeline-panel" class="timeline-panel">
 
@@ -1819,10 +1813,7 @@
 
 
 <!-- ===================================================
-     巨型企业面板
-     交互方式与政治体系面板完全一致（从下方浮出）
-     背景图：MegacorporationsAD.png
-     
+     巨型企业面板   
 =================================================== -->
 <div id="mega-panel" class="mega-panel">
 
@@ -1832,12 +1823,22 @@
     <!-- 关闭按钮：右上角 -->
     <button class="mega-close" id="mega-close">✕</button>
 
+    <div class="cur-title-block">
+    <h3 class="cur-main-title">巨型企业总览</h3>
+    <p class="cur-title-desc">
+        在方方面面影响着星间林地的政治、经济、军事、科技等领域的巨型企业
+   
+    </p>
+</div>
+
     <!-- =============================================
          左侧信息栏
          对应背景图左侧竖向装饰区域
          包含面板标题和概览数据
     ============================================= -->
     <div class="mega-sidebar">
+
+        
 
         <!-- 面板主标题 -->
         <p class="mega-main-title">巨型企业总览</p>
@@ -2447,6 +2448,238 @@
 
 </div>
 <!-- ===== 巨型企业面板结束 ===== -->
+
+<!-- ===================================================
+     国际组织面板
+=================================================== -->
+<div id="intorg-panel" class="intorg-panel">
+
+    <!-- 背景板：铺满整个面板 -->
+    <img class="intorg-bg" src="./assets/InternationalOrganizationsAD.png" alt="国际组织背景板">
+
+    <!-- 关闭按钮：右上角，与其他面板风格一致 -->
+    <button class="intorg-close" id="intorg-close">✕</button>
+
+    <!-- =============================================
+         顶部标题区
+         对应背景图顶部标题框位置
+    ============================================= -->
+    <div class="intorg-title-block">
+        <p class="intorg-main-title">国际组织</p>
+        <p class="intorg-subtitle">星间林地历 5501 年</p>
+    </div>
+
+    <!-- =============================================
+         右上角统计信息块
+         对应背景图右上角小框（地球图标旁边的方框）
+    ============================================= -->
+    <div class="intorg-stat-block">
+        <p class="intorg-stat-label">已公开的组织总数</p>
+        <p class="intorg-stat-value">8</p>
+    </div>
+
+    <!-- =============================================
+         表头行
+         对应背景图顶部深色横条
+         列：排行 / 组织 / 总部位置 / 成员国 / 简述
+    ============================================= -->
+<!-- =========================================
+     国际组织表头（强制手动对齐版）
+     不修改CSS，仅靠HTML移动位置
+========================================= -->
+
+<div class="intorg-header">
+
+    <!-- 第一列（空白占位） -->
+    <span class="io-col-hq"></span>
+
+    <!-- 组织 -->
+    <span
+        class="io-col-hq"
+        style="
+            position:relative;
+            left:-2.5vw;
+        "
+    >
+        组织
+    </span>
+
+    <!-- 总部位置 -->
+    <span
+        class="io-col-hq"
+        style="
+            position:relative;
+            left:-4vw;
+        "
+    >
+        总部位置
+    </span>
+
+    <!-- 成员国 -->
+    <span
+        class="io-col-hq"
+        style="
+            position:relative;
+            left:-3.7vw;
+        "
+    >
+        成员国
+    </span>
+
+    <!-- 简述 -->
+    <span
+        class="io-col-hq"
+        style="
+            position:relative;
+            left:2.6vw;
+        "
+    >
+        简述
+    </span>
+
+</div>
+
+    <!-- =============================================
+         8条组织行
+         对应背景图中8条横线格子
+         每行包含排名徽章（背景图已有）+ 文字内容
+         文字通过绝对定位叠加在背景图对应行上
+         ⚠ top值需在浏览器F12中微调，对准每条横线
+    ============================================= -->
+
+    <!-- ===== 第1行：非集权国家联合体 ===== -->
+    <div class="intorg-row intorg-row--1">
+        <!-- 排名数字：叠加在背景图金色徽章上 -->
+        <span class="io-col-rank">
+            <span class="io-rank-num io-rank--gold"></span>
+        </span>
+        <!-- 组织名称 -->
+        <span class="io-col-name">
+            <p class="io-name-cn"><br>非集权国家联合体</p>
+        </span>
+        <!-- 总部位置 -->
+        <span class="io-col-hq"><br>行星环第12区段</span>
+        <!-- 成员国数量 -->
+        <span class="io-col-members"><br>121</span>
+        <!-- 简述：三句话结构 -->
+        <span class="io-col-desc">
+            由深海联盟发起，初衷是在威权主义浪潮席卷星间林地的时代为非集权国家提供集体政治背书。核心主张是以制度多样性对抗意识形态同质化，坚持任何单一文明无权以"进步"或"效率"为名向他者输出治理模式。成员国内部分歧持续扩大——98个国家对"非集权"的定义存在根本性争议，部分成员已在实质上滑向它名义上反对的方向。
+        </span>
+    </div>
+
+    <!-- ===== 第2行：星间林地命运共同体 ===== -->
+    <div class="intorg-row intorg-row--2">
+        <span class="io-col-rank">
+            <span class="io-rank-num io-rank--silver"></span>
+        </span>
+        <span class="io-col-name">
+            <p class="io-name-cn"><br>星间林地命运共同体</p>
+        </span>
+        <span class="io-col-hq"><br>恩泽城</span>
+        <span class="io-col-members"><br>79</span>
+        <span class="io-col-desc">
+            作为对非集权国家联合体的直接回应而成立，以恩泽帝国为核心，主张星间林地各文明在共同命运面前应超越制度差异走向统一。对内以集体主义叙事强化成员国的政治向心力，对外将多元并存定性为效率低下与安全隐患的根源。在生产力极为发达的今天，它证明了一件事：独裁政权在足够宏大的叙事包装下，仍然能在各种国际场合维持相当的合法性。
+        </span>
+    </div>
+
+    <!-- ===== 第3行：拜泪兄弟会 ===== -->
+    <div class="intorg-row intorg-row--3">
+        <span class="io-col-rank">
+            <span class="io-rank-num io-rank--bronze"></span>
+        </span>
+        <span class="io-col-name">
+            <p class="io-name-cn"><br>拜泪兄弟会</p>
+        </span>
+        <span class="io-col-hq"><br>日月星光圣地</span>
+        <span class="io-col-members"><br>45</span>
+        <span class="io-col-desc">
+            以拜泪教信仰为唯一入盟标准，由日月星大陆的神权国家群自发凝聚而成，是星间林地历史上最古老的宗教性国际组织之一。核心主张是圣训法律体系具有普世性，任何文明在精神层面的"真正完善"都必须经由拜泪教义实现。高度的内部团结与同等程度的对外排他性使其在外交场合始终是一个难以拆分、也难以忽视的整体。
+        </span>
+    </div>
+
+    <!-- ===== 第4行：不屈者协定 ===== -->
+    <div class="intorg-row intorg-row--4">
+        <span class="io-col-rank">
+            <span class="io-rank-num"></span>
+        </span>
+        <span class="io-col-name">
+            <p class="io-name-cn"><br>不屈者协定</p>
+        </span>
+        <span class="io-col-hq"><br>开海港</span>
+        <span class="io-col-members"><br>21</span>
+        <span class="io-col-desc">
+            由飞升大陆信奉工业主义与生产力至上主义的国家组成，试图在非集权国家联合体与星间林地命运共同体的两极对立之间维持独立的第三立场。核心主张是以经济实力与技术能力作为国家话语权的唯一合法来源，拒绝在意识形态标签上站队。然而这种以民众为手段而非目的的组织逻辑，使其在实践中与威权主义的距离往往比它公开承认的更近。
+        </span>
+    </div>
+
+    <!-- ===== 第5行：四国集团（结界同盟）===== -->
+    <div class="intorg-row intorg-row--5">
+        <span class="io-col-rank">
+            <span class="io-rank-num"></span>
+        </span>
+        <span class="io-col-name">
+            <p class="io-name-cn"><br>四国集团（结界同盟）</p>
+        </span>
+        <span class="io-col-hq"><br>凛冬城</span>
+        <span class="io-col-members"><br>4</span>
+        <span class="io-col-desc">
+            以精灵大陆为核心，由苍神缘起帝国、凛冬合众国、河童重工集团在凛冬战争结束后正式结盟，是星间林地目前一体化程度最高的政治经济文化军事同盟。成员之间完全不设防，高层信息全面互通，对外以统一立场发言。在其他国际组织仍在讨论信任建立机制的时候，四国集团早已运行了数百年——这本身就是一种无声的政治宣言。
+        </span>
+    </div>
+
+    <!-- ===== 第6行：南南协定 ===== -->
+    <div class="intorg-row intorg-row--6">
+        <span class="io-col-rank">
+            <span class="io-rank-num"></span>
+        </span>
+        <span class="io-col-name">
+            <p class="io-name-cn"><br>南南协定</p>
+        </span>
+        <span class="io-col-hq"><br>天空破碎群岛</span>
+        <span class="io-col-members"><br>35</span>
+        <span class="io-col-desc">
+            由居云者各国与南方同盟国家共同发起，核心驱动力是对蜂龙南下扩张与拜泪教渗透的共同警惕。以经济互补与情报共享为主要合作形式，避免建立正式军事指挥结构以降低成员国的政治敏感度。务实、低调、不寻求存在感，是这个组织有意维持的风格——它的价值不在于它说了什么，而在于它在关键时刻协调了什么。
+        </span>
+    </div>
+
+    <!-- ===== 第7行：南方同盟 ===== -->
+    <div class="intorg-row intorg-row--7">
+        <span class="io-col-rank">
+            <span class="io-rank-num"></span>
+        </span>
+        <span class="io-col-name">
+            <p class="io-name-cn"><br>南方同盟</p>
+        </span>
+        <span class="io-col-hq"><br>禁咒海峡条约城市</span>
+        <span class="io-col-members"><br>31</span>
+        <span class="io-col-desc">
+            由禁咒海峡条约城市发起，三十一个国家在蜂龙第三次大规模扩张后以防务协约为基础正式结盟。核心逻辑简单而严峻：单独拿出来没有一个成员国能在蜂龙的军事压力下维持稳定，团结是唯一有意义的选项。在残酷的国际政治现实面前，它没有宏大的意识形态主张，只有一个务实的共识——活下去需要彼此。
+        </span>
+    </div>
+
+    <!-- ===== 第8行：东海岸守卫者组织 ===== -->
+    <div class="intorg-row intorg-row--8">
+        <span class="io-col-rank">
+            <span class="io-rank-num"></span>
+        </span>
+        <span class="io-col-name">
+            <p class="io-name-cn"><br>东海岸守卫者组织</p>
+        </span>
+        <span class="io-col-hq"><br>正直者城</span>
+        <span class="io-col-members"><br>17</span>
+        <span class="io-col-desc">
+            由恩泽大陆东海岸历经万年演变而成的各类军事国家与骑士团国家联合组成，起源于共同抵御蜂龙入侵的漫长历史。蜂龙威胁在今天已不再具有当年的紧迫性，组织的存在意义随之从防御需求转向文化认同——长期的军事传统塑造了这些国家独特的荣誉观与战争伦理，使其在被恩泽帝国整合吞并的压力下仍保有清晰的自我意识。它在对抗外部威胁上已不是最关键的力量，但在抵御内部同化方面，它仍然有效。
+        </span>
+    </div>
+
+    <!-- 底部备注 -->
+    <p class="intorg-footnote">* 数据由观星塔组织外交研究部门整理 · 仅公开最低限度基本情报</p>
+
+</div>
+<!-- ===== 国际组织面板结束 ===== -->
+
+
+
 
 
 

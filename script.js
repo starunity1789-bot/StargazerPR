@@ -1027,3 +1027,35 @@ megaTableWrap.addEventListener('wheel', (e) => {
     e.stopPropagation(); // 阻止事件冒泡到页面，防止干扰地图
     // 不需要 preventDefault，保持默认纵向滚动行为即可
 }, { passive: true });
+
+
+// ===================================================
+// 国际组织面板交互
+// 逻辑与政治体系面板完全对称，无额外复杂交互
+// ===================================================
+
+// --- 获取面板相关元素 ---
+const intorgPanel = document.getElementById('intorg-panel'); // 整个面板
+const intorgClose = document.getElementById('intorg-close'); // 关闭按钮
+
+// --- 打开面板 ---
+// id="International-Organizations" 与 index.html 第76行完全一致（带连字符）
+document.getElementById('International-Organizations').addEventListener('click', () => {
+    intorgPanel.classList.add('active'); // 添加active，CSS动画从下方浮出
+});
+
+// --- 关闭面板：点击 X 按钮 ---
+intorgClose.addEventListener('click', () => {
+    intorgPanel.classList.remove('active'); // 移除active，面板收回下方
+});
+
+// --- 关闭面板：点击面板外部区域 ---
+document.addEventListener('click', (e) => {
+    if (
+        intorgPanel.classList.contains('active') &&              // 面板当前是打开的
+        !intorgPanel.contains(e.target) &&                       // 点击位置不在面板内部
+        e.target.closest('#International-Organizations') === null // 点击位置不是打开按钮
+    ) {
+        intorgPanel.classList.remove('active');
+    }
+});
