@@ -55,6 +55,10 @@ body {
 
 
     
+
+   
+}
+
 /* 历法与时间专属排版 */
 .calendar-group {
     display: flex;
@@ -82,10 +86,6 @@ body {
 #kepler-time {
     margin-left: 0.4vw; 
 }
-
-   
-}
-
 
 
 
@@ -2486,4 +2486,1351 @@ body {
     white-space: nowrap;
     pointer-events: none;
     top: 91%; /* ⚠ 微调以对准背景图底部横线 */
+}
+
+
+/* ===================================================
+   科技树面板
+   整体逻辑与政治体系面板完全一致
+   背景图：TechnologyTreeAD.png
+   内容区域纵向滚动，主轴+分支树状排版
+=================================================== */
+
+/* 面板容器 */
+.techtree-panel {
+    position: fixed;
+    bottom: 50;
+    left: 50%;
+    top: 13vh;
+    transform: translateX(-50%) translateY(100%);
+    width: 70vw;
+    height: 83vh;
+    z-index: 5000;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                opacity 0.4s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.techtree-panel.active {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* 背景图 */
+.techtree-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* 关闭按钮：对准背景图右上角X图案 */
+.techtree-close {
+    position: absolute;
+    top: 4.1%;
+    right: 3.05%;
+    border: none;
+    background: transparent;
+    color: #786400;
+    font-size: 1.3vw;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s, color 0.2s;
+}
+.techtree-close:hover {
+    transform: scale(1.15);
+    color: #c8a030;
+}
+
+/* =============================================
+   可滚动内容区
+   叠加在背景图中间空白区域
+   ⚠ top/bottom/left/right 根据背景图实际位置微调
+============================================= */
+.techtree-scroll {
+    position: absolute;
+    z-index: 2;
+    top: 4%;                                /* ⚠ 微调，对准背景图内容区上边缘 */
+    bottom: 13%;                             /* ⚠ 微调，对准背景图底部装饰上方 */
+    left: 5%;
+    right: 3%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+.techtree-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+/* 内容容器 */
+.techtree-content {
+    padding: 1.5vh 1.5vw 3vh 1.5vw;
+    box-sizing: border-box;
+}
+
+/* =============================================
+   顶部标题区
+============================================= */
+.tt-header {
+    text-align: center;
+    margin-bottom: 2vh;
+    padding-bottom: 1.5vh;
+    border-bottom: 1px solid rgba(193, 160, 94, 0.3);
+}
+
+.tt-main-title {
+    color: #3f3520;
+    font-size: 1.5vw;
+    font-weight: 700;
+    margin: 0 0 0.3vh 0;
+    letter-spacing: 0.3vw;
+    font-family: "Noto Serif SC", "Noto Serif JP", "源ノ明朝", "Yu Mincho", "游明朝", "宋体", SimSun, Georgia, serif;
+}
+
+.tt-subtitle {
+    color: rgba(88, 72, 45, 0.55);
+    font-size: 0.5vw;
+    margin: 0 0 0.8vh 0;
+    letter-spacing: 0.1vw;
+}
+
+/* 图例 */
+.tt-legend {
+    display: flex;
+    justify-content: center;
+    gap: 2vw;
+}
+
+.tt-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3vw;
+    color: rgba(88, 72, 45, 0.6);
+    font-size: 0.48vw;
+}
+
+.tt-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.tt-dot--main   { background: rgba(193, 160, 94, 0.8); }
+.tt-dot--branch { background: rgba(193, 160, 94, 0.3); border: 1px solid rgba(193,160,94,0.5); }
+.tt-dot--key    { background: #c8a030; box-shadow: 0 0 4px rgba(200,160,48,0.5); }
+
+/* =============================================
+   时代块
+   每个时代块是一个独立的分组
+============================================= */
+.tt-era {
+    margin-bottom: 1.5vh;
+    border-left: 3px solid rgba(193, 160, 94, 0.4);
+    padding-left: 1vw;
+}
+
+/* 关键时代：金色边框 */
+.tt-era--key {
+    border-left-color: rgba(200, 160, 48, 0.7);
+}
+
+/* 时代标题 */
+.tt-era-title {
+    color: rgba(88, 72, 45, 0.7);
+    font-size: 0.65vw;
+    font-weight: 700;
+    letter-spacing: 0.08vw;
+    margin-bottom: 0.8vh;
+    padding: 0.3vh 0.5vw;
+    background: rgba(193, 160, 94, 0.06);
+    border-radius: 0.2vw;
+}
+
+.tt-era-title--key {
+    color: #786400;
+    background: rgba(193, 160, 94, 0.12);
+}
+
+/* =============================================
+   节点行容器
+   横向排列所有主轴节点（flex-wrap换行）
+============================================= */
+.tt-nodes {
+    display: flex;
+    flex-wrap: wrap;                        /* 节点多时自动换行 */
+    gap: 0.8vh 1vw;
+    padding: 0.3vh 0;
+}
+
+/* =============================================
+   主轴节点
+   每个节点包含：圆点 + 节点名 + 分支列表
+============================================= */
+.tt-main-node {
+    display: flex;
+    flex-direction: column;
+    min-width: 12vw;                        /* 最小宽度，防止过窄 */
+    max-width: 18vw;
+    background: rgba(255, 252, 245, 0.7);
+    border: 1px solid rgba(193, 160, 94, 0.25);
+    border-radius: 0.3vw;
+    padding: 0.5vh 0.6vw;
+    position: relative;
+    transition: border-color 0.15s, background 0.15s;
+}
+.tt-main-node:hover {
+    border-color: rgba(193, 160, 94, 0.55);
+    background: rgba(255, 250, 235, 0.95);
+}
+
+/* 关键节点：金色边框 */
+.tt-main-node--key {
+    border-color: rgba(200, 160, 48, 0.5);
+    background: rgba(255, 248, 220, 0.8);
+}
+
+/* 补充节点：蓝绿色边框，视觉上区别于原有节点 */
+.tt-main-node--added {
+    border-color: rgba(80, 140, 160, 0.4);
+    background: rgba(230, 245, 250, 0.7);
+}
+
+/* 节点圆点 */
+.tt-node-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(193, 160, 94, 0.8);
+    display: inline-block;
+    margin-right: 0.3vw;
+    flex-shrink: 0;
+    margin-top: 0.15vh;
+}
+.tt-node-dot--key   { background: #c8a030; box-shadow: 0 0 4px rgba(200,160,48,0.4); }
+.tt-node-dot--added { background: rgba(80, 140, 160, 0.7); }
+
+/* 节点名称行（圆点+文字横排）*/
+.tt-main-node > .tt-node-dot,
+.tt-main-node > .tt-node-name {
+    display: inline;
+}
+
+/* 节点名称文字 */
+.tt-node-name {
+    color: #3f3520;
+    font-size: 0.58vw;
+    font-weight: 700;
+    line-height: 1.3;
+    display: block;
+    margin-bottom: 0.3vh;
+}
+
+/* 补充节点标签 */
+.tt-added-tag {
+    display: inline-block;
+    font-size: 0.38vw;
+    font-weight: 400;
+    color: rgba(80, 140, 160, 0.9);
+    background: rgba(80, 140, 160, 0.1);
+    border: 1px solid rgba(80, 140, 160, 0.3);
+    border-radius: 2px;
+    padding: 0 0.2vw;
+    margin-left: 0.2vw;
+    vertical-align: middle;
+}
+
+/* =============================================
+   分支节点列表
+   在主轴节点内部纵向排列
+============================================= */
+.tt-branches {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15vh;
+    padding-left: 0.5vw;
+    border-left: 1px solid rgba(193, 160, 94, 0.25);
+    margin-top: 0.2vh;
+}
+
+/* 单个分支节点 */
+.tt-branch {
+    color: rgba(88, 72, 45, 0.75);
+    font-size: 0.48vw;
+    line-height: 1.5;
+    padding-left: 0.3vw;
+    position: relative;
+}
+
+/* 分支节点前的小箭头 */
+.tt-branch::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: rgba(193, 160, 94, 0.5);
+    font-size: 0.5vw;
+}
+
+/* =============================================
+   终点节点
+============================================= */
+.tt-terminal {
+    text-align: center;
+    margin-top: 3vh;
+    padding-top: 2vh;
+    border-top: 1px solid rgba(193, 160, 94, 0.3);
+}
+
+.tt-terminal-node {
+    display: inline-block;
+    color: #786400;
+    font-size: 1.2vw;
+    font-weight: 700;
+    letter-spacing: 0.3vw;
+    padding: 0.8vh 2vw;
+    border: 1px solid rgba(193, 160, 94, 0.4);
+    border-radius: 0.3vw;
+    background: rgba(255, 248, 220, 0.6);
+    margin-bottom: 1vh;
+}
+
+.tt-terminal-hint {
+    color: rgba(88, 72, 45, 0.4);
+    font-size: 0.42vw;
+    margin: 0;
+    letter-spacing: 0.05vw;
+}
+
+
+/* ===================================================
+   信仰与哲学面板
+   整体逻辑与政治体系面板完全一致
+   背景图：BeliefsandPhilosophy.png
+   布局：左侧概览区 + 右侧卡片区（上7下6）
+=================================================== */
+
+/* 面板容器：初始藏在屏幕下方，active后浮出 */
+.beliefs-panel {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    top: 12vh;
+    transform: translateX(-50%) translateY(100%); /* 初始藏在屏幕下方 */
+    width: 70vw;
+    height: 85vh;
+    z-index: 5000;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                opacity 0.4s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* 激活状态：面板浮出 */
+.beliefs-panel.active {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* 背景图：铺满整个面板 */
+.beliefs-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* 关闭按钮：右上角，对准背景图X圆圈 */
+.beliefs-close {
+    position: absolute;
+    top: 4.5%;
+    right: 3.05%;
+    border: none;
+    background: transparent;
+    color: #786400;
+    font-size: 1vw;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s, color 0.2s;
+}
+.beliefs-close:hover {
+    transform: scale(1.15);
+    color: #c8a030;
+}
+
+/* =============================================
+   页面主标题
+   对应背景图顶部"信仰与哲学"大字区域
+   ⚠ top/left 根据背景图实际位置微调
+============================================= */
+.bl-main-title-block {
+    position: absolute;
+    z-index: 2;
+    top: 4%;                                /* ⚠ 微调 */
+    left: 51%;
+    transform: translateX(-50%);
+    text-align: center;
+    pointer-events: none;
+    font-family: "Noto Serif SC", "Noto Serif JP", "源ノ明朝", "Yu Mincho", "游明朝", "宋体", SimSun, Georgia, serif;
+}
+
+.bl-main-title {
+    color: #3f3520;
+    font-size: 1.8vw;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0vw;
+}
+
+/* =============================================
+   左侧概览区
+   对应背景图左侧竖向装饰区域
+   ⚠ top/left/width 根据背景图实际位置微调
+============================================= */
+.bl-overview {
+    position: absolute;
+    z-index: 2;
+    top: 33%;                               /* ⚠ 微调 */
+    left: 4%;
+    width: 13%;                             /* ⚠ 微调 */
+    padding: 0 0.8vw;
+    box-sizing: border-box;
+}
+
+/* 概览标题 */
+.bl-overview-title {
+    color: #3f3520;
+    font-size: 0.9vw;
+    font-weight: 700;
+    margin: 0 0 0.2vh 0;
+    letter-spacing: 0.1vw;
+}
+
+/* 概览英文副标题 */
+.bl-overview-subtitle {
+    color: rgba(88, 72, 45, 0.5);
+    font-size: 0.42vw;
+    margin: 0 0 1vh 0;
+    letter-spacing: 0.15vw;
+}
+
+/* 概览正文 */
+.bl-overview-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8vh;
+}
+
+.bl-overview-body p {
+    color: rgba(60, 50, 35, 0.82);
+    font-size: 0.48vw;
+    line-height: 1.75;
+    margin: 0;
+    text-align: justify;
+}
+
+/* =============================================
+   右侧主内容区
+   对应背景图右侧大块区域（上7卡+下6卡）
+   ⚠ top/left/right/bottom 根据背景图实际位置微调
+============================================= */
+.bl-content {
+    position: absolute;
+    z-index: 2;
+    top: 29%;                                /* ⚠ 微调 */
+    left: 24%;                              /* ⚠ 微调，从左侧概览区右边缘开始 */
+    right: 4.5%;
+    bottom: 0%;
+    display: flex;
+    flex-direction: column;
+    gap: 0vh;
+    overflow: visible;                      /* 允许卡片溢出背景图区域，配合背景图预留的空白区域展示 */
+}
+
+/* =============================================
+   分区标题行（信仰体系 / 哲学流派）
+============================================= */
+.bl-section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.8vw;
+    padding: 0.2vh 0;
+
+
+
+
+}
+
+/* 两侧装饰线 */
+.bl-section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(193, 160, 94, 0.5));
+            visibility: hidden;     /* 目前先隐藏两侧装饰线，后续根据背景图预留的空白区域微调位置后再显示 */
+}
+.bl-section-title .bl-section-line:last-child {
+    background: linear-gradient(to left, transparent, rgba(193, 160, 94, 0.5));
+            visibility: hidden;     /* 目前先隐藏两侧装饰线，后续根据背景图预留的空白区域微调位置后再显示 */
+}
+
+/* 分区中文名 */
+.bl-section-name {
+    color: #5a4200;
+    font-size: 0.75vw;
+    font-weight: 700;
+    letter-spacing: 0.2vw;
+    white-space: nowrap;
+
+
+        margin-top: -13vh;
+
+
+}
+
+/* 分区英文名 */
+.bl-section-en {
+    color: rgba(88, 72, 45, 0.45);
+    font-size: 0.4vw;
+    letter-spacing: 0.12vw;
+    white-space: nowrap;
+}
+
+/* =============================================
+   卡片行容器
+   信仰体系：7张均分
+   哲学流派：6张均分
+============================================= */
+.bl-cards-row {
+    display: flex;
+    gap: -5vw;
+    flex: 1;                                /* 平均分配垂直空间 */
+}
+
+/* =============================================
+   单张卡片
+   对应背景图中每个金色边框卡槽
+   ICON占位区在顶部，文字在下方
+============================================= */
+.bl-card {
+    flex: 1;                                /* 均分横向空间 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.3vh 0vw 0.5vh;
+    box-sizing: border-box;
+    overflow: hidden;
+    min-width: 0;
+}
+
+/* ICON占位区：对应背景图中每个圆形图案的位置 */
+/* 美术后期处理ICON时，这个区域提供空间占位 */
+.bl-card-icon-placeholder {
+    width: 0.5vw;                           /* ⚠ 根据背景图圆形图案大小微调 */
+    height: 3.5vw;
+    flex-shrink: 0;
+    /* 不设任何背景色，完全透明，让背景图的圆形图案显示 */
+}
+
+/* 卡片名称 */
+.bl-card-name {
+    color: #3f3520;
+    font-size: 0.6vw;
+    font-weight: 700;
+    margin: 0.3vh 0 0.3vh;
+    text-align: center;
+    letter-spacing: 0.05vw;
+}
+
+/* 卡片正文区 */
+.bl-card-body {
+    flex: 1;
+    overflow: hidden;                       /* 文字过多时隐藏超出部分 */
+}
+
+.bl-card-body p {
+    color: rgba(60, 50, 35, 0.78);
+    font-size: 0.42vw;
+    line-height: 1.6;
+    margin: 0;
+    text-align: center;
+}
+
+/* 哲学流派卡片：正文字体稍大，因为只有6张卡片空间更宽裕 */
+.bl-card--philosophy .bl-card-body p {
+    font-size: 0.44vw;
+}
+
+/* 鼠标悬停卡片：轻微高亮 */
+.bl-card:hover {
+    background: rgba(193, 160, 94, 0.04);
+    border-radius: 0.3vw;
+}
+
+.bl-section-title--philosophy {
+    margin-top: 3vh;
+}
+
+.bl-cards-row--philosophy {
+    max-width: 48.5vw;   /* 调小这个值直到6张卡片宽度合适 */
+}
+
+
+/* ===================================================
+   种族特征面板
+=================================================== */
+
+/* 面板容器：初始藏在屏幕下方，active后浮出 */
+.racial-panel {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    top: 13vh;                               /* 距顶部留出顶栏高度 */
+    transform: translateX(-50%) translateY(100%); /* 初始藏在屏幕下方 */
+    width: 65vw;                            /* 宽版，适配多列表格 */
+    height: 78vh;
+    z-index: 5000;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                opacity 0.4s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* 激活状态：面板浮出 */
+.racial-panel.active {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* 背景图：铺满整个面板 */
+.racial-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* 关闭按钮：右上角，对准背景图X位置 */
+.racial-close {
+    position: absolute;
+    top: 4%;
+    right: 3.2%;
+    border: none;
+    background: transparent;
+    color: #786400;
+    font-size: 1vw;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s, color 0.2s;
+}
+.racial-close:hover {
+    transform: scale(1.15);
+    color: #c8a030;
+}
+
+/* =============================================
+   顶部标题区
+   ⚠ top/left 根据背景图标题框实际位置微调
+============================================= */
+.racial-title-block {
+    position: absolute;
+    z-index: 2;
+    top: 4.5%;                              /* ⚠ 微调 */
+    left: 50.5%;
+    transform: translateX(-50%);
+    text-align: center;
+    pointer-events: none;
+    font-family: "Noto Serif SC", "Noto Serif JP", "源ノ明朝", "Yu Mincho", "游明朝", "宋体", SimSun, Georgia, serif;
+}
+
+/* 主标题大字 */
+.racial-main-title {
+    color: #3f3520;
+    font-size: 1.8vw;
+    font-weight: 700;
+    margin: 0 0 0.3vh 0;
+    letter-spacing: 0.4vw;
+}
+
+/* 副标题 */
+.racial-subtitle {
+    color: rgba(88, 72, 45, 0.55);
+    font-size: 0.48vw;
+    margin: 0;
+    letter-spacing: 0.15vw;
+}
+
+/* =============================================
+   表头行
+   对应背景图顶部深色横条（列标题）
+   ⚠ top 根据背景图横条实际位置微调
+============================================= */
+.racial-header {
+    position: absolute;
+    z-index: 2;
+    top: 14%;                               /* ⚠ 微调，对准背景图表头横条 */
+    left: 6%;
+    right: 2%;
+    display: flex;
+    align-items: center;
+    padding: 0 0.5vw;
+    height: 4%;
+    box-sizing: border-box;
+}
+
+/* 表头文字：比数据行稍淡 */
+.racial-header span {
+    color: rgba(88, 72, 45, 0.6);
+    font-size: 0.5vw;
+    font-weight: 600;
+    letter-spacing: 0.05vw;
+}
+
+/* =============================================
+   10条种族数据行
+   position:absolute，每行叠加在背景图对应横线上
+   ⚠ top值全部需要在F12中对准背景图横线微调
+   行高约为 (100% - 表头位置 - 底部留白) / 10
+============================================= */
+
+/* 所有行的通用样式 */
+.racial-row {
+    position: absolute;
+    z-index: 2;
+    left: 2%;
+    right: 2%;
+    display: flex;
+    align-items: flex-start;               /* 顶部对齐，多行文字不撑歪布局 */
+    padding: 0.5vh 0.5vw;
+    box-sizing: border-box;
+    transition: background 0.15s;
+}
+.racial-row:hover {
+    background: rgba(193, 160, 94, 0.05);
+    border-radius: 0.2vw;
+}
+
+/* ⚠ 以下所有top值根据背景图横线实际位置在F12中微调 */
+/* 背景图共10条横线，从表头下方均匀分布到底部 */
+.racial-row--1  { top: 20%;  height: 7.8%; }
+.racial-row--2  { top: 28%; height: 7.8%; }
+.racial-row--3  { top: 36%; height: 7.8%; }
+.racial-row--4  { top: 43.5%; height: 7.8%; }
+.racial-row--5  { top: 51%; height: 7.8%; }
+.racial-row--6  { top: 58.5%;   height: 7.8%; }
+.racial-row--7  { top: 65%; height: 7.8%; }
+.racial-row--8  { top: 72%; height: 7.8%; }
+.racial-row--9  { top: 79%; height: 7.8%; }
+.racial-row--10 { top: 87.2%; height: 7.8%; }
+
+/* =============================================
+   列宽定义
+   与表头列宽完全一致，调整flex值控制各列宽度
+============================================= */
+
+/* ICON列：留空，背景图已有图标，只占宽度 */
+.rc-col-icon {
+    flex: 0 0 9%;                           /* 固定宽度6%，不参与flex分配 */
+}
+
+/* 种族名称列 */
+.rc-col-name {
+    flex: 0 0 8%;
+    display: flex;
+    align-items: center;
+}
+
+/* 种族中文名 */
+.rc-name-cn {
+    color: #3f3520;
+    font-size: 0.75vw;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0.05vw;
+}
+
+/* 生态/生物基底列 */
+.rc-col-bio {
+    flex: 0 0 10%;
+    color: rgba(60, 50, 35, 0.75);
+    font-size: 0.48vw;
+    line-height: 1.5;
+    padding-right: 0.5vw;
+}
+
+/* 寿命时长列 */
+.rc-col-life {
+    flex: 0 0 10%;
+    color: rgba(60, 50, 35, 0.75);
+    font-size: 0.48vw;
+    line-height: 1.5;
+    padding-right: 0.5vw;
+}
+
+/* 形态与生理特征列（较宽） */
+.rc-col-body {
+    flex: 0 0 15.5%;
+    color: rgba(60, 50, 35, 0.82);
+    font-size: 0.48vw;
+    line-height: 1.6;
+    padding-right: 0.5vw;
+}
+
+/* 心智与性格特征列 */
+.rc-col-mind {
+    flex: 0 0 15%;
+    color: rgba(60, 50, 35, 0.82);
+    font-size: 0.48vw;
+    line-height: 1.6;
+    padding-right: 0.5vw;
+}
+
+/* 社会、繁衍与历史列（较宽） */
+.rc-col-society {
+    flex: 0 0 16%;
+    color: rgba(60, 50, 35, 0.82);
+    font-size: 0.48vw;
+    line-height: 1.6;
+    padding-right: 0.5vw;
+}
+
+/* 分布位置列 */
+.rc-col-location {
+    flex: 0 0 11%;
+    color: #786400;
+    font-size: 0.48vw;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+/* =============================================
+   底部备注
+   ⚠ bottom/left 根据背景图底部位置微调
+============================================= */
+.racial-footnote {
+    position: absolute;
+    z-index: 2;
+    bottom: 1.5%;
+    left: 70%;
+    transform: translateX(-50%);
+    color: rgba(88, 72, 45, 0.4);
+    font-size: 0.42vw;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+
+/* ===================================================
+   奇观面板
+   按钮ID：Milestones  背景图：ES.png
+   排版：竖排，每行一个奇观，全部居中
+         无卡片底色和边框，奇观间距大
+=================================================== */
+
+/* 面板容器 */
+.wonder-panel {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    top: 16vh;
+    transform: translateX(-50%) translateY(100%);
+    width: 60vw;
+    height: 70vh;
+    z-index: 5000;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                opacity 0.4s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.wonder-panel.active {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* 背景图 */
+.wonder-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* 关闭按钮 */
+.wonder-close {
+    position: absolute;
+    top: 6.9%;
+    right: 5%;
+    border: none;
+    background: transparent;
+    color: #786400;
+    font-size: 1.2vw;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s, color 0.2s;
+}
+.wonder-close:hover {
+    transform: scale(1.15);
+    color: #c8a030;
+}
+
+/* 顶部标题区 */
+.wonder-title-block {
+    position: absolute;
+    z-index: 2;
+    top: 6.5%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    pointer-events: none;
+    font-family: "Noto Serif SC", "源ノ明朝", "宋体", SimSun, Georgia, serif;
+}
+
+.wonder-main-title {
+    color: #3f3520;
+    font-size: 1.8vw;
+    font-weight: 700;
+    margin: 0 0 0.3vh 0;
+    letter-spacing: 0.6vw;
+}
+
+.wonder-subtitle {
+    color: rgba(88, 72, 45, 0.5);
+    font-size: 0.45vw;
+    margin: 0;
+    letter-spacing: 0.15vw;
+}
+
+/* =============================================
+   纵向滚动内容区
+   ⚠ top/bottom/left/right 对准背景图内框微调
+============================================= */
+.wonder-scroll {
+    position: absolute;
+    z-index: 2;
+    top: 24%;
+    bottom: 9%;
+    left: 8%;
+    right: 8%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+.wonder-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.wonder-content {
+    padding: 1vh 0 3vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;   /* 所有内容水平居中 */
+}
+
+/* =============================================
+   分区标题行
+============================================= */
+.wonder-section-title {
+    display: flex;
+    align-items: center;
+    gap: 2vw;
+    width: 100%;
+    margin-bottom: 3vh;
+    margin-top: 1vh;
+}
+
+/* 自然奇观分区与上方人工奇观的间距 */
+.wonder-section-title--n {
+    margin-top: 5vh;
+}
+
+.wonder-section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(193, 160, 94, 0.5));
+}
+.wonder-section-line--r {
+    background: linear-gradient(to left, transparent, rgba(193, 160, 94, 0.5));
+}
+
+.wonder-section-label {
+    color: #786400;
+    font-size: 0.72vw;
+    font-weight: 700;
+    letter-spacing: 0.1vw;
+    white-space: nowrap;
+}
+
+/* 自然奇观分区标签：绿色调 */
+.wonder-section-label--n {
+    color: #2a6050;
+}
+
+.wonder-section-en {
+    color: rgba(88, 72, 45, 0.4);
+    font-size: 0.4vw;
+    letter-spacing: 0.12vw;
+    white-space: nowrap;
+}
+
+/* =============================================
+   单个奇观条目
+   竖排，无底色，无边框，全部居中
+   每个条目之间靠 margin-bottom 拉开距离
+=================================================*/
+.wonder-item {
+    width: 55%;                /* 内容区宽度，居中展示，⚠ 可微调 */
+    text-align: center;        /* 所有文字居中 */
+    margin-bottom: 15vh;        /* 奇观之间的间距，⚠ 调大/小这个值 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* =============================================
+   条目内部元素
+============================================= */
+
+/* 顶部：类型标签 + 位置 */
+.wonder-item-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6vw;
+    margin-bottom: 0.6vh;
+}
+
+/* 类型标签小胶囊 */
+.wonder-tag {
+    font-size: 0.4vw;
+    font-weight: 600;
+    padding: 0.15vh 0.4vw;
+    border-radius: 2px;
+    white-space: nowrap;
+}
+
+/* 人工奇观标签：金色 */
+.wonder-tag--a {
+    background: rgba(193, 160, 94, 0.12);
+    color: #786400;
+    border: 1px solid rgba(193, 160, 94, 0.3);
+}
+
+/* 自然奇观标签：绿色 */
+.wonder-tag--n {
+    background: rgba(80, 150, 120, 0.1);
+    color: #2a6050;
+    border: 1px solid rgba(80, 150, 120, 0.25);
+}
+
+/* 位置文字 */
+.wonder-item-location {
+    color: rgba(88, 72, 45, 0.5);
+    font-size: 0.42vw;
+}
+.wonder-item-location--n {
+    color: rgba(42, 96, 80, 0.55);
+}
+
+/* 奇观名称：大字居中 */
+.wonder-item-name {
+    color: #3f3520;
+    font-size: 1.1vw;
+    font-weight: 700;
+    margin: 0 0 0.8vh 0;
+    letter-spacing: 0.08vw;
+    font-family: "Noto Serif SC", "源ノ明朝", "宋体", SimSun, Georgia, serif;
+}
+.wonder-item-name--n {
+    color: #1e4035;
+}
+
+/* 金色短线装饰：名称下方 */
+.wonder-item-deco {
+    width: 4vw;
+    height: 1px;
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgba(193, 160, 94, 0.7),
+        transparent
+    );
+    margin-bottom: 1vh;
+    flex-shrink: 0;
+}
+/* 自然奇观装饰线：绿色调 */
+.wonder-item-deco--n {
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgba(80, 150, 120, 0.6),
+        transparent
+    );
+}
+
+/* 正文：每句话单独一个 <p>，居中，间距适中 */
+.wonder-item-text {
+    color: rgba(60, 50, 35, 0.78);
+    font-size: 0.55vw;
+    line-height: 1.9;
+    margin: 0 0 0.3vh 0;
+    text-align: center;
+    max-width: 40vw;               /* 限制正文最大宽度，避免过宽难以阅读 */
+}
+
+/* 年份/来源：最下方，较小，间距拉开 */
+.wonder-item-year {
+    color: rgba(120, 100, 0, 0.5);
+    font-size: 0.42vw;
+    margin: 0.8vh 0 0 0;
+    letter-spacing: 0.05vw;
+}
+.wonder-item-year--n {
+    color: rgba(40, 100, 80, 0.5);
+}
+
+/* =============================================
+   底部备注
+============================================= */
+.wonder-footnote-block {
+    margin-top: 3vh;
+    padding-top: 1.5vh;
+    border-top: 1px solid rgba(193, 160, 94, 0.2);
+    text-align: center;
+    width: 100%;
+}
+
+.wonder-footnote {
+    color: rgba(88, 72, 45, 0.35);
+    font-size: 0.4vw;
+    margin: 0.2vh 0;
+    letter-spacing: 0.05vw;
+}
+
+
+/* ===================================================
+   移民生活指南面板
+   ★ 粘贴位置：style.css 末尾
+   命名前缀：immig-
+   整体逻辑与 politics-panel 完全一致
+   背景图：N.png
+=================================================== */
+
+/* ===== 面板容器 =====
+   初始藏在屏幕下方（translateY 100%），点击按钮后添加 .active 浮出 */
+.immig-panel {
+    position: fixed;
+    bottom: 0;
+    left: 46%;                              /* 水平居中基准点，与其他面板一致 */
+    top: 12.5vh;
+    transform: translateX(-50%) translateY(100%); /* 初始藏在屏幕下方 */
+
+    width: 65.5vw;
+    height: 85vh;
+
+    z-index: 5000;
+
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                opacity 0.4s ease;
+    opacity: 0;
+    pointer-events: none;                   /* 隐藏时禁止鼠标事件 */
+}
+
+/* 激活状态：面板从下方浮出 */
+.immig-panel.active {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* ===== 背景板 ===== */
+.immig-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('./assets/N.png'); /* ← 使用 N.png 作为面板底图 */
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+/* ===== 关闭按钮（右上角 ✕）===== */
+.immig-close {
+    position: absolute;
+    top: 1.4%;
+    right: 0.71%;
+    width: 3.5vw;
+    height: 3.5vw;
+    border: none;
+    background: transparent;
+    color: #786400;
+    font-size: 1vw;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s, color 0.2s;
+}
+.immig-close:hover {
+    transform: scale(1.15);
+    color: #c8a030;
+}
+
+/* ===== 左侧导航栏（10个子选项）===== */
+/* 从顶部 logo/图标下方开始，垂直排列 10 个按钮 */
+.immig-nav {
+    position: absolute;
+    top: 32%;                               /* 从徽标区下方开始，适配10个按钮的高度 */
+    left: 3.5%;                             /* 贴近面板左边缘 */
+    width: 14%;                             /* 与背景图左侧导航区宽度匹配 */
+    display: flex;
+    flex-direction: column;                 /* 垂直排列 */
+    gap: 1.6vh;                             /* 按钮间距，10个按钮需要较小间距 */
+}
+
+/* 单个导航按钮 */
+.immig-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.65vh 0.1vw;
+    cursor: pointer;
+    border-radius: 0.4vw;
+    transition: background 0.2s, color 0.2s;
+    color: rgba(88, 72, 45, 0.6);
+    font-size: 0.52vw;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(193, 160, 94, 0.1);
+    text-align: center;
+    white-space: nowrap;                    /* 防止文字换行，保持按钮整洁 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 选中状态：高亮 */
+.immig-nav-btn.immig-nav-btn--active {
+    background: rgba(193, 160, 94, 0.18);
+    color: #786400;
+    border-color: rgba(193, 160, 94, 0.45);
+}
+
+/* 鼠标悬停 */
+.immig-nav-btn:hover {
+    background: rgba(193, 160, 94, 0.1);
+    color: #9a7a30;
+}
+
+/* ===== 右侧内容区 ===== */
+/* 可滚动区域，放 Markdown 渲染后的文章内容 */
+.immig-content {
+    position: absolute;
+    top: 9%;                                /* 顶部留出徽标高度 */
+    left: 21%;                              /* 左侧留出导航栏宽度（17% nav + 4% 间隙） */
+    right: 3%;                              /* 右侧留出自定义滚动条宽度 */
+    bottom: 8%;
+    overflow-y: scroll;                     /* 允许纵向滚动 */
+    padding: 1.5vh 1.5vw;
+    box-sizing: border-box;
+    scrollbar-width: none;                  /* Firefox：隐藏默认滚动条 */
+}
+.immig-content::-webkit-scrollbar {
+    display: none;                          /* Chrome/Safari：隐藏默认滚动条 */
+}
+
+/* ===== Markdown 渲染后的文字样式 ===== */
+
+/* ## 一级标题（如"移民生活指南"、章节名） */
+.immig-h1 {
+    color: #3f3f3f;
+    font-size: 1.05vw;
+    font-weight: 700;
+    margin: 0.5vh 0 0.3vh 0;
+    letter-spacing: 0.05vw;
+}
+
+/* ## 二级标题（如"一、灵魂摆渡协议"） */
+.immig-h2 {
+    color: #786400;
+    font-size: 0.8vw;
+    font-weight: 700;
+    margin: 1.2vh 0 0.4vh 0;
+    letter-spacing: 0.04vw;
+}
+
+/* ### 三级标题（如"**一**"章节标记） */
+.immig-h3 {
+    color: rgba(60, 50, 35, 0.9);
+    font-size: 0.72vw;
+    font-weight: 700;
+    margin: 1vh 0 0.3vh 0;
+}
+
+/* 正文段落 */
+.immig-body {
+    color: rgba(60, 50, 35, 0.85);
+    font-size: 0.65vw;
+    line-height: 2;
+    margin: 0 0 0.5vh 0;
+    text-align: justify;
+    letter-spacing: 0.02vw;
+}
+
+/* 分隔线（--- 对应） */
+.immig-hr {
+    border: none;
+    border-top: 1px solid rgba(193, 160, 94, 0.4);
+    margin: 1.2vh 0;
+}
+
+/* 底部备注行（斜体小字） */
+.immig-footnote {
+    color: rgba(88, 72, 45, 0.45);
+    font-size: 0.5vw;
+    font-style: italic;
+    margin-top: 0.3vh;
+    line-height: 1.8;
+}
+
+/* ===== 自定义滚动条 ===== */
+
+/* 轨道：贴近面板右边缘的金色细条 */
+.immig-scrollbar {
+    position: absolute;
+    top: 9%;
+    right: 0.8%;
+    width: 0.5vw;
+    bottom: 3%;
+    background: rgba(193, 160, 94, 0.15);
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+/* 滑块：指示当前阅读进度，高度和位置由 JS 动态计算 */
+.immig-scrollbar-thumb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;                            /* 初始高度，JS 会根据内容比例覆盖 */
+    background: rgba(193, 160, 94, 0.7);
+    border-radius: 999px;
+    transition: top 0.05s linear;
 }
