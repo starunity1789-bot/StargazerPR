@@ -1,0 +1,571 @@
+/* =======================================================================
+ *  观星者计划 · 语言切换器交互层 + 多语字体微调  (Phase 1)
+ *  本文件须在 style.css 之后加载，以便覆盖 .ui-LG 的少量属性。
+ * ===================================================================== */
+
+/* ---------- 1. 让 LG.png 在容器内铺满，便于热区对齐 ----------
+ * 你原来的写法是 background-size:90% 90% / right top（图片不占满框）。
+ * 为了让三个可点击区段精确对应大理石上的三段文字，这里让背景铺满整框。
+ * 若你更喜欢原来偏小的呈现，把下面两行删掉即可恢复。 */
+.ui-LG {
+  background-size: 100% 100% !important;
+  background-position: center !important;
+  cursor: default;
+}
+
+/* ---------- 2. 切换器骨架：三个等分热区 ---------- */
+.lg-switch {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  /* 左右各留出一点，避开大理石两端的回纹角饰 */
+  padding: 0 4.5%;
+  box-sizing: border-box;
+}
+
+.lg-seg {
+  flex: 1 1 0;
+  position: relative;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+  /* 文字本身烤在 LG.png 里，按钮只是透明热区；这里不放文字 */
+  transition: transform 0.28s ease;
+}
+
+/* ---------- 3. 非激活段：盖一层冷白磨砂，使其在视觉上后退 ---------- */
+.lg-seg::before {
+  content: "";
+  position: absolute;
+  inset: 8% 4%;
+  border-radius: 6px;
+  background: rgba(247, 245, 240, 0.55);
+  backdrop-filter: saturate(0.7);
+  -webkit-backdrop-filter: saturate(0.7);
+  opacity: 1;
+  transition: opacity 0.3s ease, background 0.3s ease;
+  pointer-events: none;
+}
+
+/* ---------- 4. 金色辉光（默认隐藏，激活时浮现于段底） ---------- */
+.lg-seg::after {
+  content: "";
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 14%;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg,
+              rgba(193, 154, 75, 0) 0%,
+              rgba(193, 154, 75, 0.95) 50%,
+              rgba(193, 154, 75, 0) 100%);
+  box-shadow: 0 0 8px 1px rgba(201, 162, 84, 0.65);
+  opacity: 0;
+  transform: scaleX(0.4);
+  transition: opacity 0.32s ease, transform 0.32s ease;
+  pointer-events: none;
+}
+
+/* ---------- 5. 激活态：揭开磨砂、点亮金线 ---------- */
+.lg-seg.is-active::before {
+  opacity: 0;
+}
+.lg-seg.is-active::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+/* ---------- 6. 悬停（仅对未激活段生效）：磨砂减弱 + 微微抬起 ---------- */
+.lg-seg:not(.is-active):hover::before {
+  opacity: 0.18;
+  background: rgba(201, 162, 84, 0.10);
+}
+.lg-seg:not(.is-active):hover {
+  transform: translateY(-1px);
+}
+
+/* ---------- 7. 键盘可达性：聚焦描金边 ---------- */
+.lg-seg:focus-visible {
+  outline: 2px solid rgba(201, 162, 84, 0.9);
+  outline-offset: -4px;
+  border-radius: 6px;
+}
+
+/* ---------- 8. 多语字体微调 ----------
+ * 现有字体栈把 Noto Serif SC 排在 JP 之前；当切到日文时，
+ * 为已翻译的界面文字优先选用日文字形，避免简体字形混入。
+ * （后续随着翻译范围扩大，这里会补充更多选择器） */
+:lang(ja) .plate-title {
+  font-family: "Noto Serif JP", "源ノ明朝", "Yu Mincho", "游明朝", Georgia, serif;
+}
+
+
+/* =======================================================================
+ *  Phase 2 · 行星环境面板 —— 英文版字号收窄  (English-only font tuning)
+ * -----------------------------------------------------------------------
+ *  背景：英文译文比中/日文长，套用按短中文调好的固定字号会溢出框外
+ *       （右上"门捷列夫"框、第三组数据表、底部"数据来源声明"最明显）。
+ *  策略：仅用 :lang(en) 命中英文，按比例调小；中文、日文完全不受影响。
+ *
+ *  ▼▼ 想自己微调：每行末尾标了 /* 原值→现值 *​/。
+ *     觉得还大就把数字再调小一点；觉得太小就往原值靠。
+ *     单位 vw = 视口宽度的百分比（跟你 style.css 里一致）。
+ * ===================================================================== */
+
+/* —— 顶部标题区 —— */
+:lang(en) .planet-label    { font-size: 0.62vw; letter-spacing: 0.02em; }  /* 0.7→0.62 */
+:lang(en) .planet-name-cn  { font-size: 0.95vw; }                          /* 1.1→0.95（主名 The Grove Between Stars 较长）*/
+:lang(en) .planet-desc     { font-size: 0.66vw; line-height: 1.5; }        /* 0.7→0.66 */
+
+/* —— 三组基本信息表 —— */
+/* 标签列定宽，值列偏长，两者都略缩；值列再小一档以防 G-type… / Nitrogen… 折行 */
+:lang(en) .pt-label        { font-size: 0.68vw; }                          /* 0.75→0.68 */
+:lang(en) .pt-value        { font-size: 0.62vw; line-height: 1.35; }       /* 0.75→0.62（最易溢出，降幅最大）*/
+
+/* —— 右上"狂喜的门捷列夫"& 底部"数据来源声明"两个长文框 —— */
+/* 这两块溢出最严重：标题缩小、正文大幅缩小并收紧行距 */
+:lang(en) .extra-title     { font-size: 0.8vw; }                           /* 0.9→0.8 */
+:lang(en) .extra-text      { font-size: 0.66vw; line-height: 1.4; }        /* 0.9→0.66（降幅最大，解决漫出框外）*/
+
+/* —— 行星保障工程（标题 + 四行列表）—— */
+:lang(en) .sat-title       { font-size: 0.68vw; }                          /* 0.75→0.68（"行星保障工程""卫星系统"共用此类）*/
+:lang(en) .sat-stat-label  { font-size: 0.44vw; line-height: 1.45; }       /* 0.48→0.44（保障工程四行列表走这个类）*/
+
+/* —— 卫星系统区（轻微即可，本就偏小）—— */
+:lang(en) .sat-name        { font-size: 0.58vw; }                          /* 0.62→0.58 */
+:lang(en) .sat-name-sub    { font-size: 0.54vw; }                          /* 0.58→0.54 */
+:lang(en) .sat-stat-value  { font-size: 0.56vw; }                          /* 0.6→0.56（"Diameter ~3,800 km"）*/
+:lang(en) .sat-count-label { font-size: 0.44vw; }                          /* 0.48→0.44 */
+:lang(en) .sat-count-value { font-size: 0.54vw; }                          /* 0.58→0.54（"2 natural satellites"）*/
+
+/* =======================================================================
+ *  Phase 3 · 地图大陆信息面板 —— 英文标题收窄  (English-only)
+ * -----------------------------------------------------------------------
+ *  问题：英文大陆名（如 "HiveDragon Continent"）比中文"蜂龙大陆"长得多，
+ *       2vw 的标题会撑成两行，且标题是绝对定位(top:12vh)，两行时底部会
+ *       压到正文"Major Nations:"。
+ *  策略：仅英文缩小标题字号并压紧行高；中文、日文标题不变（它们很短）。
+ *
+ *  ▼ 想自己微调： font-size 越小标题越小；若你的某些大陆英文名特别长
+ *    （如 Sun-Moon-Star Continent），可再调小一点。
+ * ===================================================================== */
+:lang(en) #panel-title {
+  font-size: 1.5vw;        /* 2vw→1.5vw（英文标题缩小，避免撑两行/压正文）*/
+  line-height: 1.15;       /* 压紧行高：万一仍占两行，也不会侵入正文 */
+  letter-spacing: 0.04vw;  /* 略收字距 */
+}
+
+/* =======================================================================
+ *  Phase 5 · 移民生活指南 —— 英文左侧子选项间距收紧  (English-only)
+ * -----------------------------------------------------------------------
+ *  问题：英文子选项文字偏高，10 个按钮的 gap 累计后，越往下越偏上。
+ *  策略：仅英文把导航的 gap 调小约 0.5vh；中文、日文不变。
+ *
+ *  ▼ 想自己微调：gap 越小，按钮越紧凑、整体越往下留白越少。
+ *    若英文按钮文字换行（个别名字较长），可把 .immig-nav-btn 的 font-size 也略调小。
+ * ===================================================================== */
+:lang(en) .immig-nav {
+  gap: 1.1vh;   /* 1.6vh→1.1vh（英文专用，解决越往下越偏上）*/
+}
+
+/* =======================================================================
+ *  货币体系面板（#currency-panel）—— 英文/日文字号微调
+ * -----------------------------------------------------------------------
+ *  背景图上的卡槽是固定尺寸；英文通常最长，日文次之，中文最短。
+ *  这里只缩小英文/日文，中文保持原样（style.css 的默认值）。
+ *
+ *  默认值(style.css)：block-body .55vw / mineral-desc .5vw /
+ *    col-name .55vw / col-region .5vw / title-desc .65vw / stat-label .45vw
+ *
+ *  ▼ 想自己微调：哪一块文字顶出卡槽，就把对应 :lang(en) 的 vw 再调小一点。
+ *    数值越小字越小、越不容易溢出。改完刷新页面即可看到。
+ * ===================================================================== */
+
+/* —— 两段正文（概述 / 汇率）：英文最长，缩一档；日文轻微缩 —— */
+:lang(en) .cur-block-body { font-size: 0.48vw; line-height: 1.65; }
+:lang(ja) .cur-block-body { font-size: 0.52vw; line-height: 1.7; }
+
+/* —— 副标题（标题下方说明，含 <br>）—— */
+:lang(en) .cur-title-desc { font-size: 0.58vw; line-height: 1.65; }
+:lang(ja) .cur-title-desc { font-size: 0.6vw; }
+
+/* —— 三大矿石描述（最窄的文字框）—— */
+:lang(en) .cur-mineral-desc { font-size: 0.44vw; line-height: 1.55; }
+:lang(ja) .cur-mineral-desc { font-size: 0.47vw; }
+
+/* —— 货币一览表：货币名 / 所属地区 两列（长国名容易撑列）—— */
+:lang(en) .cur-col-name   { font-size: 0.48vw; }
+:lang(en) .cur-col-region { font-size: 0.42vw; }
+:lang(ja) .cur-col-name   { font-size: 0.52vw; }
+:lang(ja) .cur-col-region { font-size: 0.46vw; }
+
+/* —— 统计标签（图标下方，本就很小）：英文略缩，避免换行 —— */
+:lang(en) .cur-stat-label { font-size: 0.4vw; }
+:lang(ja) .cur-stat-label { font-size: 0.43vw; }
+
+/* =======================================================================
+ *  历史时间线面板（#timeline-panel）—— 英文/日文字号微调
+ * -----------------------------------------------------------------------
+ *  卡片宽度固定(10vw)，高度由内容撑开。英文正文最长、日文次之，
+ *  套用按短中文调好的字号会让卡片明显变高、上下参差。
+ *  这里只缩小英文/日文，中文保持原样(style.css 默认)。
+ *
+ *  默认值(style.css)：card-text .5vw / card-year .45vw / card-tag .45vw
+ *
+ *  ▼ 想自己微调：卡片太高就把对应 :lang(en) 的 vw 再调小；
+ *    标签/年份换行就调小 tag / year。改完刷新即可看到。
+ * ===================================================================== */
+
+/* —— 卡片正文：英文最长，缩一档并收紧行距；日文轻微缩 —— */
+:lang(en) .tl-card-text { font-size: 0.44vw; line-height: 1.5; }
+:lang(ja) .tl-card-text { font-size: 0.47vw; line-height: 1.6; }
+
+/* —— 年份行（含 approx. / 約）：英文略缩防换行 —— */
+:lang(en) .tl-card-year { font-size: 0.42vw; }
+:lang(ja) .tl-card-year { font-size: 0.44vw; }
+
+/* —— 标签【…】：英文词较长(Archaeology/Civilization)，略缩 —— */
+:lang(en) .tl-card-tag { font-size: 0.4vw; }
+:lang(ja) .tl-card-tag { font-size: 0.44vw; }
+
+/* —— 顶部主标题/副标题：英文较长，轻微缩 —— */
+:lang(en) .tl-main-title { font-size: 1.8vw; }
+:lang(en) .tl-subtitle   { font-size: 0.5vw; }
+:lang(ja) .tl-main-title { font-size: 2vw; }
+
+/* =======================================================================
+ *  巨型企业面板（#mega-panel）—— 英文/日文字号微调
+ * -----------------------------------------------------------------------
+ *  这是一个 43 行的排行榜表格，各列用 flex 弹性分配宽度。
+ *  英文企业名/描述/长国名比中文长得多，套用中文字号会让单元格内
+ *  文字换行过多、行变高、上下参差。这里只缩小英文/日文，中文保持原样。
+ *
+ *  默认值(style.css)：name-cn .65vw / name-desc .48vw /
+ *    col-region .5vw / col-industry .5vw / col-tier .45vw / tier-label .52vw
+ *
+ *  ▼ 想自己微调：哪一列文字挤/换行难看，就把对应 :lang(en) 的 vw 调小。
+ *    改完刷新即可看到。
+ * ===================================================================== */
+
+/* —— 企业名（长英文名如 Starward Exploration Pact… 很长）—— */
+:lang(en) .mg-name-cn { font-size: 0.56vw; line-height: 1.25; }
+:lang(ja) .mg-name-cn { font-size: 0.6vw; }
+
+/* —— 企业描述 —— */
+:lang(en) .mg-name-desc { font-size: 0.42vw; line-height: 1.4; }
+:lang(ja) .mg-name-desc { font-size: 0.45vw; }
+
+/* —— 国家/地区列（长国名）—— */
+:lang(en) .mg-col-region { font-size: 0.43vw; line-height: 1.3; }
+:lang(ja) .mg-col-region { font-size: 0.46vw; }
+
+/* —— 行业列 —— */
+:lang(en) .mg-col-industry { font-size: 0.43vw; line-height: 1.3; }
+:lang(ja) .mg-col-industry { font-size: 0.46vw; }
+
+/* —— 梯队标签（窄列 4vw，Cross-Continental 较长）—— */
+:lang(en) .mg-col-tier { font-size: 0.38vw; line-height: 1.2; }
+:lang(ja) .mg-col-tier { font-size: 0.42vw; }
+
+/* —— 梯队分隔标题 + 统计标签 + footnote：英文较长，略缩 —— */
+:lang(en) .mega-tier-label { font-size: 0.46vw; }
+:lang(en) .mega-stat-label { font-size: 0.4vw; line-height: 1.25; }
+:lang(en) .mega-footnote   { font-size: 0.38vw; line-height: 1.5; }
+:lang(en) .mega-subtitle   { font-size: 0.44vw; }
+:lang(ja) .mega-stat-label { font-size: 0.42vw; }
+
+/* =======================================================================
+ *  国际组织面板（#intorg-panel）—— 英文/日文字号微调
+ * -----------------------------------------------------------------------
+ *  8 行表格：组织名/总部为固定宽度列，简述占剩余空间(flex:1)。
+ *  英文简述比中文长得多，套用中文字号会让行明显变高、上下参差；
+ *  长组织名/总部地名在固定宽列里也会换行。只缩小英文/日文，中文不变。
+ *
+ *  默认值(style.css)：name-cn .62vw / col-hq(继承) / col-desc .5vw
+ *
+ *  ▼ 想自己微调：哪列文字挤就把对应 :lang(en) 的 vw 调小。改完刷新即可。
+ * ===================================================================== */
+
+/* —— 简述列（最长，占剩余空间）：英文缩一档并收紧行距 —— */
+:lang(en) .io-col-desc { font-size: 0.42vw; line-height: 1.55; }
+:lang(ja) .io-col-desc { font-size: 0.45vw; line-height: 1.65; }
+
+/* —— 组织名（固定 16% 宽，长英文名易换行）—— */
+:lang(en) .io-name-cn { font-size: 0.54vw; line-height: 1.3; }
+:lang(ja) .io-name-cn { font-size: 0.58vw; }
+
+/* —— 总部位置列（固定 14% 宽，长地名易换行）—— */
+:lang(en) .io-col-hq { font-size: 0.5vw; line-height: 1.3; }
+:lang(ja) .io-col-hq { font-size: 0.54vw; }
+
+/* —— 表头 + 标题 + footnote：英文较长，略缩 —— */
+:lang(en) .intorg-stat-label { font-size: 0.44vw; line-height: 1.25; }
+:lang(en) .intorg-footnote   { font-size: 0.38vw; }
+:lang(en) .intorg-subtitle   { font-size: 0.44vw; }
+
+/* =======================================================================
+ *  科技树面板（#techtree-panel）—— 英文/日文字号微调
+ * -----------------------------------------------------------------------
+ *  节点卡片宽度固定(min 12vw / max 18vw)，英文科技名比中文长得多，
+ *  套用中文字号会让卡片内文字换行过多、卡片变高、整列参差。
+ *  只缩小英文/日文，中文保持原样(style.css 默认)。
+ *
+ *  默认值(style.css)：node-name .58vw / branch .48vw / era-title .65vw
+ *
+ *  ▼ 想自己微调：节点/分支文字挤就把对应 :lang(en) 的 vw 调小。
+ *    （上下间距由 style.css 的 .tt-nodes gap 控制，已为你加大到 2vh）
+ * ===================================================================== */
+
+/* —— 主轴节点名（卡片标题，长英文名如 Active Regulation System… 很长）—— */
+:lang(en) .tt-node-name { font-size: 0.5vw; line-height: 1.2; }
+:lang(ja) .tt-node-name { font-size: 0.54vw; }
+
+/* —— 分支节点名（更小的文字，英文最长）—— */
+:lang(en) .tt-branch { font-size: 0.42vw; line-height: 1.35; }
+:lang(ja) .tt-branch { font-size: 0.45vw; }
+
+/* —— 时代标题（◈ …）—— */
+:lang(en) .tt-era-title { font-size: 0.58vw; }
+:lang(ja) .tt-era-title { font-size: 0.62vw; }
+
+/* —— 顶部主标题/副标题 + 图例：英文较长，略缩 —— */
+:lang(en) .tt-subtitle   { font-size: 0.5vw; }
+:lang(en) .tt-legend-item { font-size: 0.5vw; }
+:lang(ja) .tt-legend-item { font-size: 0.54vw; }
+
+/* =======================================================================
+ *  信仰与哲学面板（#beliefs-panel）—— 英文/日文字号微调
+ * -----------------------------------------------------------------------
+ *  卡片横向均分（信仰7张/哲学6张一排，flex:1），每张很窄；
+ *  body 是多行诗句体短句，英文比中文长得多，窄卡片里换行更多、卡片更高。
+ *  只缩小英文/日文，中文保持原样(style.css 默认)。
+ *
+ *  默认值(style.css)：card-name .6vw / card-body .42vw / overview-body .48vw
+ *
+ *  ▼ 想自己微调：卡片文字溢出/太高就把对应 :lang(en) 的 vw 调小。改完刷新即可。
+ * ===================================================================== */
+
+/* —— 卡片正文（多行短句，最关键）—— */
+:lang(en) .bl-card-body { font-size: 0.36vw; line-height: 1.45; }
+:lang(ja) .bl-card-body { font-size: 0.39vw; line-height: 1.5; }
+
+/* —— 卡片标题（信仰/哲学名）—— */
+:lang(en) .bl-card-name { font-size: 0.52vw; line-height: 1.2; }
+:lang(ja) .bl-card-name { font-size: 0.56vw; }
+
+/* —— 左侧概述正文 —— */
+:lang(en) .bl-overview-body { font-size: 0.42vw; line-height: 1.6; }
+:lang(ja) .bl-overview-body { font-size: 0.45vw; }
+
+/* —— 分区标题（信仰体系/哲学流派）+ 概述标题：英文略长 —— */
+:lang(en) .bl-section-name { font-size: 0.68vw; }
+:lang(en) .bl-overview-title { font-size: 0.82vw; }
+
+/* =======================================================================
+ *  种族特征面板（#racial-panel）—— 英文/日文字号微调
+ * -----------------------------------------------------------------------
+ *  10 行 × 7 列的表格，列宽固定百分比。内容列（形态/心智/社会）文字较多，
+ *  英文/日文比中文长，在固定宽列里换行更多、行变高、上下参差。
+ *  只缩小英文/日文，中文保持原样(style.css 默认 0.48vw)。
+ *
+ *  ▼ 想自己微调：哪列文字挤就把对应 :lang(en) 的 vw 调小。改完刷新即可。
+ * ===================================================================== */
+
+/* —— 内容列（生态/寿命/形态/心智/社会/分布）：英文缩一档、收紧行距 —— */
+:lang(en) .rc-col-bio,
+:lang(en) .rc-col-life,
+:lang(en) .rc-col-body,
+:lang(en) .rc-col-mind,
+:lang(en) .rc-col-society,
+:lang(en) .rc-col-location { font-size: 0.4vw; line-height: 1.4; }
+
+:lang(ja) .rc-col-bio,
+:lang(ja) .rc-col-life,
+:lang(ja) .rc-col-body,
+:lang(ja) .rc-col-mind,
+:lang(ja) .rc-col-society,
+:lang(ja) .rc-col-location { font-size: 0.43vw; line-height: 1.45; }
+
+/* —— 种族名（固定 10% 宽，长英文名如 Three-Tailed Listeners / Children of the Sea）—— */
+:lang(en) .rc-name-cn {
+  font-size: 0.6vw;           /* 0.58 → 0.5：缩进“Race”格内 */
+  line-height: 1.15;
+  letter-spacing: 0;          /* 去掉默认的 0.05vw 字距，省一点横向空间 */
+  overflow-wrap: break-word;  /* 兜底：万一某个长词还是放不下，让它断行而不是冲出格子 */
+}
+:lang(ja) .rc-name-cn { font-size: 0.64vw; }
+
+/* —— 表头 + 副标题 + footnote：英文较长，略缩 —— */
+:lang(en) .racial-subtitle { font-size: 0.44vw; }
+:lang(en) .racial-footnote { font-size: 0.38vw; }
+
+/* =======================================================================
+ *  纪念碑与奇观面板（#wonder-panel）—— 英文/日文字号微调
+ * -----------------------------------------------------------------------
+ *  纵向滚动的奇观卡片，正文较长。英文/日文比中文长，套用中文字号会让
+ *  每张卡片明显变高、长奇观名换行。只缩小英文/日文，中文保持原样。
+ *
+ *  默认值(style.css)：item-text .55vw / item-name 1.1vw / item-location .42vw
+ *
+ *  ▼ 想自己微调：正文太长就把 :lang(en) .wonder-item-text 的 vw 调小。改完刷新即可。
+ * ===================================================================== */
+
+/* —— 奇观正文（最长，纵向滚动）：英文缩一档、收紧行距 —— */
+:lang(en) .wonder-item-text { font-size: 0.48vw; line-height: 1.7; }
+:lang(ja) .wonder-item-text { font-size: 0.5vw; line-height: 1.8; }
+
+/* —— 奇观名（长英文名如 Planetary Sovereignty Joint Star-Ring）—— */
+:lang(en) .wonder-item-name { font-size: 0.92vw; line-height: 1.2; }
+:lang(ja) .wonder-item-name { font-size: 1vw; }
+
+/* —— 位置 / 年份 / 标签：英文略长，轻微缩 —— */
+:lang(en) .wonder-item-location { font-size: 0.38vw; }
+:lang(en) .wonder-item-year { font-size: 0.38vw; }
+:lang(en) .wonder-tag { font-size: 0.36vw; }
+:lang(en) .wonder-subtitle { font-size: 0.42vw; }
+:lang(en) .wonder-section-label { font-size: 0.66vw; }
+
+
+/* =======================================================================
+ *  Phase 6 · 左侧链条菜单（.ui-left-sidebar）—— 英文版抽屉字号 + 宽度
+ * -----------------------------------------------------------------------
+ *  问题：抽屉展开宽度在 style.css 里写死 6vw，配 0.8vw 字号 + overflow:hidden。
+ *       中文 4~6 字够用；英文最长 "International Organizations"(27字符) 被裁成 …。
+ *  策略：仅英文 —— 字号缩小 + 把展开宽度加大，使最长一条也能单行显示；
+ *       中文、日文完全不受影响（它们用 style.css 的 6vw / 0.8vw）。
+ *
+ *  ▼ 想自己微调：
+ *    · 嫌字还大 → 把 font-size 的 0.62vw 再调小（如 0.58vw）
+ *    · 个别词仍被裁 → 把 width 的 12vw 再调大（如 13vw）
+ *    · 短词（Monuments）右侧留白太多 → 把 width 调小一点，但要保证最长词不被裁
+ *    单位 vw = 视口宽度百分比（与 style.css 一致）
+ * ===================================================================== */
+
+/* —— 抽屉文字：标题 + 箭头一起缩小 —— */
+:lang(en) .plate-title,
+:lang(en) .plate-arrow { font-size: 0.5vw; }   /* 0.8 → 0.62 */
+
+/* —— 鼠标悬停整条链条时，英文抽屉加宽，给长英文留出单行空间 —— */
+:lang(en) .ui-left-sidebar:hover .text-plate {
+  width: 6.3vw;                                   /* 6vw → （英文专用）*/
+}
+
+/* =======================================================================
+ *  Phase 7 · 行星环境面板（#planet-panel）—— 英文 + 日文统一字号调校
+ * -----------------------------------------------------------------------
+ *  覆盖范围：本块的 :lang(en) 取代 Phase 1 里的行星面板英文值（约 L123-147，
+ *           可删可留，本块在后→本块生效）；:lang(ja) 为新增。
+ *  注：每行末尾 /* 中文默认值 *​/ 是 style.css 基准，方便你判断降多少。
+ *     pt-label/pt-value 默认 0.65vw（继承 .pt-row）；extra-* 无显式默认（继承父级）。
+ *     单位 vw = 视口宽度百分比；想更小就把数字调小，想更大就往默认靠。
+ * ===================================================================== */
+
+/* ---------- 英文 :lang(en) ---------- */
+/* 顶部标题区 */
+:lang(en) .planet-label    { font-size: 0.62vw; letter-spacing: 0.02em; } /* 0.7 */
+:lang(en) .planet-name-cn  { font-size: 0.95vw; }                         /* 1.1 */
+:lang(en) .planet-desc     { font-size: 0.66vw; line-height: 1.5; }       /* 0.7 */
+
+/* 三组信息表（大气成分那行的 value 最容易冲出框）*/
+:lang(en) .pt-label        { font-size: 0.60vw; }                         /* 0.65 */
+:lang(en) .pt-value        { font-size: 0.56vw; line-height: 1.3; }       /* 0.65 */
+
+/* 门捷列夫 + 数据来源声明 两个长文框（溢出最严重，降幅最大）*/
+:lang(en) .extra-title     { font-size: 0.5vw; }                         /* 继承 */
+:lang(en) .extra-text      { font-size: 0.4vw; line-height: 1.35; }      /* 继承 */
+
+/* 行星保障工程 + 卫星系统 */
+:lang(en) .sat-title       { font-size: 0.5vw; }                         /* 0.75 */
+:lang(en) .sat-stat-label  { font-size: 0.42vw; line-height: 1.4; }       /* 0.48 */
+:lang(en) .sat-stat-value  { font-size: 0.54vw; }                         /* 0.6  */
+:lang(en) .sat-name        { font-size: 0.56vw; }                         /* 0.62 */
+:lang(en) .sat-name-sub    { font-size: 0.52vw; }                         /* 0.58 */
+:lang(en) .sat-count-label { font-size: 0.42vw; }                         /* 0.48 */
+:lang(en) .sat-count-value { font-size: 0.52vw; }                         /* 0.58 */
+
+/* ---------- 日文 :lang(ja)（普遍比英文长一点，所以比英文略大一档）---------- */
+:lang(ja) .planet-label    { font-size: 0.66vw; }                         /* 0.7 */
+:lang(ja) .planet-name-cn  { font-size: 1.0vw; }                          /* 1.1 */
+:lang(ja) .planet-desc     { font-size: 0.66vw; line-height: 1.8; }       /* 0.7 */
+
+:lang(ja) .pt-label        { font-size: 0.62vw; }                         /* 0.65 */
+:lang(ja) .pt-value        { font-size: 0.60vw; line-height: 1.35; }      /* 0.65 */
+
+:lang(ja) .extra-title     { font-size: 0.6vw; }                         /* 继承 */
+:lang(ja) .extra-text      { font-size: 0.5vw; line-height: 1.5; }       /* 继承 */
+
+:lang(ja) .sat-title       { font-size: 0.70vw; }                         /* 0.75 */
+:lang(ja) .sat-stat-label  { font-size: 0.44vw; line-height: 1.45; }      /* 0.48 */
+:lang(ja) .sat-stat-value  { font-size: 0.56vw; }                         /* 0.6  */
+:lang(ja) .sat-name        { font-size: 0.58vw; }                         /* 0.62 */
+:lang(ja) .sat-name-sub    { font-size: 0.54vw; }                         /* 0.58 */
+:lang(ja) .sat-count-label { font-size: 0.44vw; }                         /* 0.48 */
+:lang(ja) .sat-count-value { font-size: 0.54vw; }                         /* 0.58 */
+
+/* =======================================================================
+ *  Phase 8 · 货币面板 —— 英文专用：恢复与背景图标的行对齐
+ * -----------------------------------------------------------------------
+ *  问题：英文字号小→每行变矮→右侧货币表 10 行 / 左侧三矿 的累计高度不够，
+ *       文字整体上移、对不上背景图里固定位置的图标，底部空出一行。
+ *       中文、日文字号大本就对齐，故只动英文。
+ *
+ *  ▼ 这两个数就是唯一的旋钮（都是“往大调=往下撑”）：
+ *    · 右表底部图标还是没文字 → 把 1.45vh 再调大（如 1.55 / 1.7vh）
+ *    · 右表撑过头、超出表格往下漏 → 调小
+ *    · 左侧三矿对不齐同理调 4.4vh
+ *    单位 vh = 视口高度百分比（和注释里的原值同单位，方便对照）
+ * ===================================================================== */
+
+/* —— 右侧货币一览表：每行上下间距 —— */
+:lang(en) .cur-table-row    { padding: 1.4vh 0; }   /* 1.2vh → 1.45vh */
+
+/* —— 左侧三大矿石：每块之间的间距 —— */
+:lang(en) .cur-mineral-item { margin-bottom: 6vh; } /* 3.8vh → 4.4vh */
+
+
+/* 星图位置 · 底部说明 —— 仅英文缩小字号（英文最长，中/日保持 0.8vw 默认）*/
+:lang(en) .sm-desc { font-size: 0.62vw; line-height: 1.55; }   /* 0.8vw → 0.62vw */
+
+
+/* =======================================================================
+ *  Phase 9 · 信仰与哲学面板 —— 英文/日文：除大标题外全部缩小（修正版）
+ * -----------------------------------------------------------------------
+ *  ⚠ 取代旧的“信仰与哲学”那段（约 i18n.css L344-370）。建议把那 8 行删掉：
+ *     其中 .bl-card-body / .bl-overview-body 两条目标写错、本就无效；
+ *     其余 3 条会被本块更小的值覆盖（本块在后→生效）。
+ *  注：正文字号在子元素 p 上，所以这里命中 .xxx p；行末 /* 基准值 *​/ 为 style.css 默认。
+ *  ▼ 旋钮：嫌大调小、嫌小往基准靠；en 比 ja 略小一档，符合本文件惯例。
+ * ===================================================================== */
+
+/* —— 左侧概述 —— */
+:lang(en) .bl-overview-title { font-size: 0.72vw; }                     /* 0.9 */
+:lang(ja) .bl-overview-title { font-size: 0.78vw; }
+:lang(en) .bl-overview-body p { font-size: 0.38vw; line-height: 1.55; } /* 0.48 */
+:lang(ja) .bl-overview-body p { font-size: 0.42vw; line-height: 1.6; }
+
+/* —— 分区标题（信仰体系 / 哲学流派）—— */
+:lang(en) .bl-section-name { font-size: 0.60vw; }                       /* 0.75 */
+:lang(ja) .bl-section-name { font-size: 0.66vw; }
+
+/* —— 卡片名 —— */
+:lang(en) .bl-card-name { font-size: 0.46vw; line-height: 1.2; }        /* 0.6 */
+:lang(ja) .bl-card-name { font-size: 0.50vw; }
+
+/* —— 卡片正文（信仰卡）—— */
+:lang(en) .bl-card-body p { font-size: 0.34vw; line-height: 1.4; }      /* 0.42 */
+:lang(ja) .bl-card-body p { font-size: 0.37vw; line-height: 1.45; }
+
+/* —— 卡片正文（哲学卡，原设计略大，保持这层关系）—— */
+:lang(en) .bl-card--philosophy .bl-card-body p { font-size: 0.36vw; }   /* 0.44 */
+:lang(ja) .bl-card--philosophy .bl-card-body p { font-size: 0.39vw; }
+
+
+:lang(en) .immig-nav {
+  gap: 1.9vh;   /* 1.1vh → 1.6vh：与中/日基础值一致 */
+}

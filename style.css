@@ -182,20 +182,20 @@ body {
 
 
 
-/* 新消息通知 */
-.ui-News {
+/* 语言切换 */
+.ui-LG {
   position: absolute; 
-    top: 1vh; 
+    top: 0.5vh; 
     right: 0px; 
 
-    background-image: url('./assets/News.png'); 
+    background-image: url('./assets/LG.png'); 
     background-size: 90% 90%; 
     background-repeat: no-repeat; 
 
     background-position: right top;
 
-    width: 19.7vw; /* 占据屏幕宽度的 % */
-    aspect-ratio: 380 / 60; /* 【请替换】为你 Figma 里左上角那个框的真实 宽 / 高 数字 */
+    width: 11vw; /* 占据屏幕宽度的 % */
+    aspect-ratio: 380 / 80; /* 【请替换】为你 Figma 里左上角那个框的真实 宽 / 高 数字 */
     filter: drop-shadow(3px 3px 2px rgba(7, 7, 7, 0.3));
 
     z-index: 1000;
@@ -2630,7 +2630,7 @@ body {
    每个时代块是一个独立的分组
 ============================================= */
 .tt-era {
-    margin-bottom: 1.5vh;
+    margin-bottom: 2.6vh;                   /* 时代块间距 1.5vh→2.6vh */
     border-left: 3px solid rgba(193, 160, 94, 0.4);
     padding-left: 1vw;
 }
@@ -2664,7 +2664,7 @@ body {
 .tt-nodes {
     display: flex;
     flex-wrap: wrap;                        /* 节点多时自动换行 */
-    gap: 0.8vh 1vw;
+    gap: 2vh 1vw;                          /* 上下间距 0.8vh→2vh（加大节点上下间距）；1vw=左右间距 */
     padding: 0.3vh 0;
 }
 
@@ -3833,4 +3833,137 @@ body {
     background: rgba(193, 160, 94, 0.7);
     border-radius: 999px;
     transition: top 0.05s linear;
+}
+
+/* =====================================================
+   星图位置面板（Star Map Location）
+   背景图：starmap.png（大理石描金边框，3:2 比例）
+   结构对齐其他面板：浮出动画 + 背景铺满 + 覆盖文字
+   ⚠ 标注「微调」的数值需对照美术稿最终对齐
+===================================================== */
+.starmap-panel {
+    position: fixed;
+    left: 50%;
+    top: 52%;
+    transform: translate(-50%, -50%) translateY(40px); /* 初始略微下沉并隐藏 */
+    height: 70vh;
+    aspect-ratio: 1536 / 1024;   /* 锁定背景图原始比例，避免拉伸变形 */
+    max-width: 80vw;             /* 窄屏时由宽度收敛，高度按比例缩小 */
+    z-index: 5000;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1),
+                opacity 0.4s ease;
+}
+
+/* 激活状态：面板浮出 */
+.starmap-panel.active {
+    transform: translate(-50%, -50%) translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* 背景图：铺满整个面板（比例已与面板一致，fill 不会变形） */
+.starmap-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* 关闭按钮：右上角圆形 X
+   背景图本身已绘制 X，这里仅作透明可点击热区，避免出现双重 X */
+.starmap-close {
+    position: absolute;
+    z-index: 10;
+    top: 4.2%;                   /* ⚠ 微调：对准右上角圆圈 */
+    right: 3.0%;                 /* ⚠ 微调 */
+    width: 3vw;
+    height: 3vw;
+    border: none;
+    background: transparent;
+    color: transparent;          /* 隐藏字符，仅保留点击区 */
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+/* 顶部主标题：对应背景图顶部装饰带中央 */
+.sm-main-title-block {
+    position: absolute;
+    z-index: 2;
+    top: 6.5%;                   /* ⚠ 微调 */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    pointer-events: none;
+    font-family: "Noto Serif SC", "Noto Serif JP", "源ノ明朝", "Yu Mincho", "游明朝", "宋体", SimSun, Georgia, serif;
+}
+
+.sm-main-title {
+    color: #3f3520;              /* 深金棕，与其他面板标题一致 */
+    font-size: 1.7vw;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0.35vw;
+}
+
+/* 底部说明：对应背景图下方文字板（垂直居中于该板） */
+.sm-desc {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: 89.3%;                  /* ⚠ 微调：对准下方文字板中线 */
+    transform: translate(-50%, -50%);
+    width: 51%;                  /* ⚠ 微调：略窄于文字板内框 */
+    margin: 0;
+    text-align: center;
+    color: #4a3f22;
+    font-size: 0.8vw;
+    line-height: 1.65;
+    font-family: "Noto Serif SC", "Noto Serif JP", "源ノ明朝", "Yu Mincho", "游明朝", "宋体", SimSun, Georgia, serif;
+    pointer-events: none;
+}
+
+
+/* =======================================================================
+ *  左上角数据栏 · 图标悬停注释
+ *  文案走 i18n：元素加 data-i18n-attr="data-tip" data-i18n-data-tip="stat.tip.xxx"
+ *  切语言时 i18n 自动重刷 data-tip，无需新 JS。
+ *  “停顿后浮现”由下面 :hover 的 transition-delay 实现。
+ * ===================================================================== */
+.ui-top-left [data-tip] { position: relative; }
+
+.ui-top-left [data-tip]::after {
+    content: attr(data-tip);
+    position: absolute;
+    top: 118%;                 /* 栏在屏幕最上方，气泡朝下弹 */
+    left: 50%;
+    transform: translateX(-50%) translateY(-4px);
+    width: max-content;
+    max-width: 14vw;           /* 文案长则换行，避免冲出屏幕 */
+    text-align: center;
+    line-height: 1.4;
+    background: linear-gradient(180deg, #fbf7ee, #f1e7cf);
+    color: #6a531f;
+    font-size: 0.62vw;
+    font-weight: 600;
+    letter-spacing: 0.02vw;
+    padding: 0.6vh 0.8vw;
+    border: 1px solid rgba(193, 160, 94, 0.65);
+    border-radius: 0.3vw;
+    box-shadow: 0 0.4vh 1vh rgba(60, 45, 15, 0.28);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 3000;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    transition-delay: 0s;      /* 移开时立即消失 */
+}
+
+.ui-top-left [data-tip]:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    transition-delay: 0.45s;   /* ★ 悬停 0.45s 后才浮现 = “停顿”。想更久/更短改这一个数 */
 }

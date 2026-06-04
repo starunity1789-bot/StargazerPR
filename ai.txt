@@ -1,0 +1,15 @@
+# ai.txt — 观星者计划 / Stargazer Project
+# © 2026 YANYONG. All Rights Reserved.
+#
+# 本站全部文本、美术、代码及世界观设定，禁止用于任何人工智能 / 机器学习模型的
+# 训练、微调、数据挖掘或检索增强生成（RAG）。
+#
+# All text, artwork, code, and worldbuilding content on this site may NOT be used
+# for training, fine-tuning, data-mining, or retrieval-augmented generation (RAG)
+# of any AI / machine-learning model, in whole or in part.
+#
+# 参见本站《版权与法律声明》。
+# See the site's Copyright & Legal Notice, Section 3.
+
+User-Agent: *
+Disallow: /
