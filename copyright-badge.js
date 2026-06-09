@@ -53,7 +53,7 @@
 <h3>二、关于内容的创作方式</h3>
 <p>为保持透明，作者声明本作品在创作过程中部分环节使用了人工智能辅助工具：</p>
 <p>部分视觉素材（包括界面图像与地图底图）由作者借助人工智能图像生成工具创作，并由作者进行了实质性的编辑、调整与整合，以形成符合本作品整体设定的最终成果。</p>
-<p>本作品中明确标注为"文学作品/短篇小说"的部分文本，系借助人工智能语言模型生成，并纳入作者的整体世界观框架。除此之外的全部文字内容——包括但不限于世界观设定、制度架构、历史脉络、种族与文明描述、以及全部说明性文本——均为作者本人独立原创撰写。</p>
+<p>本作品中包括但不限于世界观设定、制度架构、历史脉络、种族与文明描述、以及全部说明性文本——均为作者本人独立原创撰写。</p>
 <p>作者对本作品中体现其独创性智力投入的全部表达，依法主张著作权。本声明中对 AI 辅助工具的披露，不构成对任何权利的放弃。</p>
 
 <h3>三、权利保留</h3>
@@ -100,7 +100,7 @@
 <h3>2. On How the Content Was Created</h3>
 <p>For transparency, the Author discloses that AI-assisted tools were used in certain parts of the creative process:</p>
 <p>Some visual assets (including interface images and base maps) were created by the Author with the aid of AI image-generation tools, then substantially edited, adjusted, and integrated by the Author to produce final results consistent with the Work's overall design.</p>
-<p>The portions of text explicitly labeled as "literary works / short fiction" were generated with the aid of AI language models and incorporated into the Author's overall worldview framework. All other textual content — including but not limited to the worldview settings, institutional structures, historical threads, race and civilization descriptions, and all explanatory text — was independently and originally written by the Author.</p>
+<p>All content within this work—including but not limited to the world-building settings, institutional frameworks, historical lore, descriptions of races and civilizations, and all explanatory texts—is independently and originally written by the author.</p>
 <p>The Author asserts copyright, as provided by law, in all expression in the Work that embodies the Author's original intellectual effort. The disclosure of AI-assisted tools in this notice does not constitute a waiver of any rights.</p>
 
 <h3>3. Reservation of Rights</h3>
@@ -147,7 +147,7 @@
 <h3>二、コンテンツの制作方法について</h3>
 <p>透明性のため、著作者は本作品の制作過程の一部で人工知能（AI）支援ツールを使用したことを表明します：</p>
 <p>一部のビジュアル素材（インターフェース画像および地図のベース画像を含む）は、著作者が AI 画像生成ツールを用いて制作し、著作者が実質的な編集・調整・統合を行うことで、本作品全体の設定に適合する最終的な成果物としたものです。</p>
-<p>本作品中で「文学作品／短編小説」と明示されているテキストの一部は、AI 言語モデルを用いて生成され、著作者の世界観の枠組みに組み込まれたものです。それ以外の全ての文章——世界観設定、制度構造、歴史的経緯、種族・文明の記述、および全ての説明文を含みますが、これらに限りません——は、著作者本人が独自にオリジナルで執筆したものです。</p>
+<p>本作品における世界観設定、制度設計、歴史的背景、種族や文明の描写、およびすべての説明テキストを含みますがこれらに限定されない全内容は、著者本人が独自に執筆した完全なオリジナル作品です。</p>
 <p>著作者は、本作品において著作者の独創的な知的投入を体現する全ての表現について、法に基づき著作権を主張します。本通知における AI 支援ツールの開示は、いかなる権利の放棄も構成しません。</p>
 
 <h3>三、権利の留保</h3>

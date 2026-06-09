@@ -6,11 +6,7 @@
  * 背景框：./assets/TS.png（与 PlanetaryEnvironmentAD.png 同目录）
  * 行为：点击右上角灯泡 .ui-Lightbulb 浮出本面板；点图中右上角 X
  *       或按 Esc 关闭；几何与动画与 .planet-panel 完全一致。
- *
- * 【用法】把本文件放到与 index.html 同目录，并在 index.html 中
- *   i18n.js 之后加入一行（放在 copyright-badge.js 旁边即可）：
- *       <script src="about-panel.js"></script>
- * 不需要改 index.html 的 <body>，也不需要改 i18n.js。
+
  * ============================================================ */
 (function () {
   "use strict";
@@ -240,7 +236,7 @@
     /* 右上角 X 关闭热区（透明，盖在图中已有的 X 上）—— 用 % 定位以跟随拉伸 */
     #about-panel .ap-close {
       position: absolute;
-      left: 90.5%; top: 5%;
+      left: 93.5%; top: 5%;
       width: 7%; height: 8%;
       border: none; background: transparent; cursor: pointer;
       border-radius: 50%;
@@ -298,7 +294,7 @@
       text-align: center; color: #786400; letter-spacing: 0.06em;
     }
     /* 滚动条（细金色）*/
-    #about-panel .ap-body::-webkit-scrollbar { width: 8px; }
+    #about-panel .ap-body::-webkit-scrollbar { width: 3px; }
     #about-panel .ap-body::-webkit-scrollbar-track { background: transparent; }
     #about-panel .ap-body::-webkit-scrollbar-thumb {
       background: rgba(120, 100, 0, 0.35); border-radius: 4px;
